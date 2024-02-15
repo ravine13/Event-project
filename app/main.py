@@ -79,6 +79,7 @@ def home():
     return 'welcome to Events projects'
 
 
+@main_bp.route('/users')
 class UserResource(Resource):
     def get(self, user_id=None):
         if user_id:
