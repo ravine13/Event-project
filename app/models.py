@@ -42,6 +42,15 @@ class Interests(db.Model):
     user = relationship('User', backref='interests')
     event = relationship('Event', backref='interests')
 
+    def jsonify(self):
+        return {
+            'id': str(self.id),
+            'event_id': str(self.event_id),
+            'user_id': str(self.user_id),
+            'user' : self.user,
+            'event' : self.event
+        }
+
 class Tag(db.Model):
     __tablename__ = 'tag'
     id = Column(UUID, primary_key=True)

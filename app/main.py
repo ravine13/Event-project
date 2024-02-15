@@ -79,17 +79,17 @@ def home():
     return 'welcome to Events projects'
 
 
-@main_bp.route('/user')
+
 class UserResource(Resource):
     def get(self, user_id=None):
         if user_id:
             user = User.query.get(user_id)
             if not user:
                 return {'message': 'User not found'}, 404
-            return user.jsonify()
+            return UserSchema().dump(user)
         else:
             users = User.query.all()
-            return [user.jsonify() for user in users]
+            return jsonify(UserSchema(many=True).dump(users))
         
     
     def post(self):
@@ -115,10 +115,11 @@ class InterestResource(Resource):
             interest = Interests.query.get(interest_id)
             if not interest:
                 return {'message': 'Interest not found'}, 404
-            return interest.jsonify()
+            return InterestsSchema().dump(interest)
         else:
             interests = Interests.query.all()
-            return [interest.jsonify() for interest in interests]
+            return jsonify(InterestsSchema(many=True).dump(interests))
+            # return [interest.jsonify() for interest in interests]
 
     def post(self):
         parser = reqparse.RequestParser()
