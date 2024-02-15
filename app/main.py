@@ -108,5 +108,17 @@ class UserResource(Resource):
         return new_user.jsonify(), 201
     
 
+    class InterestResource(Resource):
+        def get(self, interest_id=None):
+            if interest_id:
+                interest = Interests.query.get(interest_id)
+                if not interest:
+                    return {'message': 'Interest not found'}, 404
+                return interest.jsonify()
+            else:
+                interests = Interests.query.all()
+                return [interest.jsonify() for interest in interests]
+
 if __name__ == '__main__':
+    db.init_app(app)
     app.run(port=5555, debug=True)
