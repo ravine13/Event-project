@@ -78,6 +78,15 @@ def home():
     return 'welcome to Events projects'
 
 
-
+class UserResource(Resource):
+    def get(self, user_id=None):
+        if user_id:
+            user = User.query.get(user_id)
+            if not user:
+                return {'message': 'User not found'}, 404
+            return user.jsonify()
+        else:
+            users = User.query.all()
+            return [user.jsonify() for user in users]
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
