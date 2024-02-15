@@ -14,6 +14,16 @@ class User(db.Model):
     created_at = Column(DateTime)
     email = Column(String)
 
+    def jsonify(self):
+        return {
+            'id': str(self.id),
+            'password': self.password,
+            'confirmed': self.confirmed,
+            'role': self.role,
+            'created_at': self.created_at.isoformat(),
+            'email': self.email
+        }
+
 class Profile(db.Model):
     __tablename__ = 'Profile'
     id = Column(UUID, primary_key=True)

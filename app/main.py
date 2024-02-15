@@ -1,6 +1,6 @@
 from flask import Flask, Blueprint, jsonify, make_response
 from datetime import datetime
-from uuid import UUID
+from uuid import uuid4
 from flask_restful import Api, Resource, reqparse
 from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
@@ -79,7 +79,7 @@ def home():
     return 'welcome to Events projects'
 
 
-@main_bp.route('/users')
+@main_bp.route('/user')
 class UserResource(Resource):
     def get(self, user_id=None):
         if user_id:
@@ -100,25 +100,41 @@ class UserResource(Resource):
         parser.add_argument('role', type=str, required=False)
         args = parser.parse_args()
 
-        user_id = str(UUID.uuid4())
+        user_id = str(uuid4())
 
         new_user = User(id=user_id, email=args['email'], password=args['password'], confirmed=args.get('confirmed', False), role=args.get('role', None))
         db.session.add(new_user)
         db.session.commit()
         
         return new_user.jsonify(), 201
-    
 
-    class InterestResource(Resource):
-        def get(self, interest_id=None):
-            if interest_id:
-                interest = Interests.query.get(interest_id)
-                if not interest:
-                    return {'message': 'Interest not found'}, 404
-                return interest.jsonify()
-            else:
-                interests = Interests.query.all()
-                return [interest.jsonify() for interest in interests]
+
+class InterestResource(Resource):
+    def get(self, interest_id=None):
+        if interest_id:
+            interest = Interests.query.get(interest_id)
+            if not interest:
+                return {'message': 'Interest not found'}, 404
+            return interest.jsonify()
+        else:
+            interests = Interests.query.all()
+            return [interest.jsonify() for interest in interests]
+
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('user_id', type=str, required=True, help='User ID is required')
+        parser.add_argument('event_id', type=str, required=True, help='Event ID is required')
+        args = parser.parse_args()
+
+        new_interest = Interests(user_id=args['user_id'], event_id=args['event_id'])
+        db.session.add(new_interest)
+        db.session.commit()
+
+        return new_interest.jsonify(), 201
+
+
+api.add_resource(UserResource, '/users')
+api.add_resource(InterestResource, '/interests')
 
 if __name__ == '__main__':
     db.init_app(app)
