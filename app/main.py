@@ -107,7 +107,7 @@ def home():
 class Billing_Info_Resources(Resource):
     def get(self):
         billing = Billing_Info.query.all()
-        bill = billing_info_schema.dump(billing)
+        bill = billing_info_schema.dump(billing, many=True)
         response = make_response(
             jsonify(bill), 200
         )
@@ -125,8 +125,26 @@ class Billing_Info_Resources(Resource):
 
 class Billing_Info_ById(Resource):
     def get(self, id):
-        bill = Billing_Info.query.filter_by(id = id).first()
-        return billing_info_schema.dump(bill)
+        bill = Billing_Info.query.filter_by(id=id).first()
+
+        if bill is None:
+            response = make_response(
+                jsonify({"error": "Bill not found"}),
+                404
+            )
+            return response
+
+        else:
+            billing = billing_info_schema.dump(bill.billing, many=True)
+
+            response = make_response(
+                jsonify({
+                    "bill": billing_info_schema.dump(bill),
+                    "billing": billing
+                }),
+                200
+            )
+            return response
     
     def patch(self, id):
         bill = Billing_Info.query.filter_by(id = id).first()
@@ -149,7 +167,7 @@ api.add_resource(Billing_Info_ById, '/billing_info/<int:id>')
 class TagResources(Resource):
     def get(self):
         tags = Tag.query.all()
-        tag = tag_schema.dump(tags)
+        tag = tag_schema.dump(tags, many=True)
         response = make_response(
             jsonify(tag), 200
         )
@@ -168,7 +186,25 @@ class TagResources(Resource):
 class TagResourcesById(Resource):
     def get(self, id):
         tag = Tag.query.filter_by(id = id).first()
-        return tag_schema.dump(tag)
+
+        if tag is None:
+            response = make_response(
+                jsonify({"error": "Hash tag not found"}),
+                404
+            )
+            return response
+
+        else:
+            tags = tag_schema.dump(tag.tags, many=True)
+
+            response = make_response(
+                jsonify({
+                    "tag": tag_schema.dump(tag),
+                    "tags": tags
+                }),
+                200
+            )
+            return response
     
     def patch(self, id):
         tag = Tag.query.filter_by(id = id).first()
