@@ -12,14 +12,11 @@ app = Flask(__name__)
 api = Api(main_bp)
 ma = Marshmallow(main_bp)
 
-@main_bp.route('/')
-def home():
-    return 'welcome to Events projects '
 
-class UserSchema(SQLAlchemyAutoSchema):
+class PhotoSchema(SQLAlchemyAutoSchema):
     class Meta:
-        model = User
-user_schema = UserSchema()
+        model = Photo
+photo_schema = PhotoSchema()
 
 class ProfileSchema(SQLAlchemyAutoSchema):
     class Meta:
@@ -51,27 +48,36 @@ class Billing_DetailsSchema(SQLAlchemyAutoSchema):
         model = Billing_Details
 billing_details_schema = Billing_DetailsSchema()
 
-class Advert_FeesSchema(SQLAlchemyAutoSchema):
+class ReviewSchema(SQLAlchemyAutoSchema):
     class Meta:
-        model = Advert_Fees
-advert_fees_schema = Advert_FeesSchema()
+        model = Review
+review_schema = ReviewSchema()
 
 class PricingSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Pricing
 pricing_schema = PricingSchema()
 
-class ReviewSchema(SQLAlchemyAutoSchema):
+class Advert_FeesSchema(SQLAlchemyAutoSchema):
     class Meta:
-        model = Review
-review_schema = ReviewSchema()
+        model = Advert_Fees
+advert_fees_schema = Advert_FeesSchema()
 
 class BookingSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Booking
 booking_schema = BookingSchema()
 
-class PhotoSchema(SQLAlchemyAutoSchema):
+class UserSchema(SQLAlchemyAutoSchema):
     class Meta:
-        model = Photo
-photo_schema = PhotoSchema()
+        model = User
+user_schema = UserSchema()
+
+@main_bp.route('/')
+def home():
+    return 'welcome to Events projects'
+
+
+
+if __name__ == '__main__':
+    app.run(port=5555, debug=True)
