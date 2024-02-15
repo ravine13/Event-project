@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint, jsonify, make_response
-from datetime import datetime
-from uuid import uuid4
 from flask_restful import Api, Resource, reqparse
+from datetime import datetime
+from uuid import uuid4, UUID
 from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_Details, Advert_Fees, Pricing, Review, Booking, Photo, db
@@ -97,16 +97,26 @@ class UserResource(Resource):
         parser.add_argument('email', type=str, required=True, help='Email is required')
         parser.add_argument('password', type=str, required=True, help='Password is required')
         parser.add_argument('confirmed', type=bool, required=False)
-        parser.add_argument('role', type=str, required=False)
+        parser.add_argument('role', type=int, required=False)
         args = parser.parse_args()
 
-        user_id = str(uuid4())
+        user_id = uuid4()
 
-        new_user = User(id=user_id, email=args['email'], password=args['password'], confirmed=args.get('confirmed', False), role=args.get('role', None))
+        role = int(args['role']) if args['role'] is not None else None
+
+        new_user = User(
+            id=user_id, 
+            email=args['email'], 
+            password=args['password'], 
+            confirmed=args.get('confirmed', False), 
+            role= role,  
+            created_at=datetime.utcnow())
         db.session.add(new_user)
         db.session.commit()
+
+        # serialized_user = UserSchema().dump(new_user)
         
-        return new_user.jsonify(), 201
+        return jsonify(UserSchema().dump(new_user)), 201
 
 
 class InterestResource(Resource):
