@@ -1,5 +1,6 @@
 from flask import Flask, Blueprint, jsonify, make_response
 from datetime import datetime
+from uuid import UUID
 from flask_restful import Api, Resource, reqparse
 from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
@@ -88,5 +89,24 @@ class UserResource(Resource):
         else:
             users = User.query.all()
             return [user.jsonify() for user in users]
+        
+    
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('email', type=str, required=True, help='Email is required')
+        parser.add_argument('password', type=str, required=True, help='Password is required')
+        parser.add_argument('confirmed', type=bool, required=False)
+        parser.add_argument('role', type=str, required=False)
+        args = parser.parse_args()
+
+        user_id = str(UUID.uuid4())
+
+        new_user = User(id=user_id, email=args['email'], password=args['password'], confirmed=args.get('confirmed', False), role=args.get('role', None))
+        db.session.add(new_user)
+        db.session.commit()
+        
+        return new_user.jsonify(), 201
+    
+
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
