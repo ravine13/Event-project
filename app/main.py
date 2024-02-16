@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, jsonify, make_response
+from flask import Flask, Blueprint, jsonify, make_response, request
 from flask_restful import Api, Resource, reqparse
 from datetime import datetime
 from uuid import uuid4, UUID
@@ -150,16 +150,18 @@ class InterestResource(Resource):
 
         
     def post(self):
+        data = request.get_json()
+
         parser = reqparse.RequestParser()
         parser.add_argument('user_id', type=str, required=True, help='User ID is required')
         parser.add_argument('event_id', type=str, required=True, help='Event ID is required')
 
-        args = parser.parse_args()
+        # args = parser.parse_args()
 
         new_interest = Interests(
-            id = uuid4,
-            user_id = args['user_id'],
-            event_id = args['event_id']
+            id = uuid4(),
+            user_id = UUID(data.get('user_id')),
+            event_id = UUID(data.get('event_id'))
             )
         
         db.session.add(new_interest)
