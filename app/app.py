@@ -2,6 +2,8 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_cors import CORS
 from main import main_bp
+from userroute import user_bp
+from interests import interest_bp
 import os
 
 
@@ -19,6 +21,8 @@ def create_app():
     migrate = Migrate(app, db)
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(user_bp)
+    app.register_blueprint(interest_bp)
     CORS(app, resources={r"*": {"origins": "*"}})
  
 
