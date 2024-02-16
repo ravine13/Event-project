@@ -1,16 +1,19 @@
 from flask import Flask, Blueprint, jsonify, make_response
-from flask_restful import Api
 from datetime import datetime
+from flask_restful import Api, Resource, reqparse
 from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, auto_field
 from models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_Details, Advert_Fees, Pricing, Review, Booking, Photo, db
 from flask_jwt_extended import jwt_required
+from marshmallow import Schema, fields
 from uuid import uuid4, UUID
+
 
 main_bp = Blueprint('main', __name__)
 app = Flask(__name__)
 api = Api(main_bp)
 ma = Marshmallow(main_bp)
+
 
 class PhotoSchema(SQLAlchemyAutoSchema):
     class Meta:
@@ -51,11 +54,6 @@ class ReviewSchema(SQLAlchemyAutoSchema):
         model = Review
 review_schema = ReviewSchema()
 
-class PricingSchema(SQLAlchemyAutoSchema):
-    class Meta:
-        model = Pricing
-pricing_schema = PricingSchema()
-
 class Advert_FeesSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Advert_Fees
@@ -68,10 +66,9 @@ booking_schema = BookingSchema()
 
 
 
-@main_bp.route('/')
+@app.route('/')
 def home():
     return 'welcome to Events projects'
-
 
 
 if __name__ == '__main__':
