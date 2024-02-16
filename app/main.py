@@ -5,7 +5,7 @@ from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_Details, Advert_Fees, Pricing, Review, Booking, Photo, db
 from marshmallow import Schema, fields
-from flask_jwt_extended import jwt_required
+# from flask_jwt_extended import jwt_required
 
 main_bp = Blueprint('main', __name__)
 app = Flask(__name__)
