@@ -59,6 +59,7 @@ class Photo_By_ID(Resource):
             
     # @jwt_required()
     def patch(self, id):
+        id = UUID(id)
         data = request.get_json()
         photo = Photo.query.filter_by(id = id).first()
         
@@ -66,7 +67,7 @@ class Photo_By_ID(Resource):
             if photo is not None and data is not None:
                 for attr in data:
                     setattr(photo, attr, data[attr])
-                db.session.commit()
+                    db.session.commit()
 
                 response = make_response(jsonify(photo_schema.dump(photo)), 200)
                 return response

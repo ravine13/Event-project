@@ -25,13 +25,18 @@ class Pricing_Rsrc(Resource):
     # @jwt_required()
     def post(self):
         post_args = reqparse.RequestParser()
-        post_args.add_argument('id', type=uuid4)
+        post_args.add_argument('id', type=uuid4())
         post_args.add_argument('name', type=str, help='Pricing Name', required=True)
         post_args.add_argument('amount', type=float, help='Amount', required=True)
         post_args.add_argument('event_id', type=uuid4(), help='Event ID')
 
         data = post_args.parse_args()
         new_pricing = Pricing(**data)
+        new_pricing = Pricing(id = uuid4(),
+                              name = data.get('name'),
+                              amount = data.get('amount'),
+                              event_id = uuid4()
+                            )
         db.session.add(new_pricing)
         db.session.commit()
         response = (make_response(jsonify(pricing_schema.dump(new_pricing)), 201))
@@ -46,6 +51,7 @@ class Pricing_By_ID(Resource):
 
     # @jwt_required()
     def patch(self, id):
+        id = UUID(id)
         pricing = Pricing.query.filter_by(id = id).first()
         patch_args = reqparse.RequestParser()
         patch_args.add_argument('name', type=str, help='Pricing Name')
@@ -56,16 +62,22 @@ class Pricing_By_ID(Resource):
             data = patch_args.parse_args()
             for attr in data:
                 setattr(pricing, attr, data[attr])
-            return(make_response(jsonify(pricing_schema.dump(pricing)), 200))
+                db.session.commit()
+            response = (make_response(jsonify(pricing_schema.dump(pricing)), 200))
+            return response
         else:
             return(make_response(jsonify({'message': 'Pricing not found'}), 404))
         
     # @jwt_required()
     def delete(self, id):
+        id = UUID(id)
         pricing = Pricing.query.filter_by(id=id).first()
         if pricing is not None:
             db.session.delete(pricing)
             db.session.commit()
+            
+            response = make_response(jsonify({'message': 'Successfully Deleted'}))
+            return response
         else:
             abort(404, details='Not Found!')
 
