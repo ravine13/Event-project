@@ -13,3 +13,5 @@ auth_bp = Blueprint('auth',__name__)
 bcrypt = Bcrypt()
 jwt = JWTManager()
 api = Api(auth_bp)
+
+
