@@ -5,9 +5,7 @@ from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, auto_field
 from models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_Details, Advert_Fees, Pricing, Review, Booking, Photo, db
 from flask_jwt_extended import jwt_required
-from marshmallow import Schema, fields
 from uuid import uuid4, UUID
-
 
 main_bp = Blueprint('main', __name__)
 app = Flask(__name__)
@@ -28,6 +26,12 @@ profile_schema = ProfileSchema()
 class InterestsSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Interests
+        include_fk = True  
+
+    id = auto_field()
+    event_id = auto_field()
+    user_id = auto_field()
+
 interest_schema = InterestsSchema()
 
 class TagSchema(SQLAlchemyAutoSchema):

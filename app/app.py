@@ -13,6 +13,9 @@ import os
 
 from Auth import jwt, bcrypt, auth_bp
 from models import db
+from event import event_bp
+from review import review_bp
+from booking import booking_bp
 
 def create_app():
     app = Flask(__name__)
@@ -27,6 +30,9 @@ def create_app():
     migrate = Migrate(app, db)
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(event_bp)
+    app.register_blueprint(review_bp)
+    app.register_blueprint(booking_bp)
     app.register_blueprint(user_bp)
     app.register_blueprint(interest_bp)
     app.register_blueprint(billing_info_bp)
@@ -34,6 +40,8 @@ def create_app():
     app.register_blueprint(pricing_bp)
     app.register_blueprint(photo_bp)
     CORS(app, resources={r"*": {"origins": "*"}})
-    
+ 
     ma = Marshmallow(app)
     return app
+
+app = create_app()
