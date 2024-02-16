@@ -2,7 +2,7 @@ from flask import Flask, Blueprint
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_cors import CORS
-from views.pricing_controller import pricing_bp
+from pricing_controller import pricing_bp
 import os
 
 
