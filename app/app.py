@@ -4,6 +4,8 @@ from flask_cors import CORS
 from main import main_bp
 from userroute import user_bp
 from interests import interest_bp
+from billing_info import billing_info_bp
+from tags import tags_bp
 import os
 
 
@@ -23,6 +25,8 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(user_bp)
     app.register_blueprint(interest_bp)
+    app.register_blueprint(billing_info_bp)
+    app.register_blueprint(tags_bp)
     CORS(app, resources={r"*": {"origins": "*"}})
  
 
