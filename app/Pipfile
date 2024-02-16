@@ -10,7 +10,6 @@ install = "*"
 flask-sqlalchemy = "*"
 sqlalchemy = "*"
 flask-restful = "*"
-flask-marshmallow = "*"
 flask-cors = "*"
 marshmallow-sqlalchemy = "*"
 flask-jwt = "*"
@@ -21,4 +20,4 @@ flask-bcrypt = "*"
 [dev-packages]
 
 [requires]
-python_version = "3.12"
+python_version = "3.10"
