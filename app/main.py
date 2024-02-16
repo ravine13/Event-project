@@ -7,6 +7,8 @@ from models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_D
 from marshmallow import Schema, fields
 from flask_jwt_extended import jwt_required
 from uuid import UUID
+from uuid import uuid4
+from datetime import datetime
 
 
 main_bp = Blueprint('main', __name__)
@@ -97,6 +99,7 @@ api.add_resource(Events, '/events')
 
 class EventByID(Resource):
     def get(self, id):
+        id = UUID(id)
         event = Event.query.filter_by(id=id).first()
 
         if event is None:
@@ -192,10 +195,15 @@ class new_Event(Resource):
     post_args.add_argument('venue', type=str, help='Venue of the Event', required=True)
     post_args.add_argument('photo_id', type=uuid_type, help='PhotoID of the Event', required=True)
 
-
     def post(self):
         new_events = self.post_args.parse_args()
-        new_event = Event(**new_events)
+        new_event = Event(id=uuid4(),**new_events)
+
+        new_events['start_date'] = datetime.strptime(new_events['start_date'] + ' ' + new_events['start_time'], '%Y-%m-%d %H:%M:%S')
+        new_events['end_date'] = datetime.strptime(new_events['end_date'] + ' ' + new_events['end_time'], '%Y-%m-%d %H:%M:%S')
+
+        del new_events['start_time']
+        del new_events['end_time']
         db.session.add(new_event)
         db.session.commit()
         res = make_response(
@@ -222,7 +230,8 @@ class Reviews(Resource):
 api.add_resource(Reviews, '/reviews')
 
 class ReviewByID(Resource):
-    def get(self):
+    def get(self,id):
+        id = UUID(id)
         review = Review.query.filter_by(id=id).first()
 
         if review is None:
@@ -247,8 +256,9 @@ class ReviewByID(Resource):
 
             return res
     def delete(self, id):
+        id = UUID(id)
         review = Review.query.filter_by(id=id).first()
-
+    
         if review is None:
             response = make_response(
                 jsonify({"error": "review not found"}),
@@ -272,6 +282,7 @@ class ReviewByID(Resource):
         patch_args.add_argument('rating', type=int, help='Updated rating of the Review')
         patch_args.add_argument('comment', type=str, help='Updated comment of the Review')
 
+        id = UUID(id)
         review = Review.query.filter_by(id=id).first()
 
         if review is None:
@@ -307,7 +318,7 @@ class new_Review(Resource):
 
     def post(self):
         new_reviews = self.post_args.parse_args()
-        new_review = Review(**new_reviews)
+        new_review = Review(id=uuid4(),**new_reviews)
         db.session.add(new_review)
         db.session.commit()
         res = make_response(
@@ -335,6 +346,7 @@ api.add_resource(Bookings, '/bookings')
 
 class BookingByID(Resource):
     def get(self, id):
+        id = UUID(id)
         booking = Booking.query.filter_by(id=id).first()
 
         if booking is None:
@@ -361,6 +373,7 @@ class BookingByID(Resource):
             return res
 
     def delete(self, id):
+        id = UUID(id)
         booking = Booking.query.filter_by(id=id).first()
 
         if booking is None:
@@ -386,6 +399,7 @@ class BookingByID(Resource):
         patch_args.add_argument('user_id', type=uuid_type, help='Updated User ID of the Booking')
         patch_args.add_argument('pricing_id', type=uuid_type, help='Updated Pricing ID of the Booking')
 
+        id = UUID(id)
         booking = Booking.query.filter_by(id=id).first()
 
         if booking is None:
@@ -419,7 +433,7 @@ class new_Booking(Resource):
 
     def post(self):
         new_bookings = self.post_args.parse_args()
-        new_booking = Booking(**new_bookings)
+        new_booking = Booking(id=uuid4(), **new_bookings)
         db.session.add(new_booking)
         db.session.commit()
         res = make_response(
