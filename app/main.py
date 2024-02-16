@@ -74,11 +74,6 @@ def home():
     return 'welcome to Events projects'
 
 
-
-
-
-
-
 if __name__ == '__main__':
     db.init_app(app)
     app.run(port=5555, debug=True)

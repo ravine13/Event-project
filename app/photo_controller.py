@@ -25,7 +25,7 @@ class Photo_Rsrc(Resource):
         response = make_response(jsonify(photos_list), 200)
         return response
 
-    # @jwt_required()
+    @jwt_required()
     def post(self):
         data = request.get_json()
         if data is not None:
@@ -57,7 +57,7 @@ class Photo_By_ID(Resource):
                 "data": None
             }, 500
             
-    # @jwt_required()
+    @jwt_required()
     def patch(self, id):
         id = UUID(id)
         data = request.get_json()
@@ -82,7 +82,7 @@ class Photo_By_ID(Resource):
                 "data": None
             }, 500
             
-    # @jwt_required() 
+    @jwt_required() 
     def delete(self, id):
         id = UUID(id)
         photo = Photo.query.filter_by(id = id).first()
