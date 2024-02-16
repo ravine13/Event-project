@@ -3,7 +3,7 @@ from flask_restful import Api, Resource, reqparse
 from datetime import datetime
 from uuid import uuid4, UUID
 from flask_marshmallow import Marshmallow
-from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, auto_field
 from models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_Details, Advert_Fees, Pricing, Review, Booking, Photo, db
 from marshmallow import Schema, fields
 from flask_jwt_extended import jwt_required
@@ -27,6 +27,16 @@ profile_schema = ProfileSchema()
 class InterestsSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Interests
+interest_schema = InterestsSchema()
+class InterestsSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = Interests
+        include_fk = True  
+
+    id = auto_field()
+    event_id = auto_field()
+    user_id = auto_field()
+
 interest_schema = InterestsSchema()
 
 class TagSchema(SQLAlchemyAutoSchema):
@@ -114,36 +124,58 @@ class UserResource(Resource):
 
         # serialized_user = UserSchema().dump(new_user)
         
-        return jsonify(UserSchema().dump(new_user)), 201
+        response = make_response (
+        jsonify(UserSchema().dump(new_user)), 201
+
+        )
+
+        return response
 
 
 class InterestResource(Resource):
-    def get(self, interest_id=None):
-        if interest_id:
-            interest = Interests.query.get(interest_id)
-            if not interest:
-                return {'message': 'Interest not found'}, 404
-            return InterestsSchema().dump(interest)
-        else:
-            interests = Interests.query.all()
-            return jsonify(InterestsSchema(many=True).dump(interests))
-            # return [interest.jsonify() for interest in interests]
+    def get(self):
+        interests = Interests.query.all()
+        if not interests:
+            res = make_response(
+                jsonify({"message": "No interests found"}), 
+                404
+                )
+            return res
+        interests_data = interest_schema.dump(interests, many=True)
 
+        res = make_response(
+            jsonify(interests_data), 200)
+
+        return res
+
+        
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('user_id', type=str, required=True, help='User ID is required')
         parser.add_argument('event_id', type=str, required=True, help='Event ID is required')
+
         args = parser.parse_args()
 
-        new_interest = Interests(user_id=uuid4(), event_id=args['event_id'])
+        new_interest = Interests(
+            id = uuid4,
+            user_id = args['user_id'],
+            event_id = args['event_id']
+            )
+        
         db.session.add(new_interest)
         db.session.commit()
 
-        return new_interest.jsonify(), 201
+        response = make_response (
+        jsonify(InterestsSchema().dump(new_interest)), 201
+
+        )
+
+        return response
 
 
 api.add_resource(UserResource, '/users')
 api.add_resource(InterestResource, '/interests')
+
 
 if __name__ == '__main__':
     db.init_app(app)

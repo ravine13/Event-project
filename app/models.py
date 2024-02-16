@@ -39,16 +39,16 @@ class Interests(db.Model):
     id = Column(UUID, primary_key=True)
     event_id = Column(UUID, ForeignKey('Event.id'))
     user_id = Column(UUID, ForeignKey('user.id'))
-    user = relationship('User', backref='interests')
-    event = relationship('Event', backref='interests')
+    # user = relationship('User', backref='interests')
+    # event = relationship('Event', backref='interests')
 
     def jsonify(self):
         return {
             'id': str(self.id),
             'event_id': str(self.event_id),
             'user_id': str(self.user_id),
-            'user' : self.user,
-            'event' : self.event
+            # 'user' : self.user,
+            # 'event' : self.event
         }
 
 class Tag(db.Model):
