@@ -176,7 +176,7 @@ class EventByID(Resource):
 
             return res
 
-api.add_resource(EventByID, '/events/<id>')
+api.add_resource(EventByID, '/events/<string:id>')
 
 
 class new_Event(Resource):
@@ -296,7 +296,7 @@ class ReviewByID(Resource):
             return res
 
 
-api.add_resource(ReviewByID, '/review/<id>')
+api.add_resource(ReviewByID, '/review/<string:id>')
 
 class new_Review(Resource):
     post_args = reqparse.RequestParser(bundle_errors=True)
@@ -409,7 +409,7 @@ class BookingByID(Resource):
             return res
 
 
-api.add_resource(BookingByID, '/bookings/<id>')
+api.add_resource(BookingByID, '/bookings/<string:id>')
 
 class new_Booking(Resource):
     post_args = reqparse.RequestParser(bundle_errors=True)
