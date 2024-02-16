@@ -9,7 +9,11 @@ from billing_info import billing_info_bp
 from tags import tags_bp
 from pricing_controller import pricing_bp
 from photo_controller import photo_bp
+from main import main_bp
+from routes.advert import advert_fees_bp
+from routes.profiles import profiles_bp
 import os
+
 
 from Auth import jwt, bcrypt, auth_bp
 from models import db
@@ -25,8 +29,8 @@ def create_app():
     
     main_bp = Blueprint('main', __name__)
     db.init_app(app)
-    jwt.init_app(app)
-    bcrypt.init_app(app)
+    # jwt.init_app(app)
+    # bcrypt.init_app(app)
     migrate = Migrate(app, db)
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp)
@@ -36,6 +40,8 @@ def create_app():
     app.register_blueprint(user_bp)
     app.register_blueprint(interest_bp)
     app.register_blueprint(billing_info_bp)
+    app.register_blueprint(profiles_bp)
+    app.register_blueprint(advert_fees_bp)
     app.register_blueprint(tags_bp)
     app.register_blueprint(pricing_bp)
     app.register_blueprint(photo_bp)

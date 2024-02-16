@@ -6,6 +6,8 @@ from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, auto_field
 from models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_Details, Advert_Fees, Pricing, Review, Booking, Photo, db
 from flask_jwt_extended import jwt_required
 from uuid import uuid4, UUID
+from sqlalchemy.dialects.postgresql import UUID
+
 
 main_bp = Blueprint('main', __name__)
 app = Flask(__name__)
@@ -18,10 +20,6 @@ class PhotoSchema(SQLAlchemyAutoSchema):
         model = Photo
 photo_schema = PhotoSchema()
 
-class ProfileSchema(SQLAlchemyAutoSchema):
-    class Meta:
-        model = Profile
-profile_schema = ProfileSchema()
 
 class InterestsSchema(SQLAlchemyAutoSchema):
     class Meta:
@@ -58,10 +56,11 @@ class ReviewSchema(SQLAlchemyAutoSchema):
         model = Review
 review_schema = ReviewSchema()
 
-class Advert_FeesSchema(SQLAlchemyAutoSchema):
+class PricingSchema(SQLAlchemyAutoSchema):
     class Meta:
-        model = Advert_Fees
-advert_fees_schema = Advert_FeesSchema()
+        model = Pricing
+pricing_schema = PricingSchema()
+
 
 class BookingSchema(SQLAlchemyAutoSchema):
     class Meta:
@@ -73,6 +72,11 @@ booking_schema = BookingSchema()
 @app.route('/')
 def home():
     return 'welcome to Events projects'
+
+
+
+
+
 
 
 if __name__ == '__main__':
