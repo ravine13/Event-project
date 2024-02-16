@@ -100,12 +100,10 @@ class UserResource(Resource):
         parser.add_argument('role', type=int, required=False)
         args = parser.parse_args()
 
-        user_id = uuid4()
-
         role = int(args['role']) if args['role'] is not None else None
 
         new_user = User(
-            id=user_id, 
+            id=uuid4(), 
             email=args['email'], 
             password=args['password'], 
             confirmed=args.get('confirmed', False), 
@@ -137,7 +135,7 @@ class InterestResource(Resource):
         parser.add_argument('event_id', type=str, required=True, help='Event ID is required')
         args = parser.parse_args()
 
-        new_interest = Interests(user_id=args['user_id'], event_id=args['event_id'])
+        new_interest = Interests(user_id=uuid4(), event_id=args['event_id'])
         db.session.add(new_interest)
         db.session.commit()
 
