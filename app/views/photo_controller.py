@@ -1,6 +1,8 @@
 from flask import Blueprint, request, make_response, jsonify, abort
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from flask_restful import Api, Resource, reqparse
+from uuid import UUID
+from uuid import uuid4
 from flask_jwt_extended import jwt_required
 from models import Photo
 from models import db
@@ -22,20 +24,21 @@ class Photo_Rsrc(Resource):
         
         response = make_response(jsonify(photos_list), 200)
         return response
-    
+
     # @jwt_required()
     def post(self):
         data = request.get_json()
-        if data is not None:            
-            new_photo = Photo(url = data.get('url'))
+        if data is not None:
+            new_photo = Photo(id = uuid4(), url = data.get('url'))
             db.session.add(new_photo)
             db.session.commit()
-            return(make_response(jsonify(photo_schema.dump(new_photo)), 201))
-    
+            response = make_response(jsonify(photo_schema.dump(new_photo)), 201)            
+            return response
+
 class Photo_By_ID(Resource):
     def get(self, id):
-        photo = Photo.query.filter_by(id = id).first()
-        
+        id = UUID(id)
+        photo = Photo.query.filter_by(id = id).first()        
         try:
             if photo is not None:
                 event = photo_schema.dump(photo.events, many=True)
@@ -80,10 +83,14 @@ class Photo_By_ID(Resource):
             
     # @jwt_required() 
     def delete(self, id):
+        id = UUID(id)
         photo = Photo.query.filter_by(id = id).first()
         if photo is not None:
             db.session.delete(photo)
             db.session.commit()
+            
+            response = make_response(jsonify({'message': 'DELETED SUCCESSFULLY'}))
+            return response
         else:
             abort(404, details='Not Found!')
 

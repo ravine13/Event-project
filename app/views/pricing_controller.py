@@ -1,6 +1,8 @@
 from flask import Blueprint, make_response, jsonify, request, abort
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from flask_restful import Api, Resource, reqparse
+from uuid import UUID
+from uuid import uuid4
 from flask_jwt_extended import jwt_required
 from models import Pricing
 from models import db
@@ -23,22 +25,25 @@ class Pricing_Rsrc(Resource):
     # @jwt_required()
     def post(self):
         post_args = reqparse.RequestParser()
+        post_args.add_argument('id', type=uuid4)
         post_args.add_argument('name', type=str, help='Pricing Name', required=True)
         post_args.add_argument('amount', type=float, help='Amount', required=True)
-        post_args.add_argument('event_id', type=str, help='Event ID')
-        
+        post_args.add_argument('event_id', type=uuid4(), help='Event ID')
+
         data = post_args.parse_args()
-        new_pricing = Pricing(**data)        
+        new_pricing = Pricing(**data)
         db.session.add(new_pricing)
         db.session.commit()
-        return(make_response(jsonify(pricing_schema.dump(new_pricing)), 201))
-        
+        response = (make_response(jsonify(pricing_schema.dump(new_pricing)), 201))
+        return response
 
 class Pricing_By_ID(Resource):
     def get(self, id):
+        id = UUID(id)
         pricing = Pricing.query.filter_by(id = id).first()
-        return(make_response(jsonify(pricing_schema.dump(pricing))))
-    
+        res = make_response(jsonify(pricing_schema.dump(pricing)))
+        return res
+
     # @jwt_required()
     def patch(self, id):
         pricing = Pricing.query.filter_by(id = id).first()
