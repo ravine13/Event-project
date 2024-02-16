@@ -14,6 +14,16 @@ class User(db.Model):
     created_at = Column(DateTime)
     email = Column(String)
 
+    def jsonify(self):
+        return {
+            'id': str(self.id),
+            'password': self.password,
+            'confirmed': self.confirmed,
+            'role': self.role,
+            'created_at': self.created_at.isoformat(),
+            'email': self.email
+        }
+
 class Profile(db.Model):
     __tablename__ = 'Profile'
     id = Column(UUID, primary_key=True)
@@ -29,8 +39,17 @@ class Interests(db.Model):
     id = Column(UUID, primary_key=True)
     event_id = Column(UUID, ForeignKey('Event.id'))
     user_id = Column(UUID, ForeignKey('user.id'))
-    user = relationship('User', backref='interests')
-    event = relationship('Event', backref='interests')
+    # user = relationship('User', backref='interests')
+    # event = relationship('Event', backref='interests')
+
+    def jsonify(self):
+        return {
+            'id': str(self.id),
+            'event_id': str(self.event_id),
+            'user_id': str(self.user_id),
+            # 'user' : self.user,
+            # 'event' : self.event
+        }
 
 class Tag(db.Model):
     __tablename__ = 'tag'
