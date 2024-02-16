@@ -6,6 +6,8 @@ from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_Details, Advert_Fees, Pricing, Review, Booking, Photo, db
 from marshmallow import Schema, fields
 from flask_jwt_extended import jwt_required
+from uuid import UUID
+from uuid import uuid4
 
 main_bp = Blueprint('main', __name__)
 app = Flask(__name__)
@@ -115,7 +117,7 @@ class Billing_Info_Resources(Resource):
 
     def post(self):
         data = self.post_args.parse_args()
-        new_billing_details = Billing_Details(**data)
+        new_billing_details = Billing_Details(id=uuid4(),**data)
         db.session.add(new_billing_details)
         db.session.commit()
         response = make_response(
@@ -125,6 +127,7 @@ class Billing_Info_Resources(Resource):
 
 class Billing_Info_ById(Resource):
     def get(self, id):
+        id = UUID(id)
         bill = Billing_Info.query.filter_by(id=id).first()
 
         if bill is None:
@@ -135,12 +138,9 @@ class Billing_Info_ById(Resource):
             return response
 
         else:
-            billing = billing_info_schema.dump(bill.billing, many=True)
-
             response = make_response(
                 jsonify({
-                    "bill": billing_info_schema.dump(bill),
-                    "billing": billing
+                    "bill": billing_info_schema.dump(bill)
                 }),
                 200
             )
@@ -157,12 +157,13 @@ class Billing_Info_ById(Resource):
         return bill.to_dict()
     
     def delete(self, id):
+        id = UUID(id)
         Billing_Info.query.filter_by(id = id).delete()
         db.session.commit()
         return {'detail': 'Billing Information has been deleted successfully'}
     
 api.add_resource(Billing_Info_Resources, '/billing_info')
-api.add_resource(Billing_Info_ById, '/billing_info/<int:id>')
+api.add_resource(Billing_Info_ById, '/billing_info/<string:id>')
 
 class TagResources(Resource):
     def get(self):
@@ -175,7 +176,7 @@ class TagResources(Resource):
 
     def post(self):
         data = self.post_args.parse_args()
-        new_tags = Tag(**data)
+        new_tags = Tag(id=uuid4(), **data)
         db.session.add(new_tags)
         db.session.commit()
         response = make_response(
@@ -185,6 +186,7 @@ class TagResources(Resource):
 
 class TagResourcesById(Resource):
     def get(self, id):
+        id = UUID(id)
         tag = Tag.query.filter_by(id = id).first()
 
         if tag is None:
@@ -195,12 +197,9 @@ class TagResourcesById(Resource):
             return response
 
         else:
-            tags = tag_schema.dump(tag.tags, many=True)
-
             response = make_response(
                 jsonify({
-                    "tag": tag_schema.dump(tag),
-                    "tags": tags
+                    "tag": tag_schema.dump(tag)
                 }),
                 200
             )
@@ -217,12 +216,13 @@ class TagResourcesById(Resource):
         return tag.to_dict()
     
     def delete(self, id):
+        id = UUID(id)
         Tag.query.filter_by(id = id).delete()
         db.session.commit()
         return {'detail': 'Hash Tag Information has been deleted successfully'}
     
 api.add_resource(TagResources, '/hash_tags')
-api.add_resource(TagResourcesById, '/hash_tags/<int:id>')
+api.add_resource(TagResourcesById, '/hash_tags/<string:id>')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
