@@ -55,31 +55,14 @@ class Billing_Info_Resources(Resource):
                 404
                 )
             return res
-        billing_data = billing_info_schema.dump(billing, many=True)
+        billing_info_schema = Billing_InfoSchema(many=True)
+        billing_data = billing_info_schema.dump(billing)
 
         res = make_response(
             jsonify(billing_data), 200)
 
         return res
-    
-    def post(self):
-        data = request.get_json()
-        new_billing_info = Billing_Info(
-            id = uuid4(),
-            # user_id = UUID(data.get('user_id')),
-            # payment_details_id = UUID(data.get('payment_details_id')),
-            payment_method = data.get('payment_method')
-            )
-        
-        db.session.add(new_billing_info)
-        db.session.commit()
-
-        response = make_response (
-        jsonify(Billing_InfoSchema().dump(new_billing_info)), 201
-
-        )
-
-        return response
+api.add_resource(Billing_Info_Resources, '/billing_info')
 
 class Billing_Info_ById(Resource):
     def get(self, id):
@@ -128,5 +111,25 @@ class Billing_Info_ById(Resource):
         db.session.commit()
         return {'detail': 'Billing Information has been deleted successfully'}
     
-api.add_resource(Billing_Info_Resources, '/billing_info')
+
 api.add_resource(Billing_Info_ById, '/billing_info/<string:id>')
+
+class new_Billing_info(Resource):
+    post_args = reqparse.RequestParser(bundle_errors = True)
+    post_args.add_argument('payment_method', type=str, help='Please Add your payment method', required = True)
+    post_args.add_argument('billing_details', type=str, help='Please Add your payment details', required = True)
+    post_args.add_argument('user', type=str, help='Please Add User', required = True)
+
+    def post(self):
+        new_billing_info = self.post_args.parse_args()
+        payment_method = new_billing_info['payment_method']
+        billing_details = new_billing_info['billing_details']
+        user = new_billing_info['user']
+
+        new_billing_info = Billing_Info(payment_method=payment_method, billing_details=billing_details, user=user)
+        db.session.add(new_billing_info)
+        db.session.commit()
+
+        return {"message": "Billing info successfully created"}, 201
+    
+api.add_resource(new_Billing_info, '/billing_info')
