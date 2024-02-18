@@ -39,49 +39,31 @@ class Photo_By_ID(Resource):
     def get(self, id):
         id = UUID(id)
         photo = Photo.query.filter_by(id = id).first()        
-        try:
-            if photo is not None:
-                event = photo_schema.dump(photo.events, many=True)
-                response = make_response(jsonify({
-                    'photo': photo_schema.dump(photo),
-                    'event': event,
-                }), 200)
-                return response
-            
-            else:
-                abort(404, details='Not Found!')
-        except Exception as e:
-            return {
-                "message": "Something went wrong!",
-                "error": str(e),
-                "data": None
-            }, 500
-            
+        if photo is not None:
+            event = photo_schema.dump(photo.events, many=True)
+            response = make_response(jsonify({
+                'photo': photo_schema.dump(photo),
+                'event': event,
+            }), 200)
+            return response
+        else:
+            abort(404, details='Not Found!')
+
     # @jwt_required()
     def patch(self, id):
         id = UUID(id)
         data = request.get_json()
         photo = Photo.query.filter_by(id = id).first()
-        
-        try:
-            if photo is not None and data is not None:
-                for attr in data:
-                    setattr(photo, attr, data[attr])
-                    db.session.commit()
+        if photo is not None and data is not None:
+            for attr in data:
+                setattr(photo, attr, data[attr])
+                db.session.commit()
 
-                response = make_response(jsonify(photo_schema.dump(photo)), 200)
-                return response
-            
-            else:
-                return(make_response(jsonify({'message': 'Action Aborted! Invalid Data!'}), 404))
-            
-        except Exception as e:
-            return {
-                "message": "Something went wrong!",
-                "error": str(e),
-                "data": None
-            }, 500
-            
+            response = make_response(jsonify(photo_schema.dump(photo)), 200)
+            return response
+        else:
+            return(make_response(jsonify({'message': 'Action Aborted! Invalid Data!'}), 404))
+
     # @jwt_required() 
     def delete(self, id):
         id = UUID(id)
