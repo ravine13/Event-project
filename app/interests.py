@@ -46,8 +46,6 @@ class InterestResource(Resource):
         parser.add_argument('user_id', type=str, required=True, help='User ID is required')
         parser.add_argument('event_id', type=str, required=True, help='Event ID is required')
 
-        # args = parser.parse_args()
-
         new_interest = Interests(
             id = uuid4(),
             user_id = UUID(data.get('user_id')),
