@@ -30,11 +30,13 @@ class Billing_InfoSchema(SQLAlchemyAutoSchema):
         id = ma.auto_field()
         payment_method = ma.auto_field()
         payment_details_id = ma.auto_field()
-        billing_details = ma.Nested('Billing_DetailsSchema', only=['detail'])
+        billing_details = ma.Nested('Billing_DetailsSchema')
         user_id = ma.auto_field()
-        user = ma.Nested('UserSchema', only=['email'])
+        user = ma.Nested('UserSchema')
+        include_fk = True
 
 billing_info_schema = Billing_InfoSchema()
+
 
 class Billing_DetailsSchema(SQLAlchemyAutoSchema):
     class Meta:
@@ -96,9 +98,9 @@ class Billing_Info_ById(Resource):
         parser.add_argument('payment_method', type=str, help='Payment method is required')
         parser.add_argument('payment_details_id', type=str, help='Payment details ID is required')
         parser.add_argument('user_id', type=str, help='User ID is required')
-        args = parser.parse_args()
+        data = parser.parse_args()
 
-        for key, value in args.items():
+        for key, value in data.items():
             if value is not None:
                 setattr(bill, key, value)
         db.session.commit()
@@ -123,13 +125,21 @@ class new_Billing_info(Resource):
     def post(self):
         new_billing_info = self.post_args.parse_args()
         payment_method = new_billing_info['payment_method']
-        billing_details = new_billing_info['billing_details']
-        user = new_billing_info['user']
+        billing_details_id = UUID(new_billing_info['billing_details'])
+        user_id = UUID(new_billing_info['user'])
 
-        new_billing_info = Billing_Info(payment_method=payment_method, billing_details=billing_details, user=user)
+        billing_details = Billing_Details.query.get(billing_details_id)
+        user = User.query.get(user_id)
+
+        if billing_details is None or user is None:
+            return {"message": "Billing_Details or User not found"}, 404
+
+        new_billing_info = Billing_Info(id=uuid4(), payment_method=payment_method, billing_details=billing_details, user=user)
         db.session.add(new_billing_info)
         db.session.commit()
 
         return {"message": "Billing info successfully created"}, 201
+
+
     
 api.add_resource(new_Billing_info, '/billing_info')
