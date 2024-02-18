@@ -48,8 +48,6 @@ class UserResource(Resource):
             created_at=datetime.utcnow())
         db.session.add(new_user)
         db.session.commit()
-
-        # serialized_user = UserSchema().dump(new_user)
         
         response = make_response (
         jsonify(UserSchema().dump(new_user)), 201

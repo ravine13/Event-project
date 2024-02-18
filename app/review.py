@@ -116,7 +116,7 @@ class ReviewByID(Resource):
             return res
 
 
-api.add_resource(ReviewByID, '/review/<string:id>')
+api.add_resource(ReviewByID, '/reviews/<string:id>')
 
 class new_Review(Resource):
     post_args = reqparse.RequestParser(bundle_errors=True)

@@ -19,6 +19,7 @@ ma = Marshmallow(booking_bp)
 class BookingSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Booking
+        include_fk = True
 booking_schema = BookingSchema()
 
 class PricingSchema(SQLAlchemyAutoSchema):

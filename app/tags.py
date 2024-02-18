@@ -33,6 +33,7 @@ class TagSchema(SQLAlchemyAutoSchema):
         event_id = ma.auto_field()
         event = ma.Nested('EventSchema', only=['name'])
         user = ma.Nested('UserSchema', only=['email'])
+        include_fk = True
 
 tag_schema = TagSchema()
 

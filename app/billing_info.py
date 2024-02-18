@@ -30,11 +30,13 @@ class Billing_InfoSchema(SQLAlchemyAutoSchema):
         id = ma.auto_field()
         payment_method = ma.auto_field()
         payment_details_id = ma.auto_field()
-        billing_details = ma.Nested('Billing_DetailsSchema', only=['detail'])
+        billing_details = ma.Nested('Billing_DetailsSchema')
         user_id = ma.auto_field()
-        user = ma.Nested('UserSchema', only=['email'])
+        user = ma.Nested('UserSchema')
+        include_fk = True
 
 billing_info_schema = Billing_InfoSchema()
+
 
 class Billing_DetailsSchema(SQLAlchemyAutoSchema):
     class Meta:
@@ -55,31 +57,14 @@ class Billing_Info_Resources(Resource):
                 404
                 )
             return res
-        billing_data = billing_info_schema.dump(billing, many=True)
+        billing_info_schema = Billing_InfoSchema(many=True)
+        billing_data = billing_info_schema.dump(billing)
 
         res = make_response(
             jsonify(billing_data), 200)
 
         return res
-    
-    def post(self):
-        data = request.get_json()
-        new_billing_info = Billing_Info(
-            id = uuid4(),
-            # user_id = UUID(data.get('user_id')),
-            # payment_details_id = UUID(data.get('payment_details_id')),
-            payment_method = data.get('payment_method')
-            )
-        
-        db.session.add(new_billing_info)
-        db.session.commit()
-
-        response = make_response (
-        jsonify(Billing_InfoSchema().dump(new_billing_info)), 201
-
-        )
-
-        return response
+api.add_resource(Billing_Info_Resources, '/billing_info')
 
 class Billing_Info_ById(Resource):
     def get(self, id):
@@ -113,9 +98,9 @@ class Billing_Info_ById(Resource):
         parser.add_argument('payment_method', type=str, help='Payment method is required')
         parser.add_argument('payment_details_id', type=str, help='Payment details ID is required')
         parser.add_argument('user_id', type=str, help='User ID is required')
-        args = parser.parse_args()
+        data = parser.parse_args()
 
-        for key, value in args.items():
+        for key, value in data.items():
             if value is not None:
                 setattr(bill, key, value)
         db.session.commit()
@@ -128,5 +113,33 @@ class Billing_Info_ById(Resource):
         db.session.commit()
         return {'detail': 'Billing Information has been deleted successfully'}
     
-api.add_resource(Billing_Info_Resources, '/billing_info')
+
 api.add_resource(Billing_Info_ById, '/billing_info/<string:id>')
+
+class new_Billing_info(Resource):
+    post_args = reqparse.RequestParser(bundle_errors = True)
+    post_args.add_argument('payment_method', type=str, help='Please Add your payment method', required = True)
+    post_args.add_argument('billing_details', type=str, help='Please Add your payment details', required = True)
+    post_args.add_argument('user', type=str, help='Please Add User', required = True)
+
+    def post(self):
+        new_billing_info = self.post_args.parse_args()
+        payment_method = new_billing_info['payment_method']
+        billing_details_id = UUID(new_billing_info['billing_details'])
+        user_id = UUID(new_billing_info['user'])
+
+        billing_details = Billing_Details.query.get(billing_details_id)
+        user = User.query.get(user_id)
+
+        if billing_details is None or user is None:
+            return {"message": "Billing_Details or User not found"}, 404
+
+        new_billing_info = Billing_Info(id=uuid4(), payment_method=payment_method, billing_details=billing_details, user=user)
+        db.session.add(new_billing_info)
+        db.session.commit()
+
+        return {"message": "Billing info successfully created"}, 201
+
+
+    
+api.add_resource(new_Billing_info, '/billing_info')
