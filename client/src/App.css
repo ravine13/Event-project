@@ -1,0 +1,191 @@
+#root{
+  background-color: #011C3B;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  /* border: 2px solid yellow; */
+
+}
+.homed{
+  border-color: greenyellow;
+  background-image: url("./assets/podium fabric.jpg");
+  background-size: cover;
+  background-position: center;
+  border: 2px solid rgb(59, 94, 6);
+  text-align: center;
+  height: 80vh;
+    
+}
+#home{
+  /* border: 2px solid rgb(59, 94, 6); */
+  height: 100vh;
+  justify-content: center;
+  
+  
+}
+
+#nav{
+  width: 100%;
+  margin: 0;
+  /* border: 2px solid purple; */
+  height: 8vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #011C3B;
+  align-items: center;
+}
+
+.logo{
+  font-size: 42px;
+  font-family: helvetica;
+  font-style: italic;
+}
+
+#log-list{
+  color: #54585d;
+  font-size: 28px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: lighter;
+}
+
+#log-list:hover{
+  font-size: 30px;
+}
+
+.nav-list{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+  font-size: 20px;
+  margin: 5px;
+  width: 450px;
+  height: 40px;
+  gap: 80px;
+  /* border: 1px solid red; */
+
+
+}
+#logo-stf{
+  padding: 12px;
+  margin: 10px;
+  color: #8a999f;
+
+}
+#top-ln{
+  font-size: 28px;
+  margin-bottom: 0px;
+}
+#under-ln{
+  font-size: 15px;
+}
+#cards{
+  width: 100px;
+  height: 30vh;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 20px;
+  display: block;
+  flex-direction: column;
+  /* border: 2px solid black; */
+}
+
+#tck-btn{
+  padding: 10px;
+  margin-top: 10px; 
+  background-color: transparent;
+  color: #54585d;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 25px;
+  width: 70px;
+  font-size: 9px;
+
+}
+#tck-btn:hover {
+  background-color: #050505;
+  border-color: rgb(135, 107, 43);
+  transform: scale(1.2); 
+}
+#srch-bar{
+  width: 100px;
+  background-color: transparent;
+  padding: 10px;
+  margin-top: 10px;
+
+}
+#srch-bar:hover{
+  background-color: #050505;
+  border-color: rgb(135, 107, 43);
+  color: white;
+}
+.log-container {
+  max-width: 60%;
+  margin: auto;
+  padding: 50px;
+  height: 75vh;
+  /* border: 1px solid #ccc; */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  align-items: center;
+  justify-content: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 15px;
+  
+}
+
+input {
+  width: 98%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+button {
+  padding: 10px;
+  margin-top: 10px; 
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 25px;
+  border-color: rgb(135, 107, 43);
+}
+
+button:hover {
+  /* background-color: #54585d; */
+  border-color: rgb(135, 107, 43); 
+}
+
+.signup-form button {
+  margin-top: 10px; 
+  background-color: transparent; 
+}
+
+.signup-form button:hover {
+  border-color: rgb(135, 107, 43); 
+}
+
+.signup-form-container {
+  max-width: 65%;
+  font-size: 20px;
+  margin: auto;
+  padding: 20px;
+  height: 75vh;
+  /* border: 1px solid #ccc; */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+}

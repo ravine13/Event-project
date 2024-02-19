@@ -12,7 +12,7 @@ class User(db.Model):
     password = Column(String)
     confirmed = Column(Boolean)
     role = Column(Integer)
-    created_at = Column(DateTime)
+    created_at = Column(DateTime, default = datetime.utcnow)
     email = Column(String)
 
     def jsonify(self):
