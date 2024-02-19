@@ -1,5 +1,5 @@
 #root{
-  background-color: rgb(172, 172, 172);
+  background-color: #011C3B;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -24,7 +24,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: rgb(5, 59, 43);
+  background-color: #011C3B;
   align-items: center;
 }
 
@@ -35,7 +35,7 @@
 }
 
 #log-list{
-  color: white;
+  color: #54585d;
   font-size: 28px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: lighter;
@@ -59,14 +59,18 @@
   color: rgb(255, 255, 255);
 
 }
-#explore-pg{
-  max-width: 1490px;
-  /* border:2px solid green; */
-  height: 80px;
-  align-items: center;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
+#logo-stf{
+  padding: 12px;
+  margin: 10px;
+  color: #8a999f;
+
+}
+#top-ln{
+  font-size: 28px;
+  margin-bottom: 0px;
+}
+#under-ln{
+  font-size: 15px;
 }
 #cards{
   width: 100px;
@@ -76,11 +80,37 @@
   border-radius: 20px;
   display: block;
   flex-direction: column;
-  border: 2px solid black;
+  /* border: 2px solid black; */
 }
-#order-btn{
-  color:aqua;
-  
+
+#tck-btn{
+  padding: 10px;
+  margin-top: 10px; 
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 25px;
+  width: 70px;
+  font-size: 9px;
+
+}
+#tck-btn:hover {
+  background-color: #8a999f;
+  transform: scale(1.2); 
+}
+#srch-bar{
+  width: 100px;
+  background-color: transparent;
+  padding: 10px;
+  margin-top: 10px;
+
+}
+#srch-bar:hover{
+  background-color: #050505;
+  border-color: rgb(135, 107, 43);
+  color: white;
 }
 .log-container {
   max-width: 60%;
@@ -110,25 +140,26 @@ input {
 button {
   padding: 10px;
   margin-top: 10px; 
-  background-color: #050505;
+  background-color: transparent;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   margin-right: 25px;
+  border-color: rgb(135, 107, 43);
 }
 
 button:hover {
-  background-color: #282828; 
+  background-color: #54585d; 
 }
 
 .signup-form button {
   margin-top: 10px; 
-  background-color: #050505; 
+  background-color: transparent; 
 }
 
 .signup-form button:hover {
-  background-color: #282828; 
+  background-color: #54585d; 
 }
 
 .signup-form-container {

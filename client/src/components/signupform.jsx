@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../App.css';
-import { registerUser } from '../Services/api';
+import { registerUser } from '../services/api';
 
 const SignupForm = ({ onBackToLogin }) => {
   const [formData, setFormData] = useState({
@@ -36,7 +36,7 @@ const SignupForm = ({ onBackToLogin }) => {
     <div className="signup-form-container">
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit} className="signup-form">
-      <label htmlFor="username">Username:</label>
+      <label htmlFor="username">Name:</label>
         <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} required />
 
         <label htmlFor="email">Email:</label>
@@ -45,8 +45,8 @@ const SignupForm = ({ onBackToLogin }) => {
         <label htmlFor="password">Password:</label>
         <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required />
 
-        <label htmlFor="city">City:</label>
-        <input type="text" id="city" name="city" value={formData.city} onChange={handleChange} />
+        <label htmlFor="city">Role:</label>
+        <input type="text" id="role" name="role" value={formData.city} onChange={handleChange} />
 
         <button type="submit">Sign Up</button>
         <button type="button" onClick={onBackToLogin}>Back to Login</button>

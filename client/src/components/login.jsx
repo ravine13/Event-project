@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 
 const Login = ({ onSwitchToSignUp }) => {
-  const [username, setUsername] = useState('');
+  const [usermail, setUsermail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async (e) => {
@@ -13,7 +13,7 @@ const Login = ({ onSwitchToSignUp }) => {
     
     try {
       const response = await axios.post('http://127.0.0.1:5000/login', {
-        username,
+        usermail,
         password,
       });
 
@@ -28,12 +28,12 @@ const Login = ({ onSwitchToSignUp }) => {
     <div className="log-container">
       <h1>Login</h1>
       <form onSubmit={handleLogin}>
-        <label htmlFor="username">Username:</label>
+        <label htmlFor="Email">Email:</label>
         <input
           type="text"
-          id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          id="email"
+          value={usermail}
+          onChange={(e) => setUsermail(e.target.value)}
           required
         />
         <label htmlFor="password">Password:</label>
