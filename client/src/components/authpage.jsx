@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Login from './login';
-import SignupForm from './signupform';
+import SignupForm from './signform';
 
 const AuthPage = () => {
   const [isLoginView, setLoginView] = useState(true);
