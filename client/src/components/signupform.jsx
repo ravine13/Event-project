@@ -37,7 +37,16 @@ const SignupForm = ({ onBackToLogin }) => {
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit} className="signup-form">
       <label htmlFor="username">Name:</label>
-        <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} required />
+        <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+
+        <label>Role:</label>
+        <div>
+            <input type="radio"  id="organizer" name="organizer" checked={formData.role === 'Organizer'} onChange={handleChange} />
+            <label htmlFor="organizer">Organizer</label>
+
+            <input type="radio" id="attendee" name="attendee" checked={formData.role === 'Attendee'} onChange={handleChange} />
+            <label htmlFor="attendee">Attendee</label>
+          </div>
 
         <label htmlFor="email">Email:</label>
         <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
@@ -45,9 +54,7 @@ const SignupForm = ({ onBackToLogin }) => {
         <label htmlFor="password">Password:</label>
         <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required />
 
-        <label htmlFor="city">Role:</label>
-        <input type="text" id="role" name="role" value={formData.city} onChange={handleChange} />
-
+        
         <button type="submit">Sign Up</button>
         <button type="button" onClick={onBackToLogin}>Back to Login</button>
       </form>
