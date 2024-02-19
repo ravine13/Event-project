@@ -2,12 +2,12 @@ from flask import Flask, Blueprint
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_cors import CORS
-from pricing_controller import pricing_bp
+from app.pricing_controller import pricing_bp
 import os
 
 
-from Auth import jwt, bcrypt, auth_bp
-from models import db
+from app.Auth import jwt, bcrypt, auth_bp
+from app.models import db
 
 def create_app():
 
