@@ -2,6 +2,7 @@ from sqlalchemy import Column, DateTime, String, Integer, ForeignKey, Boolean, E
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -11,7 +12,7 @@ class User(db.Model):
     password = Column(String)
     confirmed = Column(Boolean)
     role = Column(Integer)
-    created_at = Column(DateTime)
+    created_at = Column(DateTime, default = datetime.utcnow)
     email = Column(String)
 
     def jsonify(self):
