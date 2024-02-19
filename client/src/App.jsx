@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 // import { useState } from 'react';
 import AuthPage from './components/authpage';
 import './App.css';
+import Home from './components/home';
 
 function App() {
 
@@ -26,10 +27,10 @@ function App() {
               <input id='srch-bar' placeholder='Search Event'></input>
             </div>
             <div>
-              <Link id='log-list' to="/">Home</Link>
+              <Link id='log-list' to="/home">Home</Link>
             </div>
             <div>
-              <Link id='log-list' to="/">Events</Link>
+              <Link id='log-list' to="/events">Events</Link>
             </div>
             <div >
               <Link id='log-list' to="/authpage/signup">Login</Link>
@@ -46,6 +47,7 @@ function App() {
 
         <Routes>
           <Route path="/authpage/*" element={<AuthPage />} />
+          <Route path="/home/*" element={<Home />} />
         </Routes>
       </div>
     </Router>
