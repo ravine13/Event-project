@@ -144,3 +144,4 @@ class Photo(db.Model):
     __tablename__ = 'Photo'
     id = Column(UUID, primary_key=True)
     url = Column(String)
+    event = relationship("Event", backref='photos')

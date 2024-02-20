@@ -1,9 +1,25 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook, faInstagram, faLinkedinIn, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import eventPageImage from "../assets/event-page-1.jpg"
 
 function Home() {
+  const [events, setEvents] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    fetch("http://localhost:5555/events")
+      .then((response) => response.json())
+      .then((data) => {setEvents(data);
+        const intervalId = setInterval(() => {
+          setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
+        }, 15000); 
+        return () => clearInterval(intervalId);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
   useEffect(() => {
     const carouselElement = document.querySelector('.carousel');
     if (carouselElement) {
@@ -11,16 +27,34 @@ function Home() {
     }
   }, []);
 
+  const carouselEvents = events.map((event) => ({
+    id: event.id,
+    imageUrl: event.profile_picture,
+    eventName: event.name,
+    startDate: event.start_date,
+  }));
+
   return (
     <>
       <div className="homed">
         <div id='hom'>
-          <h1>Home</h1>
-          <p>This is the home page.</p>
+          <h1 id='tck'>Ticket Nexus</h1>
+
+          <img src={eventPageImage} alt='Event ticket'  style={{ width: '300px', height: 'auto' }}/>          
+          <p>Elevating Events to Unforgettable Experiences</p>
+
           <button id='check-btn' type='button'>Check Events</button>
         </div>
         <div className="carousel" id='hom'>
-          <p>carousel coming here</p>
+          <h2>Upcoming  Event</h2>
+          {carouselEvents.length > 0 && (
+            <div>
+              <img src={carouselEvents[currentIndex].imageUrl} alt='Event' style={{ width: '200px', height: 'auto' }} />
+              <p> {carouselEvents[currentIndex].eventName}</p>
+              <p>Start Date: {carouselEvents[currentIndex].startDate}</p>
+              
+            </div>
+          )}
         </div>
       </div>
       <footer>

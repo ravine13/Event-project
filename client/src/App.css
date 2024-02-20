@@ -10,16 +10,16 @@
 
 }
 #home{
-  border-color: greenyellow;
+  /* border-color: greenyellow; */
   background-image: url("./assets/podium fabric.jpg");
   background-size: cover;
   background-position: center;
-  border: 2px solid rgb(59, 94, 6);
+  /* border: 2px solid rgb(59, 94, 6); */
   height: 98vh;
     
 }
 .homed{
-  border: 2px solid rgb(59, 94, 6);
+  /* border: 2px solid rgb(59, 94, 6); */
   height: 76vh;
   display: flex;
   flex-direction: row; 
@@ -30,7 +30,7 @@
   
 }
 #hom{
-  border: 1px solid rgb(135, 107, 43);
+  /* border: 1px solid rgb(135, 107, 43); */
   justify-content: center;
   width: 600px;
   margin-right: 20px;
@@ -55,6 +55,13 @@
   justify-content: space-between;
   background-color: #011C3B;
   align-items: center;
+}
+.carousel{
+  border-radius: 2%;
+  color:#54585d;
+  border: 1px solid rgb(135, 107, 43);
+  margin: auto;
+
 }
 
 .logo{
@@ -140,6 +147,9 @@
   background-color: #050505;
   border-color: rgb(135, 107, 43);
   color: white;
+}
+#tck{
+  color: rgb(135, 107, 43);
 }
 .log-container {
   max-width: 60%;
@@ -273,11 +283,11 @@ button:hover {
   justify-content: space-around;
   align-items: center;
   height: 100%;
+  border-top: 2px solid rgb(135, 107, 43);
   
 
 }
 .footer{
-  /* border: 1px solid rgb(135, 107, 43); */
   position: fixed;
   bottom: 0;
   left:0;
@@ -313,4 +323,47 @@ button:hover {
   justify-content: space-between;
   padding: 2px;
   color: rgb(135, 107, 43);
+}
+.event-details{
+  border: 1px solid rgb(135, 107, 43);
+  margin: auto;
+  width: 60%;
+  padding: 5px;
+  text-align: center;
+  height: auto;
+  opacity: 3;
+}
+.table-container {
+  width: 100%;
+}
+
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pricing-table th,
+.pricing-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.pricing-table th {
+  background-color: #f2f2f2;
+}
+
+.pricing-table td:first-child,
+.pricing-table th:first-child {
+  width: 40%; 
+}
+
+.pricing-table td:nth-child(2),
+.pricing-table th:nth-child(2) {
+  width: 30%; 
+}
+
+.pricing-table td:nth-child(3),
+.pricing-table th:nth-child(3) {
+  width: 30%; 
 }
