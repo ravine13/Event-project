@@ -124,8 +124,8 @@ function Event() {
 
                 <img src={event.profile_picture} alt={`${event.name}`} />
 
-                <h2> <span>Event: {event.name} </span> </h2>
-                <h2> <span>Venue: {event.venue} </span> </h2>
+                <h2> <span> {event.name} </span> </h2>
+                <h2> <span> {event.venue} </span> </h2>
                 <h3> Description: {event.description} </h3>
                 <h3> Duration: {event.duration} </h3>
                 <p> Start Time: {event.start_time} </p>

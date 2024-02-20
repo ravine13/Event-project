@@ -28,7 +28,7 @@ class UserResource(Resource):
             users = User.query.all()
             return jsonify(UserSchema(many=True).dump(users))
         
-    @jwt_required()
+    # @jwt_required()
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('email', type=str, required=True, help='Email is required')
@@ -56,7 +56,7 @@ class UserResource(Resource):
 
         return response
     
-    @jwt_required()
+    # @jwt_required()
     def patch(self):
         parser = reqparse.RequestParser()
         parser.add_argument('email', type=str, required=True, help='Email is required')

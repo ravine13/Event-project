@@ -15,7 +15,7 @@ function App() {
         <div id='nav'>
           
           <div id='logo-stf'>
-            <div id='under-ln'><span id='top-ln'>Ev </span> &<span id='top-ln'> P</span></div>
+            <div id='under-ln'><span id='top-ln'>T</span> &<span id='top-ln'> N</span></div>
             <div id='under-ln'><span>_______   __</span></div>
               
           </div>
