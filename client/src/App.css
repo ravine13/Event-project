@@ -324,3 +324,46 @@ button:hover {
   padding: 2px;
   color: rgb(135, 107, 43);
 }
+.event-details{
+  border: 1px solid rgb(135, 107, 43);
+  margin: auto;
+  width: 60%;
+  padding: 5px;
+  text-align: center;
+  height: auto;
+  opacity: 3;
+}
+.table-container {
+  width: 100%;
+}
+
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pricing-table th,
+.pricing-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.pricing-table th {
+  background-color: #f2f2f2;
+}
+
+.pricing-table td:first-child,
+.pricing-table th:first-child {
+  width: 40%; 
+}
+
+.pricing-table td:nth-child(2),
+.pricing-table th:nth-child(2) {
+  width: 30%; 
+}
+
+.pricing-table td:nth-child(3),
+.pricing-table th:nth-child(3) {
+  width: 30%; 
+}

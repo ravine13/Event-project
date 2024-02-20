@@ -1,21 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMessage,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import "../App.css";
-
-
-
 
 function Event() {
   const [events, setEvents] = useState([]);
   const [genreFilter, setGenreFilter] = useState("All");
   const [searchFilter, setSearchFilter] = useState("");
   const [dateFilter, setDateFilter] = useState("");
-  const [selectedEventId, setSelectedEventId] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:5555/events")
@@ -23,15 +16,6 @@ function Event() {
       .then((events) => setEvents(events))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
-
-  const handleCommentClick = (eventId) => {
-    setSelectedEventId(eventId);
-  };
-
-  const handleCommentSubmit = (commentText) => {
-    console.log(`Event ${selectedEventId} submitted a comment: ${commentText}`);
-    setSelectedEventId(null);
-  };
 
   const filteredData =
     genreFilter === "All"
@@ -118,26 +102,21 @@ function Event() {
           </div>
           <div className="eventCard">
             {filteredEvent.map((event) => (
-                <Link key={event.id} to={`/event/${event.id}`}>
-                    <div className="profile">
-                      <img src={event.profile_picture} alt={`${event.name}`} />
-                      <h2> <span> {event.name} </span> </h2>
-                      <h2> <span> {event.venue} </span> </h2>
-                      <h3> Description: {event.description} </h3>
-                      <h3> Duration: {event.duration} </h3>
-                      <p> Start Time: {event.start_time} </p>
-                      <p> start Date: {event.start_date} </p>
-                      <div className="iconitis">
-                          <div>
-                          </div>
-                          <div>
-                            <button id='tck-btn' type='button'> Buy Ticket</button>
-                            <FontAwesomeIcon icon={faMessage} size="2x" color="rgb(135, 107, 43)" onClick={() => handleCommentClick(event.id)} />
-                          </div>
-                      </div>
-                      {/* {selectedUserId === user.id && ()} */}
-                    </div>
-            </Link>
+              <Link key={event.id} to={`/event/${event.id}`}>
+                <div className="profile">
+                  <img src={event.profile_picture} alt={`${event.name}`} />
+                  <h2>
+                    <span> {event.name} </span>{" "}
+                  </h2>
+                  <h2>
+                    <span> {event.venue} </span>{" "}
+                  </h2>
+                  <h3> Description: {event.description} </h3>
+                  <h3> Duration: {event.duration} </h3>
+                  <p> Start Time: {event.start_time} </p>
+                  <p> start Date: {event.start_date} </p>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
