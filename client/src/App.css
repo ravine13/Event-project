@@ -189,3 +189,87 @@ button:hover {
   display: flex;
   flex-direction: column;
 }
+.events{
+  display: flex;
+  flex-direction: column;
+}
+.tiles{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: auto;
+
+}
+.card-event{
+  display: flex;
+  flex-direction: row;
+  /* border: 1px solid red; */
+  gap: 40px;
+
+}
+.sidebar{
+  background-color: rgb(230, 228, 228);
+  padding: 20px;
+  width: 400px;
+  border: 2px solid rgb(135, 107, 43);
+  text-align: center;
+  cursor: pointer;
+
+}
+.eventCard{
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(100% - 400px);
+  border: 1px solid rgb(135, 107, 43);
+
+}
+.profile {
+  margin: 12px;
+  padding: 20px;
+  width: 450px;
+  height: 60vh;
+  text-align: center;
+  border-radius: 10px;
+  background-color: rgb(230, 228, 228);
+  box-shadow: 0 4px 6px rgb(135, 107, 43);
+  transition: transform 0.2s;
+}
+
+.profile img{
+  max-width: 100%;
+  height: 30vh;
+}
+.profile:hover{
+  transform: scale(1.05);
+}
+/* .iconitis{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 20px;
+} */
+#hom{
+  border: rgb(135, 107, 43);
+}
+.footer-content{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 15px;
+  align-items: center;
+  
+
+}
+footer{
+  border: 1px solid rgb(135, 107, 43);
+  position: fixed;
+  bottom: 0;
+  left:0;
+  width: 100%;
+  height: 90px;
+  background-color: transparent;
+}
+.copyrigh{
+  text-align: center;
+  margin: auto;
+}

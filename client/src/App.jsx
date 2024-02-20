@@ -37,7 +37,7 @@ function App() {
               <Link id='log-list' to="/authpage/signup">Login</Link>
             </div>
             <div>
-              <Link  to="/"><button id='tck-btn' type='button'>Buy Ticket</button></Link>
+              <Link  to="/event"><button id='tck-btn' type='button'>Buy Ticket</button></Link>
             </div>
             
             
