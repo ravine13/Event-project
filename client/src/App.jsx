@@ -4,6 +4,7 @@ import AuthPage from './components/authpage';
 import './App.css';
 import Home from './components/home';
 import Event from './components/event';
+import EventDetails from './components/eventdetails';
 
 function App() {
 
@@ -50,6 +51,7 @@ function App() {
           <Route path="/authpage/*" element={<AuthPage />} />
           <Route path="/home/*" element={<Home />} />
           <Route path="/event/*" element={<Event />} />
+          <Route path="/event/:eventId" element={<EventDetails />} />
         </Routes>
       </div>
     </Router>
