@@ -15,7 +15,7 @@ function App() {
         <div id='nav'>
           
           <div id='logo-stf'>
-            <div id='under-ln'><span id='top-ln'>Ev </span> &<span id='top-ln'> P</span></div>
+            <div id='under-ln'><span id='top-ln'>T</span> &<span id='top-ln'> N</span></div>
             <div id='under-ln'><span>_______   __</span></div>
               
           </div>
@@ -37,7 +37,7 @@ function App() {
               <Link id='log-list' to="/authpage/signup">Login</Link>
             </div>
             <div>
-              <Link  to="/"><button id='tck-btn' type='button'>Buy Ticket</button></Link>
+              <Link  to="/event"><button id='tck-btn' type='button'>Buy Ticket</button></Link>
             </div>
             
             

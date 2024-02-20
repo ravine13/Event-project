@@ -9,6 +9,9 @@ const api = axios.create({
 export const fetchUsers = () => api.get('/users');
 export const fetchUser = (userId) => api.get(`/user/${userId}`);
 
+export const fetchEvents = () => api.get('/events');
+export const fetchEvent = (eventId) => api.get(`/event/${eventId}`);
+
 export const fetchAuthorizations = () => api.get('/authorizations');
 
 export const registerUser = async (userData) => {
@@ -28,5 +31,12 @@ export const getAllUsers = async () => {
     throw error.response.data;
   }
 };
-
+export const getAllEvents = async () => {
+    try {
+      const response = await api.get('/events');
+      return response.data;
+    } catch (error) {
+      throw error.response.data;
+    }
+  };
 export default api;
