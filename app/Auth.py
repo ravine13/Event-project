@@ -50,7 +50,8 @@ class UserLogin(Resource):
 
         token = create_access_token(identity=user.id)
         return token
-
+    
+api.add_resource(UserLogin,'/login')
 
 class UserRegister(Resource):
 
@@ -63,5 +64,5 @@ class UserRegister(Resource):
         db.session.commit()
         return {'detail':f'User {data.email} has been created successfully'}
 
-api.add_resource(UserLogin,'/login')
+
 api.add_resource(UserRegister,'/register')

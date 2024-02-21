@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from models import User, Profile, Interests, Tag, Event, Billing_Info, Payment_Details, Event_Billing, Pricing, Review, Payment, Booking, Photo, db
 from uuid import uuid4
 from datetime import datetime
@@ -145,6 +146,8 @@ for i in range(5):
 
 db.session.commit()
 
+=======
+>>>>>>> c95019540e9c1430b258bbbf3fe4276a6fce4368
 from models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_Details, Advert_Fees, Pricing, Review, Booking, Photo, db
 from uuid import uuid4
 from datetime import datetime, timedelta
@@ -158,6 +161,7 @@ with app.app_context():
     events = []
     photos = []
     billing_details = []
+    advert_fees = []
 
     for i in range(5):
         user = User(
@@ -166,10 +170,12 @@ with app.app_context():
             password='password',
             role=i,
             confirmed=True,
-            created_at=datetime.now()
+            created_at=datetime.now()  
         )
         db.session.add(user)
         users.append(user)
+
+    db.session.commit()
 
     for i, user in enumerate(users):
         profile = Profile(
@@ -182,13 +188,25 @@ with app.app_context():
         db.session.add(profile)
         profiles.append(profile)
 
+    db.session.commit()
+
+    image_urls = [
+        'https://www.ticketsasa.com/images/images.php?src=components/com_enmasse/upload/akili-02.jpg1707317289.jpg&h=320&w=320&zc=1&q=100&s=1&f=3,5|4,-5',
+        'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fkmcconaugheyray%2Fevent-posters%2F&psig=AOvVaw1mJ88lA6MzlUfmVekJsBCO&ust=1708578481592000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCJDEhoHVu4QDFQAAAAAdAAAAABAE',
+        'https://mir-s3-cdn-cf.behance.net/project_modules/disp/14cda14926289.560c6103a2798.png',
+        'https://marketplace.canva.com/EAFJMl8KcjI/1/0/1131w/canva-purple-black-tropical-party-club-poster-orVwDS2lrfY.jpg',
+        'https://www.ticketsasa.com/components/com_enmasse/upload/davido__king_promise_1080_by_1080-4.jpg1707721788.jpg'
+    ]
+
     for i in range(5):
         photo = Photo(
             id=uuid4(),
-            url=f'https://example.com/photo{i}.jpg'
+            url=image_urls[i]
         )
         db.session.add(photo)
         photos.append(photo)
+
+    db.session.commit()
 
     for i in range(5):
         event = Event(
@@ -197,16 +215,18 @@ with app.app_context():
             description=f'This is a description for Event{i}',
             organiser_id=users[i].id,  
             start_date=datetime.now() + timedelta(days=i),
-            start_time=datetime.now(),
+            start_time=datetime.now(),  
             end_date=datetime.now() + timedelta(days=i+1),
-            end_time=datetime.now(),
+            end_time=datetime.now(),  
             duration='1 hour',
             venue=f'Venue {i}',
-            photo_id=photos[i].id, 
-            created_at=datetime.now()
+            photo_id=photos[i].id,  
+            created_at=datetime.now()  
         )
         db.session.add(event)
         events.append(event)
+
+    db.session.commit()
 
     for i, user in enumerate(users):
         interest = Interests(
@@ -215,6 +235,8 @@ with app.app_context():
             user_id=user.id  
         )
         db.session.add(interest)
+
+    db.session.commit()
 
     for i, user in enumerate(users):
         tag = Tag(
@@ -225,6 +247,8 @@ with app.app_context():
         )
         db.session.add(tag)
 
+    db.session.commit()
+
     for i in range(5):
         billing_detail = Billing_Details(
             id=uuid4(),
@@ -233,6 +257,8 @@ with app.app_context():
         )
         db.session.add(billing_detail)
         billing_details.append(billing_detail)
+
+    db.session.commit()
 
     for i, user in enumerate(users):
         billing_info = Billing_Info(
@@ -243,6 +269,8 @@ with app.app_context():
         )
         db.session.add(billing_info)
 
+    db.session.commit()
+
     for i, event in enumerate(events):
         pricing = Pricing(
             event_id=event.id, 
@@ -251,6 +279,8 @@ with app.app_context():
             amount=float(i*10)
         )
         db.session.add(pricing)
+
+    db.session.commit()
 
     for i, user in enumerate(users):
         review = Review(
@@ -262,37 +292,20 @@ with app.app_context():
         )
         db.session.add(review)
 
+    db.session.commit()
+
     for i, user in enumerate(users):
         booking = Booking(
             id=uuid4(),
             event_id=events[i].id, 
             user_id=user.id,  
             pricing_id=pricing.id,  
-            date_created=datetime.now()
+            date_created=datetime.now()  
         )
         db.session.add(booking)
 
     db.session.commit()
 
-
-    advert_fees = []
-    for i, user in enumerate(users):
-        advert_fee = Advert_Fees(
-            id=uuid4(),
-            user_id=user.id,  
-            event_id=events[i].id,  
-            amount=float(i*10),
-            created_at=datetime.now()
-        )
-        db.session.add(advert_fee)
-        advert_fees.append(advert_fee)
-
-    db.session.commit()
-    
-    users = User.query.all()
-    events = Event.query.all()
-
-    advert_fees = []
     for i, user in enumerate(users):
         for event in events:
             advert_fee = Advert_Fees(
@@ -300,7 +313,7 @@ with app.app_context():
                 user_id=user.id,  
                 event_id=event.id,  
                 amount=float(i*10),
-                created_at=datetime.now()
+                created_at=datetime.now()  
             )
             db.session.add(advert_fee)
             advert_fees.append(advert_fee)
@@ -308,4 +321,3 @@ with app.app_context():
     db.session.commit()
 
 print("Seed data has been added to the database.")
-
