@@ -20,7 +20,7 @@ class PhotoSchema(SQLAlchemyAutoSchema):
 photo_schema = PhotoSchema()
 
 class EventSchema(SQLAlchemyAutoSchema):
-    photo = fields.Nested(PhotoSchema)  # Add this line
+    photo = fields.Nested(PhotoSchema)  
 
     class Meta:
         model = Event
@@ -67,14 +67,14 @@ class EventByID(Resource):
         else:
             bookings = booking_schema.dump(event.bookings, many=True)
             reviews = review_schema.dump(event.reviews, many=True)
-            photo = photo_schema.dump(event.photo)  # Add this line
+            photo = photo_schema.dump(event.photo)  
 
             response = make_response(
                 jsonify({
                     "event": event_schema.dump(event),
                     "bookings": bookings,
                     "reviews": reviews,
-                    "photo": photo  # And this line
+                    "photo": photo  
                 }),
                 200
             )

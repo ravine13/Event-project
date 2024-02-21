@@ -7,11 +7,12 @@ from flask_bcrypt import Bcrypt
 from flask_jwt_extended import (JWTManager,
                                  create_access_token, 
                                  jwt_required,
-                                  current_user
+                                  current_user,
+                                  get_jwt
 )
 from flask_restful import Resource, Api, reqparse , abort
 
-from models import User, db
+from models import User, db,TokenBlocklist
 from uuid import uuid4
 
 auth_bp = Blueprint('auth',__name__)
@@ -66,3 +67,16 @@ class UserRegister(Resource):
 
 
 api.add_resource(UserRegister,'/register')
+
+class UserLogout(Resource):
+
+    @jwt_required()
+    def get(self):
+        token = get_jwt()
+        blocked_token = TokenBlocklist(jti=token['jti'], created_at=datetime.now(timezone.utc))
+        db.session.add(blocked_token)
+        db.session.commit()
+        return {"detail":"token logging out"}
+    
+api.add_resource(UserLogout,'/logout')
+
