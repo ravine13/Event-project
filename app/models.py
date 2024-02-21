@@ -39,8 +39,6 @@ class Interests(db.Model):
     id = Column(UUID, primary_key=True)
     event_id = Column(UUID, ForeignKey('Event.id'))
     user_id = Column(UUID, ForeignKey('user.id'))
-    # user = relationship('User', backref='interests')
-    # event = relationship('Event', backref='interests')
 
     def jsonify(self):
         return {
@@ -76,7 +74,7 @@ class Event(db.Model):
     venue = Column(String)
     photo_id = Column(UUID, ForeignKey('Photo.id'))
     created_at = Column(DateTime)
-    photo = relationship('Photo', backref='events')
+    photo = relationship('Photo', back_populates='event')
 
 class Billing_Info(db.Model):
     __tablename__ = 'Billing_Info'
@@ -140,6 +138,8 @@ class Booking(db.Model):
     
 
 class Photo(db.Model):
-    __tablename__ = 'Photo'
+    __tablename__= 'Photo'
     id = Column(UUID, primary_key=True)
     url = Column(String)
+    event = relationship("Event", back_populates='photo')
+
