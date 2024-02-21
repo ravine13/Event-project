@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, make_response
 from flask_restful import reqparse, Api, Resource
-from models import db, Profile
+from app.models import db, Profile
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
-from sqlalchemy.dialects.postgresql import UUID
+import uuid
 from flask_marshmallow import Marshmallow
 
 
@@ -30,8 +30,13 @@ class Profiles(Resource):
     
 
 class ProfilesById(Resource):
+    
+    patch_args = reqparse.RequestParser(bundle_errors=True)
+    patch_args.add_argument('first_name', type=str, help='Updated first name of the user')
+    patch_args.add_argument('last_name', type=str, help='Updated last name of the user')
+    patch_args.add_argument('profile_photo', type=str, help='Updated profile photo of the user')
     def get(self, id):
-        id = UUID(id)
+        id = uuid.UUID(id)
         profile = Profile.query.filter_by(id=id).first()
 
         if profile is None:
@@ -54,7 +59,7 @@ class ProfilesById(Resource):
             return response
         
     def delete(self,id):
-        id = UUID(id)
+        id = uuid.UUID(id)
         profile = Profile.query.filter_by(id=id).first()
         
         if profile is None:
@@ -67,14 +72,15 @@ class ProfilesById(Resource):
             db.session.delete(profile)
             db.session.commit()
 
+            response = make_response(
+                jsonify({"message": "Profile deleted"}),
+                200
+            )
+            return response
+
     def patch(self, id):
         
-        patch_args = reqparse.RequestParser(bundle_errors=True)
-        patch_args.add_argument('first_name', type=str, help='Updated first name of the user')
-        patch_args.add_argument('last_name', type=str, help='Updated last name of the user')
-        patch_args.add_argument('profile_photo', type=str, help='Updated profile photo of the user')
-
-        id = UUID(id)
+        id = uuid.UUID(id)
         profile = Profile.query.filter_by(id=id).first()
 
         if profile is None:

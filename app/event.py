@@ -3,20 +3,25 @@ from datetime import datetime
 from flask_restful import Api, Resource, reqparse
 from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema,auto_field
-from models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_Details, Advert_Fees, Pricing, Review, Booking, Photo, db
+from app.models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_Details, Advert_Fees, Pricing, Review, Booking, Photo, db
 from marshmallow import Schema, fields
 from flask_jwt_extended import jwt_required
 from uuid import UUID
 from uuid import uuid4
 from datetime import datetime
 
-
-
 event_bp = Blueprint('event', __name__)
 api = Api(event_bp)
 ma = Marshmallow(event_bp)
 
+class PhotoSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = Photo
+photo_schema = PhotoSchema()
+
 class EventSchema(SQLAlchemyAutoSchema):
+    photo = fields.Nested(PhotoSchema)  # Add this line
+
     class Meta:
         model = Event
 event_schema = EventSchema()
@@ -30,7 +35,6 @@ class BookingSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Booking
 booking_schema = BookingSchema()
-
 
 def uuid_type(value):
     return UUID(value)
@@ -63,12 +67,14 @@ class EventByID(Resource):
         else:
             bookings = booking_schema.dump(event.bookings, many=True)
             reviews = review_schema.dump(event.reviews, many=True)
+            photo = photo_schema.dump(event.photo)  # Add this line
 
             response = make_response(
                 jsonify({
                     "event": event_schema.dump(event),
                     "bookings": bookings,
-                    "reviews": reviews
+                    "reviews": reviews,
+                    "photo": photo  # And this line
                 }),
                 200
             )
@@ -166,4 +172,3 @@ class new_Event(Resource):
         return res
 
 api.add_resource(new_Event, '/new_event')
-

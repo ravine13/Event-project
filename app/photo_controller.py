@@ -4,8 +4,8 @@ from flask_restful import Api, Resource, reqparse
 from uuid import UUID
 from uuid import uuid4
 from flask_jwt_extended import jwt_required
-from models import Photo
-from models import db
+from app.models import Photo
+from app.models import db
 
 
 class PhotoSchema(SQLAlchemyAutoSchema):

@@ -11,7 +11,7 @@ from flask_jwt_extended import (JWTManager,
 )
 from flask_restful import Resource, Api, reqparse , abort
 
-from models import User, db
+from app.models import User, db
 from uuid import uuid4
 
 auth_bp = Blueprint('auth',__name__)
@@ -50,7 +50,8 @@ class UserLogin(Resource):
 
         token = create_access_token(identity=user.id)
         return token
-
+    
+api.add_resource(UserLogin,'/login')
 
 class UserRegister(Resource):
 
@@ -63,5 +64,5 @@ class UserRegister(Resource):
         db.session.commit()
         return {'detail':f'User {data.email} has been created successfully'}
 
-api.add_resource(UserLogin,'/login')
+
 api.add_resource(UserRegister,'/register')
