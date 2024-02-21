@@ -12,6 +12,7 @@ from flask_jwt_extended import (JWTManager,
 )
 from flask_restful import Resource, Api, reqparse , abort
 
+
 from models import User, db,TokenBlocklist
 from uuid import uuid4
 

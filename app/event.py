@@ -3,7 +3,7 @@ from datetime import datetime
 from flask_restful import Api, Resource, reqparse
 from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema,auto_field
-from models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_Details, Advert_Fees, Pricing, Review, Booking, Photo, db
+from app.models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_Details, Advert_Fees, Pricing, Review, Booking, Photo, db
 from marshmallow import Schema, fields
 from flask_jwt_extended import jwt_required
 from uuid import UUID

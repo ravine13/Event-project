@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 # from flask import Flask, Blueprint
 # from flask_marshmallow import Marshmallow
 # from flask_migrate import Migrate
@@ -31,3 +33,4 @@
 
 
 # app = create_app()
+>>>>>>> c95019540e9c1430b258bbbf3fe4276a6fce4368

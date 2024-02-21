@@ -1,0 +1,369 @@
+#root{
+  background-color: #011C3B;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  /* border: 2px solid yellow; */
+
+}
+#home{
+  /* border-color: greenyellow; */
+  background-image: url("./assets/podium fabric.jpg");
+  background-size: cover;
+  background-position: center;
+  /* border: 2px solid rgb(59, 94, 6); */
+  height: 98vh;
+    
+}
+.homed{
+  /* border: 2px solid rgb(59, 94, 6); */
+  height: 76vh;
+  display: flex;
+  flex-direction: row; 
+  text-align: center; 
+  justify-content: center;
+  align-items: center;
+  
+  
+}
+#hom{
+  /* border: 1px solid rgb(135, 107, 43); */
+  justify-content: center;
+  width: 600px;
+  margin-right: 20px;
+  height: 50vh;
+}
+#check-btn{
+  width: 150px;
+  bottom: 10px;
+  border: 1px solid rgb(135, 107, 43);
+}
+#check-btn:hover {
+  background-color: black;
+  transform: (0.2);
+}
+#nav{
+  width: 100%;
+  margin: 0;
+  /* border: 2px solid purple; */
+  height: 8vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #011C3B;
+  align-items: center;
+}
+.carousel{
+  border-radius: 2%;
+  color:#54585d;
+  border: 1px solid rgb(135, 107, 43);
+  margin: auto;
+
+}
+
+.logo{
+  font-size: 42px;
+  font-family: helvetica;
+  font-style: italic;
+}
+
+#log-list{
+  color: #54585d;
+  font-size: 28px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: lighter;
+}
+
+#log-list:hover{
+  font-size: 30px;
+}
+
+.nav-list{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+  font-size: 20px;
+  margin: 5px;
+  width: 450px;
+  height: 40px;
+  gap: 80px;
+  /* border: 1px solid red; */
+
+
+}
+#logo-stf{
+  padding: 12px;
+  margin: 10px;
+  color: #8a999f;
+
+}
+#top-ln{
+  font-size: 28px;
+  margin-bottom: 0px;
+}
+#under-ln{
+  font-size: 15px;
+}
+#cards{
+  width: 100px;
+  height: 30vh;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 20px;
+  display: block;
+  flex-direction: column;
+  /* border: 2px solid black; */
+}
+
+#tck-btn{
+  padding: 10px;
+  margin-top: 10px; 
+  background-color: transparent;
+  color: #54585d;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 25px;
+  width: 70px;
+  font-size: 9px;
+
+}
+#tck-btn:hover {
+  background-color: #050505;
+  border-color: rgb(135, 107, 43);
+  transform: scale(1.2); 
+}
+#srch-bar{
+  width: 100px;
+  background-color: transparent;
+  padding: 10px;
+  margin-top: 10px;
+
+}
+#srch-bar:hover{
+  background-color: #050505;
+  border-color: rgb(135, 107, 43);
+  color: white;
+}
+#tck{
+  color: rgb(135, 107, 43);
+}
+.log-container {
+  max-width: 60%;
+  margin: auto;
+  padding: 50px;
+  height: 75vh;
+  /* border: 1px solid #ccc; */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  align-items: center;
+  justify-content: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 15px;
+  
+}
+
+input {
+  width: 98%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+button {
+  padding: 10px;
+  margin-top: 10px; 
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 25px;
+  border-color: rgb(135, 107, 43);
+}
+
+button:hover {
+  /* background-color: #54585d; */
+  border-color: rgb(135, 107, 43); 
+}
+
+.signup-form button {
+  margin-top: 10px; 
+  background-color: transparent; 
+}
+
+.signup-form button:hover {
+  border-color: rgb(135, 107, 43); 
+}
+
+.signup-form-container {
+  max-width: 65%;
+  font-size: 20px;
+  margin: auto;
+  padding: 20px;
+  height: 75vh;
+  /* border: 1px solid #ccc; */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+}
+.events{
+  display: flex;
+  flex-direction: column;
+}
+.tiles{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: auto;
+
+}
+.card-event{
+  display: flex;
+  flex-direction: row;
+  /* border: 1px solid red; */
+  gap: 40px;
+
+}
+.sidebar{
+  background-color: rgb(230, 228, 228);
+  padding: 20px;
+  width: 400px;
+  border: 2px solid rgb(135, 107, 43);
+  text-align: center;
+  cursor: pointer;
+
+}
+.eventCard{
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(100% - 400px);
+  border: 1px solid rgb(135, 107, 43);
+
+}
+.profile {
+  margin: 12px;
+  padding: 20px;
+  width: 450px;
+  height: 60vh;
+  text-align: center;
+  border-radius: 10px;
+  background-color: rgb(230, 228, 228);
+  box-shadow: 0 4px 6px rgb(135, 107, 43);
+  transition: transform 0.2s;
+}
+
+.profile img{
+  max-width: 100%;
+  height: 30vh;
+}
+.profile:hover{
+  transform: scale(1.05);
+}
+/* .iconitis{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 20px;
+} */
+
+.footer-content{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  border-top: 2px solid rgb(135, 107, 43);
+  
+
+}
+.footer{
+  position: fixed;
+  bottom: 0;
+  left:0;
+  width: 100%;
+  height: 30px;
+  background-color: transparent;
+}
+.copyright{
+  text-align: center;
+  margin: auto;
+  font-size: 10px;
+}
+.social{
+  /* border:1px solid #ccc; */
+  width: 10%;
+  text-align: center;
+  font-size: 12px;
+
+}
+.contact-info{
+   /* border:1px solid #ccc; */
+   width: 10%;
+   text-align: center;
+   font-size: 8px;
+   display: flex;
+   flex-direction: column;
+  
+}
+.social-media{
+  /* border: 1px solid #ccc; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 2px;
+  color: rgb(135, 107, 43);
+}
+.event-details{
+  border: 1px solid rgb(135, 107, 43);
+  margin: auto;
+  width: 60%;
+  padding: 5px;
+  text-align: center;
+  height: auto;
+  opacity: 3;
+}
+.table-container {
+  width: 100%;
+}
+
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pricing-table th,
+.pricing-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.pricing-table th {
+  background-color: #f2f2f2;
+}
+
+.pricing-table td:first-child,
+.pricing-table th:first-child {
+  width: 40%; 
+}
+
+.pricing-table td:nth-child(2),
+.pricing-table th:nth-child(2) {
+  width: 30%; 
+}
+
+.pricing-table td:nth-child(3),
+.pricing-table th:nth-child(3) {
+  width: 30%; 
+}
