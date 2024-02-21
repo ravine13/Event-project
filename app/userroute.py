@@ -2,7 +2,7 @@ from flask import Flask, Blueprint, jsonify, make_response, request
 from flask_restful import Api, Resource, reqparse
 from datetime import datetime
 from uuid import uuid4, UUID
-from models import User, db
+from app.models import User, db
 from flask_jwt_extended import jwt_required
 from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema

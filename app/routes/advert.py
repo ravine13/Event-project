@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, make_response
 from flask_restful import reqparse, Api, Resource
-from models import db, Advert_Fees
+from app.models import db, Advert_Fees
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
-from sqlalchemy.dialects.postgresql import UUID
+import uuid
 from flask_marshmallow import Marshmallow
 
 
@@ -17,7 +17,12 @@ class Advert_FeesSchema(SQLAlchemyAutoSchema):
         model = Advert_Fees
 advert_fees_schema = Advert_FeesSchema()
 
-class Advert_FeesResource(Resource):
+class Advert_Fees_Resource(Resource):
+    
+    post_args = reqparse.RequestParser(bundle_errors=True)
+    post_args.add_argument('user_id', type=str, help='ID of the User')
+    post_args.add_argument('amount', type=float, help='Amount of the Advert Fee', required=True)
+    post_args.add_argument('event_id', type=str, help='ID of the Event')
     def get(self):
         advert = Advert_Fees.query.all()
         adverts = advert_fees_schema.dump(advert, many=True)
@@ -28,12 +33,33 @@ class Advert_FeesResource(Resource):
         )
 
         return res
+    
+    
+    def post(self):
+        new_advert_fees = self.post_args.parse_args()
+        new_advert_fees['id'] = uuid.uuid4()
+        new_advert_fees['user_id'] = uuid.uuid4()
+        new_advert_fees['event_id'] = uuid.uuid4()
+        new_advert_fee = Advert_Fees(**new_advert_fees)
+        db.session.add(new_advert_fee)
+        db.session.commit()
+        res = make_response(
+            jsonify(advert_fees_schema.dump(new_advert_fee)),
+            201
+        )
         
-api.add_resource(Advert_FeesResource, '/advert_fees')
+        return res
+        
+
 
 class Advert_FeesByID(Resource):
+
+    patch_args = reqparse.RequestParser(bundle_errors=True)
+    patch_args.add_argument('user_id', type=str)
+    patch_args.add_argument('amount', type=str)
+    patch_args.add_argument('event_id', type=str)
     def get(self, id):
-        id = UUID(id)
+        id = uuid.UUID(id)
         advert_fee = Advert_Fees.query.filter_by(id=id).first()
 
         if advert_fee is None:
@@ -57,7 +83,7 @@ class Advert_FeesByID(Resource):
             return res
   
     def delete(self, id):
-        id = UUID(id)
+        id = uuid.UUID(id)
         advert_fee = Advert_Fees.query.filter_by(id=id).first()
 
         if advert_fee is None:
@@ -78,51 +104,33 @@ class Advert_FeesByID(Resource):
             return response
         
     def patch(self, id):
-        id = UUID(id)
+        id = uuid.UUID(id)
         advert_fee = Advert_Fees.query.filter_by(id=id).first()
 
         if advert_fee is None:
-            res = make_response(
+            response = make_response(
                 jsonify({"Error": "Advert Fee not found"}),
                 404
             )
-            return res
+            return response
 
-        else:
-            update_advert_fees = self.patch_args.parse_args()
-            if update_advert_fees['user_id']:
-                advert_fee.user_id = update_advert_fees['user_id']
-            if update_advert_fees['amount']:
-                advert_fee.amount = update_advert_fees['amount']
-            if update_advert_fees['event_id']:
-                advert_fee.event_id = update_advert_fees['event_id']
+        update_advert_fees = self.patch_args.parse_args()
+        if update_advert_fees['user_id']:
+            advert_fee.user_id = uuid.UUID(update_advert_fees['user_id'])
+        if update_advert_fees['amount']:
+            advert_fee.amount = float(update_advert_fees['amount'])
+        if update_advert_fees['event_id']:
+            advert_fee.event_id = uuid.UUID(update_advert_fees['event_id'])
 
-            db.session.commit()
-
-            res = make_response(
-                jsonify({"message": "Advert Fee updated"}),
-                200
-            )
-            return res
-
-
-class new_Advert_Fees(Resource):
-    post_args = reqparse.RequestParser(bundle_errors=True)
-    post_args.add_argument('user_id', type=UUID, help='ID of the User', required=True)
-    post_args.add_argument('amount', type=float, help='Amount of the Advert Fee', required=True)
-    post_args.add_argument('event_id', type=UUID, help='ID of the Event', required=True)
-
-    def post(self):
-        new_advert_fees = self.post_args.parse_args()
-        new_advert_fee = Advert_Fees(id=UUID(), **new_advert_fees)
-        db.session.add(new_advert_fee)
         db.session.commit()
-        res = make_response(
-            jsonify(advert_fees_schema.dump(new_advert_fee)),
-            201
-        )
-        
-        return res
 
+        response = make_response(
+            jsonify({"message": "Advert Fee updated"}),
+            200
+            )
+        return response
+
+
+    
+api.add_resource(Advert_Fees_Resource, '/advert_fees')
 api.add_resource(Advert_FeesByID, '/advert_fees/<string:id>')
-api.add_resource(new_Advert_Fees, '/new_advert_fees')

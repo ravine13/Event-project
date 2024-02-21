@@ -103,7 +103,7 @@ class Advert_Fees(db.Model):
     amount = Column(Float)
     event = relationship('Event', backref='advert_fees')
     event_id = Column(UUID, ForeignKey('Event.id'))
-    created_at = Column(DateTime)
+    created_at = Column(db.DateTime, default=datetime.utcnow)
     
     
 
