@@ -2,7 +2,7 @@ from flask import Flask, Blueprint, jsonify, make_response, request
 from flask_restful import Api, Resource, reqparse
 from datetime import datetime
 from uuid import uuid4, UUID
-from models import User, db
+from app.models import User, db
 from flask_jwt_extended import jwt_required
 from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
@@ -28,7 +28,7 @@ class UserResource(Resource):
             users = User.query.all()
             return jsonify(UserSchema(many=True).dump(users))
         
-    @jwt_required()
+    # @jwt_required()
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('email', type=str, required=True, help='Email is required')
@@ -56,7 +56,7 @@ class UserResource(Resource):
 
         return response
     
-    @jwt_required()
+    # @jwt_required()
     def patch(self):
         parser = reqparse.RequestParser()
         parser.add_argument('email', type=str, required=True, help='Email is required')

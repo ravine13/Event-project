@@ -4,8 +4,8 @@ from flask_restful import Api, Resource, reqparse
 from uuid import UUID
 from uuid import uuid4
 from flask_jwt_extended import jwt_required
-from models import Photo
-from models import db
+from app.models import Photo
+from app.models import db
 
 
 class PhotoSchema(SQLAlchemyAutoSchema):
@@ -25,7 +25,7 @@ class Photo_Rsrc(Resource):
         response = make_response(jsonify(photos_list), 200)
         return response
 
-    # @jwt_required()
+    @jwt_required()
     def post(self):
         data = request.get_json()
         if data is not None:
@@ -49,7 +49,7 @@ class Photo_By_ID(Resource):
         else:
             abort(404, details='Not Found!')
 
-    # @jwt_required()
+    @jwt_required()
     def patch(self, id):
         id = UUID(id)
         data = request.get_json()
@@ -64,7 +64,7 @@ class Photo_By_ID(Resource):
         else:
             return(make_response(jsonify({'message': 'Action Aborted! Invalid Data!'}), 404))
 
-    # @jwt_required() 
+    @jwt_required() 
     def delete(self, id):
         id = UUID(id)
         photo = Photo.query.filter_by(id = id).first()

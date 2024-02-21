@@ -2,24 +2,26 @@ from flask import Flask, Blueprint
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_cors import CORS
-from main import main_bp
-from userroute import user_bp
-from interests import interest_bp
-from billing_info import billing_info_bp
-from tags import tags_bp
-from pricing_controller import pricing_bp
-from photo_controller import photo_bp
 import os
+from app.models import db
+from app.main import main_bp
+from app.tags import tags_bp
+from app.event import event_bp
+from app.review import review_bp
+from app.userroute import user_bp
+from app.booking import booking_bp
+from app.interests import interest_bp
+from app.photo_controller import photo_bp
+from app.Auth import jwt, bcrypt, auth_bp
+from app.billing_info import billing_info_bp
+from app.pricing_controller import pricing_bp
+from app.routes.advert import advert_fees_bp
+from app.routes.profiles import profiles_bp
 
-from Auth import jwt, bcrypt, auth_bp
-from models import db
-from event import event_bp
-from review import review_bp
-from booking import booking_bp
+
 
 def create_app():
-    app = Flask(__name__)
-    
+    app = Flask(__name__)    
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'app.db')
     app.config['SECRET_KEY'] = b"\x06F\x14\x91\xba\xdc\x9a\x96g'\xc7\xb0"
     
@@ -28,6 +30,8 @@ def create_app():
     jwt.init_app(app)
     bcrypt.init_app(app)
     migrate = Migrate(app, db)
+    ma = Marshmallow(app)
+
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(event_bp)
@@ -36,12 +40,14 @@ def create_app():
     app.register_blueprint(user_bp)
     app.register_blueprint(interest_bp)
     app.register_blueprint(billing_info_bp)
+    app.register_blueprint(profiles_bp)
+    app.register_blueprint(advert_fees_bp)
     app.register_blueprint(tags_bp)
     app.register_blueprint(pricing_bp)
     app.register_blueprint(photo_bp)
     CORS(app, resources={r"*": {"origins": "*"}})
  
-    ma = Marshmallow(app)
+    
     return app
 
 app = create_app()

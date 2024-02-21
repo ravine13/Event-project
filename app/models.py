@@ -2,6 +2,7 @@ from sqlalchemy import Column, DateTime, String, Integer, ForeignKey, Boolean, E
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -11,7 +12,7 @@ class User(db.Model):
     password = Column(String)
     confirmed = Column(Boolean)
     role = Column(Integer)
-    created_at = Column(DateTime)
+    created_at = Column(DateTime, default = datetime.utcnow)
     email = Column(String)
 
     def jsonify(self):
@@ -102,7 +103,7 @@ class Advert_Fees(db.Model):
     amount = Column(Float)
     event = relationship('Event', backref='advert_fees')
     event_id = Column(UUID, ForeignKey('Event.id'))
-    created_at = Column(DateTime)
+    created_at = Column(db.DateTime, default=datetime.utcnow)
     
     
 
@@ -143,3 +144,4 @@ class Photo(db.Model):
     __tablename__ = 'Photo'
     id = Column(UUID, primary_key=True)
     url = Column(String)
+    event = relationship("Event", backref='photos')
