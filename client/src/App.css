@@ -3,30 +3,48 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   overflow: hidden;
   /* border: 2px solid yellow; */
 
 }
-.homed{
-  border-color: greenyellow;
+#home{
+  /* border-color: greenyellow; */
   background-image: url("./assets/podium fabric.jpg");
   background-size: cover;
   background-position: center;
-  border: 2px solid rgb(59, 94, 6);
-  text-align: center;
-  height: 80vh;
+  /* border: 2px solid rgb(59, 94, 6); */
+  height: 98vh;
     
 }
-#home{
+.homed{
   /* border: 2px solid rgb(59, 94, 6); */
-  height: 100vh;
+  height: 76vh;
+  display: flex;
+  flex-direction: row; 
+  text-align: center; 
   justify-content: center;
+  align-items: center;
   
   
 }
-
+#hom{
+  /* border: 1px solid rgb(135, 107, 43); */
+  justify-content: center;
+  width: 600px;
+  margin-right: 20px;
+  height: 50vh;
+}
+#check-btn{
+  width: 150px;
+  bottom: 10px;
+  border: 1px solid rgb(135, 107, 43);
+}
+#check-btn:hover {
+  background-color: black;
+  transform: (0.2);
+}
 #nav{
   width: 100%;
   margin: 0;
@@ -37,6 +55,13 @@
   justify-content: space-between;
   background-color: #011C3B;
   align-items: center;
+}
+.carousel{
+  border-radius: 2%;
+  color:#54585d;
+  border: 1px solid rgb(135, 107, 43);
+  margin: auto;
+
 }
 
 .logo{
@@ -123,6 +148,9 @@
   border-color: rgb(135, 107, 43);
   color: white;
 }
+#tck{
+  color: rgb(135, 107, 43);
+}
 .log-container {
   max-width: 60%;
   margin: auto;
@@ -188,4 +216,154 @@ button:hover {
 .signup-form {
   display: flex;
   flex-direction: column;
+}
+.events{
+  display: flex;
+  flex-direction: column;
+}
+.tiles{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: auto;
+
+}
+.card-event{
+  display: flex;
+  flex-direction: row;
+  /* border: 1px solid red; */
+  gap: 40px;
+
+}
+.sidebar{
+  background-color: rgb(230, 228, 228);
+  padding: 20px;
+  width: 400px;
+  border: 2px solid rgb(135, 107, 43);
+  text-align: center;
+  cursor: pointer;
+
+}
+.eventCard{
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(100% - 400px);
+  border: 1px solid rgb(135, 107, 43);
+
+}
+.profile {
+  margin: 12px;
+  padding: 20px;
+  width: 450px;
+  height: 60vh;
+  text-align: center;
+  border-radius: 10px;
+  background-color: rgb(230, 228, 228);
+  box-shadow: 0 4px 6px rgb(135, 107, 43);
+  transition: transform 0.2s;
+}
+
+.profile img{
+  max-width: 100%;
+  height: 30vh;
+}
+.profile:hover{
+  transform: scale(1.05);
+}
+/* .iconitis{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 20px;
+} */
+
+.footer-content{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  border-top: 2px solid rgb(135, 107, 43);
+  
+
+}
+.footer{
+  position: fixed;
+  bottom: 0;
+  left:0;
+  width: 100%;
+  height: 30px;
+  background-color: transparent;
+}
+.copyright{
+  text-align: center;
+  margin: auto;
+  font-size: 10px;
+}
+.social{
+  /* border:1px solid #ccc; */
+  width: 10%;
+  text-align: center;
+  font-size: 12px;
+
+}
+.contact-info{
+   /* border:1px solid #ccc; */
+   width: 10%;
+   text-align: center;
+   font-size: 8px;
+   display: flex;
+   flex-direction: column;
+  
+}
+.social-media{
+  /* border: 1px solid #ccc; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 2px;
+  color: rgb(135, 107, 43);
+}
+.event-details{
+  border: 1px solid rgb(135, 107, 43);
+  margin: auto;
+  width: 60%;
+  padding: 5px;
+  text-align: center;
+  height: auto;
+  opacity: 3;
+}
+.table-container {
+  width: 100%;
+}
+
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pricing-table th,
+.pricing-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.pricing-table th {
+  background-color: #f2f2f2;
+}
+
+.pricing-table td:first-child,
+.pricing-table th:first-child {
+  width: 40%; 
+}
+
+.pricing-table td:nth-child(2),
+.pricing-table th:nth-child(2) {
+  width: 30%; 
+}
+
+.pricing-table td:nth-child(3),
+.pricing-table th:nth-child(3) {
+  width: 30%; 
 }

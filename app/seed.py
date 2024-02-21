@@ -51,14 +51,15 @@ for i in range(5):
         name=f'Event{i}',
         description=f'Description for Event{i}',
         organiser_id=uuid4(),  
-        start_date=datetime.now(),
-        start_time=datetime.now(),
-        end_date=datetime.now(),
-        end_time=datetime.now(),
+        start_date=datetime.now().strftime('%Y-%m-%d'),
+        start_time=datetime.now().strftime('%H:%M'),
+        end_date=datetime.now().strftime('%Y-%m-%d'),
+        end_time=datetime.now().strftime('%H:%M'),
         duration='1 hour',
         venue='Venue',
+        photo_url='https://example.com/image.jpg',
         photo_id=uuid4(), 
-        created_at=datetime.now()
+        created_at=datetime.now().strftime('%Y-%m-%d')
     )
     db.session.add(event)
 

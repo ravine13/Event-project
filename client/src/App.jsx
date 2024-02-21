@@ -1,11 +1,23 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-// import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import AuthPage from './components/authpage';
 import './App.css';
 import Home from './components/home';
 import Event from './components/event';
+import EventDetails from './components/eventdetails';
 
 function App() {
+  
+  const [showBackButton, setShowBackButton] = useState(false); 
+
+  useEffect(() => {
+  
+    setShowBackButton(window.location.pathname !== '/');
+  }, []);
+
+  const goBack = () => {
+    window.history.back();
+  };
 
 
   return (
@@ -15,7 +27,7 @@ function App() {
         <div id='nav'>
           
           <div id='logo-stf'>
-            <div id='under-ln'><span id='top-ln'>Ev </span> &<span id='top-ln'> P</span></div>
+            <div id='under-ln'><span id='top-ln'>T</span> &<span id='top-ln'> N</span></div>
             <div id='under-ln'><span>_______   __</span></div>
               
           </div>
@@ -37,7 +49,7 @@ function App() {
               <Link id='log-list' to="/authpage/signup">Login</Link>
             </div>
             <div>
-              <Link  to="/"><button id='tck-btn' type='button'>Buy Ticket</button></Link>
+              <Link  to="/event"><button id='tck-btn' type='button'>Buy Ticket</button></Link>
             </div>
             
             
@@ -45,12 +57,15 @@ function App() {
         </div>
         <hr />
         <div></div>
-
+        {showBackButton && <button id="back-button" onClick={goBack}>Back</button>}
         <Routes>
+        
           <Route path="/authpage/*" element={<AuthPage />} />
           <Route path="/home/*" element={<Home />} />
           <Route path="/event/*" element={<Event />} />
+          <Route path="/event/:eventId" element={<EventDetails />} />
         </Routes>
+        
       </div>
     </Router>
   );
