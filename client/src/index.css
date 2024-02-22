@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -36,7 +40,6 @@ h1 {
   color: #54585d;
   align-items: center;
   justify-content: center;
-
 }
 
 button {
