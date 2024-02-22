@@ -17,6 +17,8 @@ function Event() {
       .then((r) => r.json())
       .then((events) => setEvents(events))
       .catch((error) => console.error("Error fetching data:", error));
+
+      
   }, []);
 
   const filteredData =
@@ -113,7 +115,7 @@ function Event() {
                   <h2>
                     <span> {event.venue} </span>{" "}
                   </h2>
-                  <h3> Description: {event.description} </h3>
+                  <h3> {event.description} </h3>
                   <h3> Duration: {event.duration} </h3>
                   <p> Start Time: {event.start_time} </p>
                   <p> start Date: {event.start_date} </p>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://127.0.0.1:5555/api';
+const BASE_URL = 'http://127.0.0.1:5555';
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -10,7 +10,23 @@ export const fetchUsers = () => api.get('/users');
 export const fetchUser = (userId) => api.get(`/user/${userId}`);
 
 export const fetchEvents = () => api.get('/events');
-export const fetchEvent = (eventId) => api.get(`/event/${eventId}`);
+export const fetchEvent = (eventId) => {
+  return fetch(`${BASE_URL}/events/${eventId}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      return data;
+    });
+};
+
+export const fetchPricing = () => api.get('/pricing_list');
 
 export const fetchAuthorizations = () => api.get('/authorizations');
 

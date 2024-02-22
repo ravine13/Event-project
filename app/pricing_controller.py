@@ -4,8 +4,14 @@ from flask_restful import Api, Resource, reqparse
 from uuid import UUID
 from uuid import uuid4
 from flask_jwt_extended import jwt_required
-from models import Pricing
-from models import db
+from app.models import Pricing, Event
+from app.models import db
+
+
+class EventSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = Event
+event_schema = EventSchema()
 
 class PricingSchema(SQLAlchemyAutoSchema):
     class Meta:
@@ -17,11 +23,12 @@ api = Api(pricing_bp)
 
 class Pricing_Rsrc(Resource):
     def get(self):
-        pricing_list = Pricing.query.all()
-        pricingList = pricing_schema.dump(pricing_list, many = True)
-
-        return(make_response(jsonify(pricingList), 200))
-    
+        pricing = Pricing.query.all()
+        price_list = pricing_schema.dump(pricing, many=True)
+        res = make_response(jsonify(price_list), 200)
+        return res
+                             
+                
     # @jwt_required()
     def post(self):
         post_args = reqparse.RequestParser()
@@ -45,9 +52,13 @@ class Pricing_Rsrc(Resource):
 class Pricing_By_ID(Resource):
     def get(self, id):
         id = UUID(id)
-        pricing = Pricing.query.filter_by(id = id).first()
-        res = make_response(jsonify(pricing_schema.dump(pricing)))
-        return res
+        pricing = Pricing.query.filter_by(id=id).first()        
+        if pricing is not None:
+            res = make_response(jsonify({'message': 'Pricing not found for this event'}), 404)
+            return res
+        else:
+            pricing = pricing_schema.dump(pricing.pricing, many=True)
+            
 
     # @jwt_required()
     def patch(self, id):

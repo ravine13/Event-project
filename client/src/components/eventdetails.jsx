@@ -2,74 +2,121 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
+import { fetchEvent } from '../services/api';
 
 function EventDetails() {
-  	const { eventId } = useParams();
-	const [event, setEvent] = useState(null);
-	const [comments, setComments] = useState([]);
-	const [newComment, setNewComment] = useState("");
-	const [ticketQuantities, setTicketQuantities] = useState(
-		{regular: 0, vip: 0, vvip: 0, group: 0,}
-		);
+  const { eventId } = useParams();
+  const [event, setEvent] = useState(null);
+  const [bookings, setBookings] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [newReview, setNewReview] = useState("");
+  const [photo, setPhoto] = useState(null);
+  const [ticketQuantities, setTicketQuantities] = useState({
+    regular: 0,
+    vip: 0,
+    vvip: 0,
+    group: 0,
+  });
+  const [pricing, setPricing] = useState(null);
 
- 	useEffect(() => {
-    	fetch(`http://localhost:5555/events/${eventId}`)
-      	.then((response) => response.json())
-      	.then((data) => {
-			setEvent(data); 
-			console.log(data);
-		})
-      	.catch((error) => console.error("Error fetching event details:", error));
+  useEffect(() => {
+    fetchEventDetails();
+    fetchPricing();
+    fetchReviews();
+    fetchPhoto();
+    fetchBookings();
+  }, [eventId]);
 
-		// fetch(`http://localhost:5555/events/${eventId}/comments`)
-		// 	.then((response) => response.json())
-		// 	.then((data) => setComments(data))
-		// 	.catch((error) => console.error("Error fetching comments:", error));
-		}, [eventId] 
-	);
+  const fetchEventDetails = () => {
+    fetchEvent(eventId)
+      .then(data => {
+        setEvent(data.event);
+      })
+      .catch(error => console.error("Error fetching event details:", error));
+  };
 
-  	// const handleCommentSubmit = () => {
-	// 	fetch(`http://localhost:5555/events/${eventId}/comments`, {
-	// 	method: "POST",
-	// 	headers: {
-	// 		"Content-Type": "application/json",
-	// 	},
-	// 	body: JSON.stringify({ text: newComment }),
-	// })
-	// 	.then((response) => response.json())
-	// 	.then((data) => {
-    //     	setComments([...comments, data]);
-    //     	setNewComment("");
-    //   	})
-    //   	.catch((error) => console.error("Error submitting comment:", error));
-  	// };
+  const fetchBookings = () => {
+    fetch(`http://localhost:5555/events/${eventId}/bookings`)
+      .then((response) => response.json())
+      .then((data) => setBookings(data))
+      .catch((error) => console.error("Error fetching bookings:", error));
+  };
 
-  	const handleBuyTicket = () => {
-    	console.log("Buy ticket button clicked");
-  	};
+  const fetchReviews = () => {
+    fetch(`http://localhost:5555/events/${eventId}/reviews`)
+      .then((response) => response.json())
+      .then((data) => setReviews(data))
+      .catch((error) => console.error("Error fetching reviews:", error));
+  };
 
-  	const handleTicketQuantityChange = (ticketType, quantity) => {
-    setTicketQuantities({ ...ticketQuantities, [ticketType]: quantity });
-  	};
+  const fetchPricing = () => {
+    fetch(`http://localhost:5555/pricing_list/${eventId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Pricing data:", data);
+        if (data.amount) {
+          setPricing(data);
+          setTicketQuantities((prevTicketQuantities) => ({
+            ...prevTicketQuantities,
+            regular: data.amount,
+          }));
+        } else {
+          console.error("No pricing data found for this event");
+        }
+      })
+      .catch((error) => console.error("Error fetching pricing:", error));
+  };
 
-  	const calculateTotalAmount = () => {
-    	let totalAmount = 0;
-    	if (event) {
-      	totalAmount +=
-        	event.regular_price * ticketQuantities.regular +
-        	event.vip_price * ticketQuantities.vip +
-        	event.vvip_price * ticketQuantities.vvip +
-        	event.group_price * ticketQuantities.group;
-    	}
-    	return totalAmount;
-  	};
+  const fetchPhoto = () => {
+    fetch(`http://localhost:5555/photos/${eventId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setPhoto(data.photo);
+      })
+      .catch((error) => console.error("Error fetching photo:", error));
+  };
 
-  	return (
-    	<div>
-    	{event && (
-    		<div className="event-details">
-      		<h2>{event.event.name}</h2>
-      		<p>Venue: {event.event.venue}</p>
+  const handleReviewSubmit = () => {
+    fetch(`http://localhost:5555/events/${eventId}/reviews`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text: newReview }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setReviews([...reviews, data]);
+        setNewReview("");
+      })
+      .catch((error) => console.error("Error submitting review:", error));
+  };
+  const handleBuyTicket = () => {
+    console.log("Buy ticket button clicked");
+  };
+
+  const handleTicketQuantityChange = (ticketType, quantity) => {
+  setTicketQuantities({ ...ticketQuantities, [ticketType]: quantity });
+  };
+
+  const calculateTotalAmount = () => {
+    let totalAmount = 0;
+    if (event) {
+      totalAmount +=
+        event.regular_price * ticketQuantities.regular +
+        event.vip_price * ticketQuantities.vip +
+        event.vvip_price * ticketQuantities.vvip +
+        event.group_price * ticketQuantities.group;
+    }
+    return totalAmount;
+  };
+
+  return (
+    <div>
+    {event && (
+    <div className="event-details">
+      <h2>{event.event.name}</h2>
+      <p>Venue: {event.event.venue}</p>
 			<p>Description: {event.event.description}</p>
 			<p>Duration: {event.event.duration}</p>
 			<p>Start Time: {event.event.start_time}</p>
@@ -84,28 +131,28 @@ function EventDetails() {
 				<th>Quantity</th>
 				</tr>
 			</thead>
-          	<tbody>
+          <tbody>
             <tr>
-              	<td>Regular</td>
-              	<td>{event.event.regular_price}</td>
-              	<td>
+              <td>Regular</td>
+              <td>{event.event.regular_price}</td>
+              <td>
                 <select
-                  	className="quantity-select"
-                  	value={ticketQuantities.regular}
-                  	onChange={(e) =>
-                    	handleTicketQuantityChange(
-                      	"regular",
-                      	parseInt(e.target.value)
-                    	)
-                  	}>
-                  	{[...Array(10).keys()].map((quantity) => (
+                  className="quantity-select"
+                  value={ticketQuantities.regular}
+                  onChange={(e) =>
+                    handleTicketQuantityChange(
+                      "regular",
+                      parseInt(e.target.value)
+                    )
+                  }>
+                  {[...Array(10).keys()].map((quantity) => (
                     <option key={quantity} value={quantity}>
-                      	{quantity}
+                      {quantity}
                     </option>
-                  	))}
+                  ))}
                 </select>
-              	</td>
-            	</tr>
+              </td>
+            </tr>
             <tr>
 				<td>VIP</td>
 				<td>{event.event.vip_price}</td>
@@ -148,9 +195,9 @@ function EventDetails() {
 							{quantity}
 							</option>
 						))}
-                	</select>
-              	</td>
-            	</tr>
+                </select>
+              </td>
+            </tr>
             <tr>
               <td>Group</td>
               <td>{event.event.group_price}</td>
@@ -183,27 +230,31 @@ function EventDetails() {
         Buy Ticket
       </button>
       <div className="comments">
-        <h4>
-          Comments{" "}
-          <FontAwesomeIcon icon={faComment} size="1x" color="rgb(135, 107, 43)" />
-        </h4>
-        <ul>
-          {comments.map((comment) => (
-            <li key={comment.id}>{comment.text}</li>
-          ))}
-        </ul>
-        <div className="comments">
-          {/* <textarea
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            placeholder="Add a comment..."
-          ></textarea> */}
-          {/* <button onClick={handleCommentSubmit}>Submit</button> */}
+      <h4>
+              Comments{" "}
+              <FontAwesomeIcon
+                icon={faComment}
+                size="1x"
+                color="rgb(135, 107, 43)"
+              />
+            </h4>
+            <ul>
+              {reviews.map((comment) => (
+                <li key={comment.id}>{comment.text}</li>
+              ))}
+            </ul>
+            <div className="add-comment">
+              <textarea
+                value={newReview}
+                onChange={(e) => setNewReview(e.target.value)}
+                placeholder="Add a comment..."
+              ></textarea>
+              <button onClick={handleReviewSubmit}>Submit</button>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
-  )}
-</div>
   );
 }
 
