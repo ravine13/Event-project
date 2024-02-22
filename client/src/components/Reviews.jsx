@@ -45,14 +45,18 @@ function Reviews() {
 
 	// DELETE
 	function handleReviewDelete(review_id){
-		fetch(`http://localhost:5555/reviews/${review_id}`, {
-			method: 'DELETE'
-		})
-		.then(response => response.json())
-		.then(() => {
-			let filtered_reviews = reviews.filter((review) => review.id !== review_id );
-			setReviews(filtered_reviews);
-		})
+		if (window.confirm('Confirm Delete!')){
+			fetch(`http://localhost:5555/reviews/${review_id}`, {
+				method: 'DELETE'
+			})
+			.then(response => response.json())
+			.then(() => {
+				let filtered_reviews = reviews.filter((review) => review.id !== review_id );
+				setReviews(filtered_reviews);
+			})
+		} else {
+			alert('Action Aborted!')
+		}
 	}
 
 	let review_cards = reviews.map((review) => {
