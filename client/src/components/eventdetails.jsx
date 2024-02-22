@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 
+import { useNavigate } from "react-router-dom";
 
 function EventDetails() {
   const { eventId } = useParams();
@@ -17,6 +18,8 @@ function EventDetails() {
     vvip: 0,
     group: 0,
   });
+
+  const navigate = useNavigate();
   // const [pricing, setPricing] = useState(null);
 
   useEffect(() => {
@@ -92,6 +95,15 @@ function EventDetails() {
   // };
   const handleBuyTicket = () => {
     console.log("Buy ticket button clicked");
+  };
+  const handleBooking = (bookingId) => {
+    fetch(`http://localhost:5555/bookings/${bookingId}`)
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((error) =>
+        console.error("Error fetching data from bookings:", error)
+      );
+    console.log(bookingId);
   };
 
   const handleTicketQuantityChange = (ticketType, quantity) => {
