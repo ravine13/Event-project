@@ -15,6 +15,7 @@ function Reviews() {
 		<div className='spinner-grow text-primary mx-2'></div>
 	</div>);
 
+	// READ
 	useEffect(() => {
 		fetch(`http://localhost:5555/events/${eventId}`)
 		.then(response => response.json())
@@ -23,6 +24,7 @@ function Reviews() {
 		})
 	}, [eventId])
 
+	// CREATE
 	function handleReviewSubmit(e){
 		e.preventDefault();
 
@@ -37,15 +39,34 @@ function Reviews() {
       .then((data) => {
         setReviews(current => [...current, data]);
         setNewReview("");
-		console.log(data);
       })
       .catch((error) => console.error("Error submitting review:", error));
   	};
 
+	// DELETE
+	function handleReviewDelete(review_id){
+		fetch(`http://localhost:5555/reviews/${review_id}`, {
+			method: 'DELETE'
+		})
+		.then(response => response.json())
+		.then(() => {
+			let filtered_reviews = reviews.filter((review) => review.id !== review_id );
+			setReviews(filtered_reviews);
+		})
+	}
+
 	let review_cards = reviews.map((review) => {
 			return (
 				<div>
-					<p className='text-white'>{review.comment}</p>
+					<div>
+						<p className='text-white d-inline'>{review.comment}</p>
+						<button className='border-0'>
+							<img src="https://cdn-icons-png.flaticon.com/128/860/860814.png" alt="NA" width={25} />
+						</button>
+						<button className='delete-btn border-0' onClick={() => handleReviewDelete(review.id)}>
+							<img src="https://cdn-icons-png.flaticon.com/128/6861/6861362.png" alt="NA" width={25} />
+						</button>
+					</div>
 				</div>
 			)
 		})
