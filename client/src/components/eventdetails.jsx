@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { fetchEvent } from '../services/api';
 import Reviews from "./Reviews";
+import Footer from "./Footer";
 
 function EventDetails() {
   const { eventId } = useParams();
@@ -25,8 +26,6 @@ function EventDetails() {
     .then(response => response.json())
     .then(data => setEvent(data))
   }, [eventId])
-
-  console.log(event);
 
   // useEffect(() => {
   //   fetchEventDetails();
@@ -123,6 +122,7 @@ function EventDetails() {
   };
 
   return (
+    <>
     <div>
     {event && (
     <div className="event-details">
@@ -238,12 +238,12 @@ function EventDetails() {
           <p>Total Amount: {calculateTotalAmount()}</p>
         </div>
       </div>
-      <button id="buy-ticket-btn" onClick={handleBuyTicket}>
+      <button className="border text-primary rounded-pill" id="buy-ticket-btn" onClick={handleBuyTicket}>
         Buy Ticket
       </button>
       <div className="comments">
       <h4>
-              <NavLink to={`/event/${eventId}/reviews`} exact> Reviews{" "} </NavLink>
+              <NavLink to={`/event/${eventId}/reviews`} exact> <p className="text-primary">Reviews{" "}</p> </NavLink>
               <FontAwesomeIcon
                 icon={faComment}
                 size="1x"
@@ -270,6 +270,8 @@ function EventDetails() {
         </div>
       )}
     </div>
+    <Footer></Footer>
+    </>
   );
 }
 
