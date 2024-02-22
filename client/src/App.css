@@ -62,6 +62,10 @@
   margin: auto;
 
 }
+#carous{
+  width: 100%;
+  height: auto;
+}
 
 .logo{
   font-size: 42px;
@@ -331,7 +335,25 @@ button:hover {
   text-align: center;
   height: auto;
   opacity: 1;
-  background-color: rgba(0, 0, 0, 0.8)
+  background-color: rgba(0, 0, 0, 0.8);
+  flex: 1;
+}
+.single-event{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  
+  
+}
+.event-image{  
+  /* border: 1px solid rgb(135, 107, 43); */
+  width: 200px;
+  height: auto;
+  margin-right: 20px;
+}
+.event-image img{
+  width: 100%;
+  height: auto;
 }
 .table-container {
   width: 100%;
