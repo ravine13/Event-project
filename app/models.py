@@ -142,9 +142,12 @@ class Photo(db.Model):
     __tablename__= 'Photo'
     id = Column(UUID, primary_key=True)
     url = Column(String)
-<<<<<<< HEAD
-    event = relationship("Event", backref='photos')
-=======
     event = relationship("Event", back_populates='photo')
 
->>>>>>> c95019540e9c1430b258bbbf3fe4276a6fce4368
+class TokenBlocklist(db.Model):
+    __tablename__ ='token_blocklist'
+    id = db.Column(db.Integer, primary_key=True)
+    jti = db.Column(db.String(36), nullable=False, index=True)
+    created_at = db.Column(db.DateTime, nullable=False)
+
+
