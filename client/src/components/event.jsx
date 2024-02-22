@@ -10,6 +10,8 @@ function Event() {
   const [searchFilter, setSearchFilter] = useState("");
   const [dateFilter, setDateFilter] = useState("");
 
+  console.log(events);
+
   useEffect(() => {
     fetch("http://localhost:5555/events")
       .then((r) => r.json())
@@ -104,7 +106,7 @@ function Event() {
             {filteredEvent.map((event) => (
               <Link key={event.id} to={`/event/${event.id}`}>
                 <div className="profile">
-                  <img src={event.profile_picture} alt={`${event.name}`} />
+                  <img src={event.photo.url} alt={`${event.name}`} />
                   <h2>
                     <span> {event.name} </span>{" "}
                   </h2>

@@ -3,20 +3,19 @@ from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_cors import CORS
 import os
-from app.models import db
-from app.main import main_bp
-from app.tags import tags_bp
-from app.event import event_bp
-from app.review import review_bp
-from app.userroute import user_bp
-from app.booking import booking_bp
-from app.interests import interest_bp
-from app.photo_controller import photo_bp
-from app.Auth import jwt, bcrypt, auth_bp
-from app.billing_info import billing_info_bp
-from app.pricing_controller import pricing_bp
-from app.routes.advert import advert_fees_bp
-from app.routes.profiles import profiles_bp
+from models import db
+from tags import tags_bp
+from event import event_bp
+from review import review_bp
+from userroute import user_bp
+from booking import booking_bp
+from interests import interest_bp
+from photo_controller import photo_bp
+from Auth import jwt, bcrypt, auth_bp
+from billing_info import billing_info_bp
+from pricing_controller import pricing_bp
+from routes.advert import advert_fees_bp
+from routes.profiles import profiles_bp
 
 
 
@@ -51,3 +50,6 @@ def create_app():
     return app
 
 app = create_app()
+
+if __name__ == "__main__":
+    app.run(debug=True, port=5555)
