@@ -59,12 +59,14 @@ class UserRegister(Resource):
 
      def post(self):
         data = register_args.parse_args()
+        print(data)
         if data['password'] != data['confirm-password']:
             return abort(422,detail='Passwords do not match')
-        new_user = User(id=uuid4(), email=data.email, password=bcrypt.generate_password_hash(data.password))
+        new_user = User(id=uuid4(), email=data['email'], password=bcrypt.generate_password_hash(data['password']))
         db.session.add(new_user)
         db.session.commit()
         return {'detail':f'User {data.email} has been created successfully'}
+               
 
 
 api.add_resource(UserRegister,'/register')

@@ -29,7 +29,7 @@ def create_app():
     jwt.init_app(app)
     bcrypt.init_app(app)
     migrate = Migrate(app, db)
-    ma = Marshmallow(app)
+    # ma = Marshmallow(app)
 
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp)
