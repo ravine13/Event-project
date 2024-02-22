@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, NavLink, Routes, Route } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { fetchEvent } from '../services/api';
+import Reviews from "./Reviews";
 
 function EventDetails() {
   const { eventId } = useParams();
@@ -242,7 +243,7 @@ function EventDetails() {
       </button>
       <div className="comments">
       <h4>
-              Comments{" "}
+              <NavLink to={`/event/${eventId}/reviews`} exact> Reviews{" "} </NavLink>
               <FontAwesomeIcon
                 icon={faComment}
                 size="1x"
@@ -254,14 +255,17 @@ function EventDetails() {
                 <li key={comment.id}>{comment.text}</li>
               ))}
             </ul>
-            <div className="add-comment">
+            <Routes>
+              <Route path="/reviews" element={<Reviews></Reviews>}></Route>
+            </Routes>
+            {/* <div className="add-comment">
               <textarea
                 value={newReview}
                 onChange={(e) => setNewReview(e.target.value)}
                 placeholder="Add a comment..."
               ></textarea>
               <button onClick={handleReviewSubmit}>Submit</button>
-            </div>
+            </div> */}
           </div>
         </div>
       )}

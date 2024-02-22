@@ -10,8 +10,6 @@ function Event() {
   const [searchFilter, setSearchFilter] = useState("");
   const [dateFilter, setDateFilter] = useState("");
 
-  console.log(events);
-
   useEffect(() => {
     fetch("http://localhost:5555/events")
       .then((r) => r.json())
