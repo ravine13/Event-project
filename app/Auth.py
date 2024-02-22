@@ -11,7 +11,7 @@ from flask_jwt_extended import (JWTManager,
 )
 from flask_restful import Resource, Api, reqparse , abort
 
-from app.models import User, db
+from models import User, db
 from uuid import uuid4
 
 auth_bp = Blueprint('auth',__name__)
