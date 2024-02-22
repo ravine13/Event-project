@@ -20,61 +20,71 @@ function EventDetails() {
   const [pricing, setPricing] = useState(null);
 
   useEffect(() => {
-    fetchEventDetails();
-    fetchPricing();
-    fetchReviews();
-    fetchPhoto();
-    fetchBookings();
-  }, [eventId]);
+    fetch(`http://localhost:5555/events/${eventId}`)
+    .then(response => response.json())
+    .then(data => setEvent(data))
+  }, [eventId])
 
-  const fetchEventDetails = () => {
-    fetchEvent(eventId)
-      .then(data => {
-        setEvent(data.event);
-      })
-      .catch(error => console.error("Error fetching event details:", error));
-  };
+  console.log(event);
 
-  const fetchBookings = () => {
-    fetch(`http://localhost:5555/events/${eventId}/bookings`)
-      .then((response) => response.json())
-      .then((data) => setBookings(data))
-      .catch((error) => console.error("Error fetching bookings:", error));
-  };
+  // useEffect(() => {
+  //   fetchEventDetails();
+  //   fetchPricing();
+  //   fetchReviews();
+  //   fetchPhoto();
+  //   fetchBookings();
+  // }, [eventId]);
 
-  const fetchReviews = () => {
-    fetch(`http://localhost:5555/events/${eventId}/reviews`)
-      .then((response) => response.json())
-      .then((data) => setReviews(data))
-      .catch((error) => console.error("Error fetching reviews:", error));
-  };
+  // const fetchEventDetails = () => {
+  //   fetchEvent(eventId)
+  //     .then(data => {
+  //       setEvent(data.event);
+  //     })
+  //     .catch(error => console.error("Error fetching event details:", error));
+  // };
 
-  const fetchPricing = () => {
-    fetch(`http://localhost:5555/pricing_list/${eventId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Pricing data:", data);
-        if (data.amount) {
-          setPricing(data);
-          setTicketQuantities((prevTicketQuantities) => ({
-            ...prevTicketQuantities,
-            regular: data.amount,
-          }));
-        } else {
-          console.error("No pricing data found for this event");
-        }
-      })
-      .catch((error) => console.error("Error fetching pricing:", error));
-  };
+  
 
-  const fetchPhoto = () => {
-    fetch(`http://localhost:5555/photos/${eventId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setPhoto(data.photo);
-      })
-      .catch((error) => console.error("Error fetching photo:", error));
-  };
+  // const fetchBookings = () => {
+  //   fetch(`http://localhost:5555/events/${eventId}/bookings`)
+  //     .then((response) => response.json())
+  //     .then((data) => setBookings(data))
+  //     .catch((error) => console.error("Error fetching bookings:", error));
+  // };
+
+  // const fetchReviews = () => {
+  //   fetch(`http://localhost:5555/events/${eventId}/reviews`)
+  //     .then((response) => response.json())
+  //     .then((data) => setReviews(data))
+  //     .catch((error) => console.error("Error fetching reviews:", error));
+  // };
+
+  // const fetchPricing = () => {
+  //   fetch(`http://localhost:5555/pricing_list/${eventId}`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log("Pricing data:", data);
+  //       if (data.amount) {
+  //         setPricing(data);
+  //         setTicketQuantities((prevTicketQuantities) => ({
+  //           ...prevTicketQuantities,
+  //           regular: data.amount,
+  //         }));
+  //       } else {
+  //         console.error("No pricing data found for this event");
+  //       }
+  //     })
+  //     .catch((error) => console.error("Error fetching pricing:", error));
+  // };
+
+  // const fetchPhoto = () => {
+  //   fetch(`http://localhost:5555/photos/${eventId}`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setPhoto(data.photo);
+  //     })
+  //     .catch((error) => console.error("Error fetching photo:", error));
+  // };
 
   const handleReviewSubmit = () => {
     fetch(`http://localhost:5555/events/${eventId}/reviews`, {
@@ -116,6 +126,7 @@ function EventDetails() {
     {event && (
     <div className="event-details">
       <h2>{event.event.name}</h2>
+      <img src={event.photo.url} alt="NA" />
       <p>Venue: {event.event.venue}</p>
 			<p>Description: {event.event.description}</p>
 			<p>Duration: {event.event.duration}</p>
