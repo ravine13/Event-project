@@ -4,7 +4,7 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 import os
 from app.models import db
-from app.main import main_bp
+# from app.main import main_bp
 from app.tags import tags_bp
 from app.event import event_bp
 from app.review import review_bp
@@ -30,7 +30,7 @@ def create_app():
     jwt.init_app(app)
     bcrypt.init_app(app)
     migrate = Migrate(app, db)
-    ma = Marshmallow(app)
+    # ma = Marshmallow(app)
 
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp)
@@ -50,4 +50,4 @@ def create_app():
     
     return app
 
-app = create_app()
+# app = create_app()
