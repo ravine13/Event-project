@@ -256,7 +256,7 @@ function EventDetails() {
               ))}
             </ul>
             <Routes>
-              <Route path="/reviews" element={<Reviews></Reviews>}></Route>
+              <Route path="/reviews/*" element={<Reviews></Reviews>}></Route>
             </Routes>
             {/* <div className="add-comment">
               <textarea

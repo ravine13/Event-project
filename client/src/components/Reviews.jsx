@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Routes, Route, useParams, NavLink } from 'react-router-dom';
 
 function Reviews() {
 	const [reviews, setReviews] = useState([]);
@@ -57,20 +57,62 @@ function Reviews() {
 		} else {
 			alert('Action Aborted!')
 		}
-	}
+	};
+
+	// UPDATE
+	function handleUpdate(review_id){
+		fetch(`http://localhost:5555/reviews/${review_id}`, {
+			method: "PATCH",
+      		headers: {
+        		"Content-Type": "application/json",
+      			},
+      		body: JSON.stringify({ 'comment': newReview }),
+		})
+		.then(response => response.json())
+		.then((data) => {
+			console.log(data);
+			let updatedReviews = reviews.map((review) => {
+				if (review.id === review_id){
+					return data
+				} else {
+					return review
+				}
+			})
+			setReviews(updatedReviews);
+		})
+	};
 
 	let review_cards = reviews.map((review) => {
 			return (
 				<div>
 					<div>
 						<p className='text-white d-inline'>{review.comment}</p>
-						<button className='border-0'>
+						<NavLink to={`/event/${eventId}/reviews/edit`} exact>
 							<img src="https://cdn-icons-png.flaticon.com/128/860/860814.png" alt="NA" width={25} />
-						</button>
+						</NavLink>
 						<button className='delete-btn border-0' onClick={() => handleReviewDelete(review.id)}>
 							<img src="https://cdn-icons-png.flaticon.com/128/6861/6861362.png" alt="NA" width={25} />
 						</button>
 					</div>
+					<Routes>
+						<Route path='/edit' element={
+						<div>
+							<textarea 
+								className='bg-white text-black'
+								name="" 
+								id="" 
+								cols="60" 
+								rows="1"
+								placeholder={review.comment}
+								onChange={(e) => setNewReview(e.target.value)}
+							></textarea>
+								{/* <input className='bg-white text-primary' type="text" placeholder={review.comment}/> */}
+								<button onClick={() => {handleUpdate(review.id)}}>
+									<img src="https://cdn-icons-png.flaticon.com/128/1828/1828640.png" alt="NA" width={30}/>
+								</button>
+						</div>
+						} exact></Route>
+					</Routes>
 				</div>
 			)
 		})
