@@ -15,6 +15,8 @@ function Event() {
       .then((r) => r.json())
       .then((events) => setEvents(events))
       .catch((error) => console.error("Error fetching data:", error));
+
+      
   }, []);
 
   const filteredData =

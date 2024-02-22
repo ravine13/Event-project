@@ -331,7 +331,8 @@ button:hover {
   padding: 5px;
   text-align: center;
   height: auto;
-  opacity: 3;
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.8)
 }
 .table-container {
   width: 100%;
