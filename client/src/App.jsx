@@ -4,6 +4,7 @@ import AuthPage from './components/authpage';
 import './App.css';
 import Home from './components/home';
 import Event from './components/event';
+import SignupForm from './components/signupform';
 
 function App() {
 

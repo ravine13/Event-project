@@ -28,13 +28,13 @@ class UserResource(Resource):
             users = User.query.all()
             return jsonify(UserSchema(many=True).dump(users))
         
-    @jwt_required()
+    # @jwt_required()
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('email', type=str, required=True, help='Email is required')
         parser.add_argument('password', type=str, required=True, help='Password is required')
-        parser.add_argument('confirmed', type=bool, required=False)
-        parser.add_argument('role', type=int, required=False)
+        parser.add_argument('confirmed', type=str, required=False)
+        parser.add_argument('role', type=str, required=False)
         args = parser.parse_args()
 
         role = int(args['role']) if args['role'] is not None else None
