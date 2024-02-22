@@ -108,17 +108,13 @@ function Event() {
             {filteredEvent.map((event) => (
               <Link key={event.id} to={`/event/${event.id}`}>
                 <div className="profile">
-                  <img src={event.photo.url} alt={`${event.name}`} />
-                  <h2>
-                    <span> {event.name} </span>{" "}
-                  </h2>
-                  <h2>
-                    <span> {event.venue} </span>{" "}
-                  </h2>
-                  <h3> {event.description} </h3>
-                  <h3> Duration: {event.duration} </h3>
-                  <p> Start Time: {event.start_time} </p>
-                  <p> start Date: {event.start_date} </p>
+                  <img className="eventImage" src={event.photo.url} alt={`${event.name}`} />
+                  <div className="eventInfo">
+                    <h2>
+                      <span> {event.name} </span><span> {event.venue}</span>{" "}
+                    </h2>
+                    <p> start Date: {event.start_date} </p>
+                  </div>
                 </div>
               </Link>
             ))}
