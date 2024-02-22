@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from models import User, Profile, Interests, Tag, Event, Billing_Info, Payment_Details, Event_Billing, Pricing, Review, Payment, Booking, Photo, db
 from uuid import uuid4
 from datetime import datetime
@@ -146,8 +145,6 @@ for i in range(5):
 
 db.session.commit()
 
-=======
->>>>>>> c95019540e9c1430b258bbbf3fe4276a6fce4368
 from models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_Details, Advert_Fees, Pricing, Review, Booking, Photo, db
 from uuid import uuid4
 from datetime import datetime, timedelta
