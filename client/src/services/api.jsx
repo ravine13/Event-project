@@ -9,6 +9,25 @@ const api = axios.create({
 export const fetchUsers = () => api.get('/users');
 export const fetchUser = (userId) => api.get(`/user/${userId}`);
 
+export const fetchEvents = () => api.get('/events');
+export const fetchEvent = (eventId) => {
+  return fetch(`${BASE_URL}/events/${eventId}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      return data;
+    });
+};
+
+export const fetchPricing = () => api.get('/pricing_list');
+
 export const fetchAuthorizations = () => api.get('/authorizations');
 
 export const registerUser = async (userData) => {
@@ -28,5 +47,12 @@ export const getAllUsers = async () => {
     throw error.response.data;
   }
 };
-
+export const getAllEvents = async () => {
+    try {
+      const response = await api.get('/events');
+      return response.data;
+    } catch (error) {
+      throw error.response.data;
+    }
+  };
 export default api;

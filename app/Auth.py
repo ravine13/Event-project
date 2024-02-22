@@ -7,11 +7,13 @@ from flask_bcrypt import Bcrypt
 from flask_jwt_extended import (JWTManager,
                                  create_access_token, 
                                  jwt_required,
-                                  current_user
+                                  current_user,
+                                  get_jwt
 )
 from flask_restful import Resource, Api, reqparse , abort
 
-from app.models import User, db
+
+from models import User, db,TokenBlocklist
 from uuid import uuid4
 
 auth_bp = Blueprint('auth',__name__)
@@ -50,18 +52,34 @@ class UserLogin(Resource):
 
         token = create_access_token(identity=user.id)
         return token
-
+    
+api.add_resource(UserLogin,'/login')
 
 class UserRegister(Resource):
 
      def post(self):
         data = register_args.parse_args()
+        print(data)
         if data['password'] != data['confirm-password']:
             return abort(422,detail='Passwords do not match')
-        new_user = User(id=uuid4(), email=data.email, password=bcrypt.generate_password_hash(data.password))
+        new_user = User(id=uuid4(), email=data['email'], password=bcrypt.generate_password_hash(data['password']))
         db.session.add(new_user)
         db.session.commit()
         return {'detail':f'User {data.email} has been created successfully'}
+               
 
-api.add_resource(UserLogin,'/login')
+
 api.add_resource(UserRegister,'/register')
+
+class UserLogout(Resource):
+
+    @jwt_required()
+    def get(self):
+        token = get_jwt()
+        blocked_token = TokenBlocklist(jti=token['jti'], created_at=datetime.now(timezone.utc))
+        db.session.add(blocked_token)
+        db.session.commit()
+        return {"detail":"token logging out"}
+    
+api.add_resource(UserLogout,'/logout')
+
