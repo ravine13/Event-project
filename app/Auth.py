@@ -1,7 +1,7 @@
 from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
-
+from uuid import UUID
 from flask import Blueprint
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import (JWTManager,
@@ -32,7 +32,7 @@ login_args.add_argument('password', type=str, required=True)
 
 @jwt.user_lookup_loader
 def user_lookup_callback(_jwt_header, jwt_data):
-    identity = jwt_data["sub"]
+    identity = UUID(jwt_data["sub"])  
     return User.query.filter_by(id=identity).first()
 
 class UserRegister(Resource):
@@ -70,13 +70,14 @@ class UserLogin(Resource):
 
 api.add_resource(UserLogin,'/login')
 
-class UserLogout(Resource):
+class Logout(Resource):
     @jwt_required()
     def get(self):
         token = get_jwt()
-        blocked_token = TokenBlocklist(jti=token['jti'], created_at=datetime.now(timezone.utc))
+        jti = token['jti']  
+        blocked_token = TokenBlocklist(jti=jti, created_at=datetime.utcnow())
         db.session.add(blocked_token)
         db.session.commit()
-        return {"detail":"token logging out"}
-    
-api.add_resource(UserLogout,'/logout')
+        return {'detail': "Token logged out"}
+
+api.add_resource(Logout,'/logout')
