@@ -94,7 +94,6 @@ function EventDetails() {
     <div className="event-image"><img src={event.photo.url} alt={`Image of ${event.event.name}`} /></div>
     <div>
       <h2>{event.event.name}</h2>
-      <img src={event.photo.url} alt="NA" />
       <p>Venue: {event.event.venue}</p>
 			<p>Description: {event.event.description}</p>
 			<p>Duration: {event.event.duration}</p>
