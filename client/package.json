@@ -16,12 +16,9 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-<<<<<<< HEAD
     "@iconscout/unicons": "^4.0.8",
-=======
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
->>>>>>> 01507b4f0ca97816d9289c61e7f6a5040e26ef53
     "axios": "^1.6.7",
     "props": "^0.3.0",
     "react": "^18.2.0",
