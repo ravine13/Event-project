@@ -4,6 +4,8 @@ import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook, faInstagram, faLinkedinIn, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import eventPageImage from "../assets/event-page-1.jpg";
 import '../App.css';
+import { Link } from 'react-router-dom';
+
 
 function Home() {
   const [events, setEvents] = useState([]);
@@ -44,7 +46,7 @@ function Home() {
           <img src={eventPageImage} alt='Event ticket'  style={{ width: '300px', height: 'auto' }}/>          
           <p>Elevating Events to Unforgettable Experiences</p>
 
-          <button id='check-btn' type='button'>Check Events</button>
+          <Link to={"/event"}><button id='check-btn' type='button'>Browse Events</button></Link>
         </div>
         <div className="carousel" id='hom'>
           <h2>Upcoming  Event</h2>
