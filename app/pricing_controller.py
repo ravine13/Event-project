@@ -37,7 +37,6 @@ class Pricing_Rsrc(Resource):
             200
             )
         return res
-
 api.add_resource(Pricing_Rsrc, '/pricing_list')
     
 class Pricing_By_ID(Resource):
