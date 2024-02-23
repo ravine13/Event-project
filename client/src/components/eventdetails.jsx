@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
-
 import { useNavigate } from "react-router-dom";
 
 function EventDetails() {
@@ -11,7 +10,7 @@ function EventDetails() {
   // const [bookings, setBookings] = useState([]);
   // const [reviews, setReviews] = useState([]);
   // const [newReview, setNewReview] = useState("");
-  // const [photo, setPhoto] = useState(null);
+
   const [ticketQuantities, setTicketQuantities] = useState({
     regular: 0,
     vip: 0,
@@ -20,7 +19,7 @@ function EventDetails() {
   });
 
   const navigate = useNavigate();
-  // const [pricing, setPricing] = useState(null);
+  const [pricing, setPricing] = useState(null);
 
   useEffect(() => {
     fetch(`http://localhost:5555/events/${eventId}`)
@@ -51,32 +50,7 @@ function EventDetails() {
   //     .catch((error) => console.error("Error fetching reviews:", error));
   // };
 
-  // const fetchPricing = () => {
-  //   fetch(`http://localhost:5555/pricing_list/${eventId}`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log("Pricing data:", data);
-  //       if (data.amount) {
-  //         setPricing(data);
-  //         setTicketQuantities((prevTicketQuantities) => ({
-  //           ...prevTicketQuantities,
-  //           regular: data.amount,
-  //         }));
-  //       } else {
-  //         console.error("No pricing data found for this event");
-  //       }
-  //     })
-  //     .catch((error) => console.error("Error fetching pricing:", error));
-  // };
 
-  // const fetchPhoto = () => {
-  //   fetch(`http://localhost:5555/photos/${eventId}`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setPhoto(data.photo);
-  //     })
-  //     .catch((error) => console.error("Error fetching photo:", error));
-  // };
 
   // const handleReviewSubmit = () => {
   //   fetch(`http://localhost:5555/events/${eventId}/reviews`, {
@@ -152,7 +126,7 @@ function EventDetails() {
           <tbody>
             <tr>
               <td>Regular</td>
-              <td>{event.event.regular_price}</td>
+              <td>{event.event.amount}</td>
               <td>
                 <select
                   className="quantity-select"
@@ -173,7 +147,7 @@ function EventDetails() {
             </tr>
             <tr>
 				<td>VIP</td>
-				<td>{event.event.vip_price}</td>
+				<td>{event.event.regular_price}</td>
 				<td>
 					<select
 					className="quantity-select"

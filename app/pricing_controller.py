@@ -8,17 +8,10 @@ from flask_jwt_extended import jwt_required
 from app.models import Pricing, Event
 from app.models import db
 
-<<<<<<< HEAD
-
-class EventSchema(SQLAlchemyAutoSchema):
-    class Meta:
-        model = Event
-=======
 class EventSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Event
         fields = ("name",) 
->>>>>>> c0f1f33711dee6b661dcbe7243a49802fb65a679
 event_schema = EventSchema()
 
 class PricingSchema(SQLAlchemyAutoSchema):
@@ -36,44 +29,6 @@ api = Api(pricing_bp)
 
 class Pricing_Rsrc(Resource):
     def get(self):
-<<<<<<< HEAD
-        pricing = Pricing.query.all()
-        price_list = pricing_schema.dump(pricing, many=True)
-        res = make_response(jsonify(price_list), 200)
-        return res
-                             
-                
-    # @jwt_required()
-    def post(self):
-        post_args = reqparse.RequestParser()
-        post_args.add_argument('id', type=uuid4())
-        post_args.add_argument('name', type=str, help='Pricing Name', required=True)
-        post_args.add_argument('amount', type=float, help='Amount', required=True)
-        post_args.add_argument('event_id', type=uuid4(), help='Event ID')
-
-        data = post_args.parse_args()
-        new_pricing = Pricing(**data)
-        new_pricing = Pricing(id = uuid4(),
-                              name = data.get('name'),
-                              amount = data.get('amount'),
-                              event_id = uuid4()
-                            )
-        db.session.add(new_pricing)
-        db.session.commit()
-        response = (make_response(jsonify(pricing_schema.dump(new_pricing)), 201))
-        return response
-
-class Pricing_By_ID(Resource):
-    def get(self, id):
-        id = UUID(id)
-        pricing = Pricing.query.filter_by(id=id).first()        
-        if pricing is not None:
-            res = make_response(jsonify({'message': 'Pricing not found for this event'}), 404)
-            return res
-        else:
-            pricing = pricing_schema.dump(pricing.pricing, many=True)
-            
-=======
         pricing_list = Pricing.query.all()
         pricingList = pricing_schema.dump(pricing_list, many = True)
 
@@ -89,7 +44,6 @@ class Pricing_By_ID(Resource):
     def get(self, id):
         id = UUID(id)
         pricing = Pricing.query.filter_by(id = id).first()
->>>>>>> c0f1f33711dee6b661dcbe7243a49802fb65a679
 
         if pricing  is None:
             response = make_response(

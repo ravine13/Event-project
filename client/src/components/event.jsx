@@ -1,14 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import "../App.css";
 
 function Event() {
   const [events, setEvents] = useState([]);
-  const [genreFilter, setGenreFilter] = useState("All");
-  const [searchFilter, setSearchFilter] = useState("");
-  const [dateFilter, setDateFilter] = useState("");
+ 
 
   console.log(events);
 
@@ -20,19 +16,7 @@ function Event() {
 
       
   }, []);
-
-  const filteredData =
-    genreFilter === "All"
-      ? events
-      : events.filter((event) => event.genre === genreFilter);
-
-  const filteredEvent = filteredData
-    .filter((event) =>
-      event.name.toLowerCase().includes(searchFilter.toLowerCase())
-    )
-    .filter((event) =>
-      dateFilter ? event.date.toString() === dateFilter.toString() : true
-    );
+ 
 
   return (
     <div>
@@ -43,81 +27,27 @@ function Event() {
           </div>
         </div>
         <div className="card-event">
-          <div className="sidebar">
-            <p id="app-name" className="nameed">
-              <span></span>
-            </p>
-            <div className="search-bar">
-              <div>
-                <input
-                  className="search"
-                  placeholder="Enter event"
-                  value={searchFilter}
-                  onChange={(e) => setSearchFilter(e.target.value)}
-                />
-              </div>
-              <div className="searc con">
-                <FontAwesomeIcon icon={faSearch} size="2x" color="#000000" />
-              </div>
-            </div>
-            <div>
-              <p className="nameed">Filter by Date:</p>
-              <input
-                type="number"
-                placeholder="Enter Date"
-                value={dateFilter}
-                onChange={(e) => setDateFilter(e.target.value)}
-              />
-            </div>
-            <p className="nameed">Sort by:</p>
-            <label>
-              <input
-                className="rd-btn"
-                name="options"
-                value="All"
-                checked={genreFilter === "All"}
-                onChange={() => setGenreFilter("All")}
-                type="radio"
-              />
-              All
-            </label>
-            <label>
-              <input
-                className="rd-btn"
-                name="options"
-                value="Male"
-                checked={genreFilter === "Male"}
-                onChange={() => setGenreFilter("Male")}
-                type="radio"
-              />
-              Entertainment
-            </label>
-            <label>
-              <input
-                className="rd-btn"
-                name="options"
-                value="Female"
-                checked={genreFilter === "Female"}
-                onChange={() => setGenreFilter("Female")}
-                type="radio"
-              />
-              Tech
-            </label>
-          </div>
-          <div className="eventCard">
-            {filteredEvent.map((event) => (
-              <Link key={event.id} to={`/event/${event.id}`}>
-                <div className="profile">
-                  <img className="eventImage" src={event.photo.url} alt={`${event.name}`} />
-                  <div className="eventInfo">
-                    <h2>
-                      <span> {event.name} </span><span> {event.venue}</span>{" "}
-                    </h2>
-                    <p> start Date: {event.start_date} </p>
+          <div className="results">
+            <div className="eventCard">
+              {events.map((event) => (
+                <Link key={event.id} to={`/event/${event.id}`}>
+                  <div className="profile">
+                    <img
+                      className="eventImage"
+                      src={event.photo.url}
+                      alt={`${event.name}`}
+                    />
+                    <div className="eventInfo">
+                      <h2>
+                        <span> {event.name} </span><br/>
+                        <span> {event.venue}</span>{" "}
+                      </h2>
+                      <p> start Date: {event.start_date} </p>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>
