@@ -3,13 +3,13 @@ import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import ReviewSection from "./Reviews";
 
 function EventDetails() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
   // const [bookings, setBookings] = useState([]);
-  // const [reviews, setReviews] = useState([]);
-  // const [newReview, setNewReview] = useState("");
+  
 
   const [ticketQuantities, setTicketQuantities] = useState({
     regular: 0,
@@ -28,13 +28,6 @@ function EventDetails() {
       .catch((error) => console.error("Error fetching data:", error));
   }, [eventId]);
 
-  // const fetchEventDetails = () => {
-  //   fetch("http://localhost:5555/events/${eventId}")
-  //     .then(data => {
-  //       setEvent(data.event);
-  //     })
-  //     .catch(error => console.error("Error fetching event details:", error));
-  // };
 
   // const fetchBookings = () => {
   //   fetch(`http://localhost:5555/events/${eventId}/bookings`)
@@ -43,12 +36,12 @@ function EventDetails() {
   //     .catch((error) => console.error("Error fetching bookings:", error));
   // };
 
-  // const fetchReviews = () => {
-  //   fetch(`http://localhost:5555/events/${eventId}/reviews`)
-  //     .then((response) => response.json())
-  //     .then((data) => setReviews(data))
-  //     .catch((error) => console.error("Error fetching reviews:", error));
-  // };
+  const fetchReviews = () => {
+    fetch(`http://localhost:5555/events/${eventId}/reviews`)
+      .then((response) => response.json())
+      .then((data) => setReviews(data))
+      .catch((error) => console.error("Error fetching reviews:", error));
+  };
 
 
 
@@ -70,15 +63,7 @@ function EventDetails() {
   const handleBuyTicket = () => {
     console.log("Buy ticket button clicked");
   };
-  const handleBooking = (bookingId) => {
-    fetch(`http://localhost:5555/bookings/${bookingId}`)
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((error) =>
-        console.error("Error fetching data from bookings:", error)
-      );
-    console.log(bookingId);
-  };
+
 
   const handleTicketQuantityChange = (ticketType, quantity) => {
   setTicketQuantities({ ...ticketQuantities, [ticketType]: quantity });
@@ -230,18 +215,8 @@ function EventDetails() {
                 color="rgb(135, 107, 43)"
               />
             </h4>
-            {/* <ul>
-              {reviews.map((comment) => (
-                <li key={comment.id}>{comment.text}</li>
-              ))}
-            </ul> */}
             <div className="add-comment">
-              {/* <textarea
-                value={newReview}
-                onChange={(e) => setNewReview(e.target.value)}
-                placeholder="Add a comment..."
-              ></textarea> */}
-              {/* <button onClick={handleReviewSubmit}>Submit</button> */}
+              <ReviewSection eventId={eventId} />
             </div>
           </div>
         </div>
