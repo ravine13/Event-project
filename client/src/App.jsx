@@ -13,6 +13,7 @@ import NewEvent from "./components/new_Event";
 import BillingInfo from "./components/BillingInfo";
 import AdvertFeeInvoices from "./components/AdvertFeeInvoices";
 import TicketCount from "./components/TicketCount";
+import SignUp from "./components/SignUp";
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           <Route path="/billing-info" element={<BillingInfo />} />
           <Route path="/advert-fee-invoices" element={<AdvertFeeInvoices />} />
           <Route path="/ticket-count" element={<TicketCount />} />
+          <Route path='/signup' element={<SignUp></SignUp>}></Route>
         </Routes>
       </div>
     </Router>
