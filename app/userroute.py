@@ -1,7 +1,9 @@
 from flask import Blueprint, make_response, jsonify, request, abort
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, fields
 from flask_restful import Api, Resource, reqparse
-from uuid import UUID, uuid4
+from datetime import datetime
+from uuid import uuid4, UUID
+from models import User, db
 from flask_jwt_extended import jwt_required
 from models import User, db
 from datetime import datetime
@@ -67,8 +69,8 @@ class new_User(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('email', type=str, required=True, help='Email is required')
         parser.add_argument('password', type=str, required=True, help='Password is required')
-        parser.add_argument('confirmed', type=bool, required=False)
-        parser.add_argument('role', type=int, required=False)
+        parser.add_argument('confirmed', type=str, required=False)
+        parser.add_argument('role', type=str, required=False)
         args = parser.parse_args()
 
         new_user = User(
