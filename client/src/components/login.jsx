@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 const Login = ({ onSwitchToSignUp }) => {
   const [usermail, setUsermail] = useState('');
@@ -44,7 +45,7 @@ const Login = ({ onSwitchToSignUp }) => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit" onClick={handleLogin}>Login</button>
+        <Link to={`/dashboard`}> <button type="button">Login</button></Link>
         <button type="button" onClick={onSwitchToSignUp}>Sign Up</button>
       </form>
     </div>

@@ -5,7 +5,7 @@ import "./App.css";
 import Home from "./components/home";
 import Event from "./components/event";
 import EventDetails from "./components/eventdetails";
-import Booking from "./components/booking";
+import Booking from "./components/eventdetails";
 import Dashboard from './components/dashboard';
 
 function App() {
