@@ -1,150 +1,3 @@
-from models import User, Profile, Interests, Tag, Event, Billing_Info, Payment_Details, Event_Billing, Pricing, Review, Payment, Booking, Photo, db
-from uuid import uuid4
-from datetime import datetime
-
-
-for i in range(5):
-    user = User(
-        id=uuid4(),
-        email=f'user{i}@example.com',
-        password='password',
-        role=i,
-        confirmed=True,
-        created_at=datetime.now()
-    )
-    db.session.add(user)
-
-
-for i in range(5):
-    profile = Profile(
-        id=uuid4(),
-        user_id=uuid4(),  
-        first_name=f'First{i}',
-        last_name=f'Last{i}',
-        profile_photo=f'photo{i}.jpg'
-    )
-    db.session.add(profile)
-
-
-for i in range(5):
-    interest = Interests(
-        id=uuid4(),
-        event_id=uuid4(),  
-        user_id=uuid4()  
-    )
-    db.session.add(interest)
-
-
-for i in range(5):
-    tag = Tag(
-        id=uuid4(),
-        user_id=uuid4(), 
-        name=f'tag{i}',
-        event_id=uuid4()  
-    )
-    db.session.add(tag)
-
-
-for i in range(5):
-    event = Event(
-        id=uuid4(),
-        name=f'Event{i}',
-        description=f'Description for Event{i}',
-        organiser_id=uuid4(),  
-        start_date=datetime.now().strftime('%Y-%m-%d'),
-        start_time=datetime.now().strftime('%H:%M'),
-        end_date=datetime.now().strftime('%Y-%m-%d'),
-        end_time=datetime.now().strftime('%H:%M'),
-        duration='1 hour',
-        venue='Venue',
-        photo_url='https://example.com/image.jpg',
-        photo_id=uuid4(), 
-        created_at=datetime.now().strftime('%Y-%m-%d')
-    )
-    db.session.add(event)
-
-
-for i in range(5):
-    billing_info = Billing_Info(
-        id=uuid4(),
-        user_id=uuid4(),  
-        payment_method='credit_card',
-        payment_details_id=uuid4() 
-    )
-    db.session.add(billing_info)
-
-
-for i in range(5):
-    payment_detail = Payment_Details(
-        id=uuid4(),
-        name=f'Payment Detail {i}',
-        detail=f'Detail for Payment Detail {i}'
-    )
-    db.session.add(payment_detail)
-
-
-for i in range(5):
-    event_billing = Event_Billing(
-        id=uuid4(),
-        event_id=uuid4(),  
-        billing_id=uuid4()  
-    )
-    db.session.add(event_billing)
-
-
-for i in range(5):
-    pricing = Pricing(
-        event_id=uuid4(), 
-        id=uuid4(),
-        name=f'Pricing {i}',
-        amount=float(i)
-    )
-    db.session.add(pricing)
-
-
-for i in range(5):
-    review = Review(
-        id=uuid4(),
-        user_id=uuid4(), 
-        event_id=uuid4(),  
-        comment=f'Comment {i}',
-        rating=i
-    )
-    db.session.add(review)
-
-
-for i in range(5):
-    payment = Payment(
-        id=uuid4(),
-        user_id=uuid4(),  
-        event_id=uuid4(),  
-        pricing_id=uuid4(),  
-        date_created=datetime.now(),
-        payment_method='credit_card'
-    )
-    db.session.add(payment)
-
-
-for i in range(5):
-    booking = Booking(
-        id=uuid4(),
-        event_id=uuid4(), 
-        user_id=uuid4(),  
-        pricing_id=uuid4(),  
-        date_created=datetime.now()
-    )
-    db.session.add(booking)
-
-
-for i in range(5):
-    photo = Photo(
-        id=uuid4(),
-        url=f'https://example.com/photo{i}.jpg'
-    )
-    db.session.add(photo)
-
-db.session.commit()
-
 from models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_Details, Advert_Fees, Pricing, Review, Booking, Photo, db
 from uuid import uuid4
 from datetime import datetime, timedelta
@@ -157,6 +10,7 @@ with app.app_context():
     profiles = []
     events = []
     photos = []
+    prices = []
     billing_details = []
     advert_fees = []
 
@@ -188,11 +42,13 @@ with app.app_context():
     db.session.commit()
 
     image_urls = [
-        'https://www.ticketsasa.com/images/images.php?src=components/com_enmasse/upload/akili-02.jpg1707317289.jpg&h=320&w=320&zc=1&q=100&s=1&f=3,5|4,-5',
-        'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fkmcconaugheyray%2Fevent-posters%2F&psig=AOvVaw1mJ88lA6MzlUfmVekJsBCO&ust=1708578481592000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCJDEhoHVu4QDFQAAAAAdAAAAABAE',
+        'https://www.ticketsasa.com/images/images.php?src=components/com_enmasse/upload/akili-02.jpg1707317289.jpg&h=320&w=320&zc=1&q=100&s=1&f=3,5|4,-5',        
         'https://mir-s3-cdn-cf.behance.net/project_modules/disp/14cda14926289.560c6103a2798.png',
         'https://marketplace.canva.com/EAFJMl8KcjI/1/0/1131w/canva-purple-black-tropical-party-club-poster-orVwDS2lrfY.jpg',
-        'https://www.ticketsasa.com/components/com_enmasse/upload/davido__king_promise_1080_by_1080-4.jpg1707721788.jpg'
+        'https://www.ticketsasa.com/components/com_enmasse/upload/davido__king_promise_1080_by_1080-4.jpg1707721788.jpg',
+        'https://tlt-events.s3.amazonaws.com/4828/DEFAULT/c57fd18ae7130b3865995f224f85b4dbb911dd9fa96f8edea3715fc1e391cd29/da48edbe-814d-41f1-80c5-d0eb589ac96a.jpg',
+        'https://tlt-events.s3.amazonaws.com/4320/DEFAULT/8…0ef7d889/53b8fd2d-a477-400c-8638-eafffbf5420c.jpg'
+        
     ]
 
     for i in range(5):
@@ -276,6 +132,7 @@ with app.app_context():
             amount=float(i*10)
         )
         db.session.add(pricing)
+        prices.append(pricing)
 
     db.session.commit()
 

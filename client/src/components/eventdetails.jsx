@@ -6,45 +6,32 @@ import { fetchEvent } from '../services/api';
 import Reviews from "./Reviews";
 import Tags from "./Tags";
 import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
+import ReviewSection from "./Reviews";
 
 function EventDetails() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
-  const [bookings, setBookings] = useState([]);
-  const [reviews, setReviews] = useState([]);
-  const [newReview, setNewReview] = useState("");
-  const [photo, setPhoto] = useState(null);
+  // const [bookings, setBookings] = useState([]);
+  
+
   const [ticketQuantities, setTicketQuantities] = useState({
     regular: 0,
     vip: 0,
     vvip: 0,
     group: 0,
   });
+
+  const navigate = useNavigate();
   const [pricing, setPricing] = useState(null);
 
   useEffect(() => {
     fetch(`http://localhost:5555/events/${eventId}`)
-    .then(response => response.json())
-    .then(data => setEvent(data))
-  }, [eventId])
+      .then((response) => response.json())
+      .then((data) => setEvent(data))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, [eventId]);
 
-  // useEffect(() => {
-  //   fetchEventDetails();
-  //   fetchPricing();
-  //   fetchReviews();
-  //   fetchPhoto();
-  //   fetchBookings();
-  // }, [eventId]);
-
-  // const fetchEventDetails = () => {
-  //   fetchEvent(eventId)
-  //     .then(data => {
-  //       setEvent(data.event);
-  //     })
-  //     .catch(error => console.error("Error fetching event details:", error));
-  // };
-
-  
 
   // const fetchBookings = () => {
   //   fetch(`http://localhost:5555/events/${eventId}/bookings`)
@@ -60,51 +47,27 @@ function EventDetails() {
   //     .catch((error) => console.error("Error fetching reviews:", error));
   // };
 
-  // const fetchPricing = () => {
-  //   fetch(`http://localhost:5555/pricing_list/${eventId}`)
+
+
+  // const handleReviewSubmit = () => {
+  //   fetch(`http://localhost:5555/events/${eventId}/reviews`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ text: newReview }),
+  //   })
   //     .then((response) => response.json())
   //     .then((data) => {
-  //       console.log("Pricing data:", data);
-  //       if (data.amount) {
-  //         setPricing(data);
-  //         setTicketQuantities((prevTicketQuantities) => ({
-  //           ...prevTicketQuantities,
-  //           regular: data.amount,
-  //         }));
-  //       } else {
-  //         console.error("No pricing data found for this event");
-  //       }
+  //       setReviews([...reviews, data]);
+  //       setNewReview("");
   //     })
-  //     .catch((error) => console.error("Error fetching pricing:", error));
+  //     .catch((error) => console.error("Error submitting review:", error));
   // };
-
-  // const fetchPhoto = () => {
-  //   fetch(`http://localhost:5555/photos/${eventId}`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setPhoto(data.photo);
-  //     })
-  //     .catch((error) => console.error("Error fetching photo:", error));
-  // };
-
-  const handleReviewSubmit = () => {
-    fetch(`http://localhost:5555/events/${eventId}/reviews`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text: newReview }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setReviews([...reviews, data]);
-        setNewReview("");
-      })
-      .catch((error) => console.error("Error submitting review:", error));
-  };
   const handleBuyTicket = () => {
     console.log("Buy ticket button clicked");
   };
+
 
   const handleTicketQuantityChange = (ticketType, quantity) => {
   setTicketQuantities({ ...ticketQuantities, [ticketType]: quantity });
@@ -127,6 +90,9 @@ function EventDetails() {
     <div>
     {event && (
     <div className="event-details">
+    <div  className="single-event">
+    <div className="event-image"><img src={event.photo.url} alt={`Image of ${event.event.name}`} /></div>
+    <div>
       <h2>{event.event.name}</h2>
       <img src={event.photo.url} alt="NA" />
       <p>Venue: {event.event.venue}</p>
@@ -134,6 +100,10 @@ function EventDetails() {
 			<p>Duration: {event.event.duration}</p>
 			<p>Start Time: {event.event.start_time}</p>
 			<p>Start Date: {event.event.start_date}</p>
+    </div>
+    </div>
+      
+     
 			<div className="pricing">
 			<h3>Pricing</h3>
 			<table className="pricing-table">
@@ -147,7 +117,7 @@ function EventDetails() {
           <tbody>
             <tr>
               <td>Regular</td>
-              <td>{event.event.regular_price}</td>
+              <td>{event.event.amount}</td>
               <td>
                 <select
                   className="quantity-select"
@@ -168,7 +138,7 @@ function EventDetails() {
             </tr>
             <tr>
 				<td>VIP</td>
-				<td>{event.event.vip_price}</td>
+				<td>{event.event.regular_price}</td>
 				<td>
 					<select
 					className="quantity-select"
@@ -185,8 +155,8 @@ function EventDetails() {
 						{quantity}
 						</option>
 					))}
-                	</select>
-              	</td>
+                </select>
+              </td>
             </tr>
 
             <tr>
@@ -252,23 +222,13 @@ function EventDetails() {
                 color="rgb(135, 107, 43)"
               /> */}
             </h4>
-            <ul>
-              {reviews.map((comment) => (
-                <li key={comment.id}>{comment.text}</li>
-              ))}
-            </ul>
             <Routes>
               <Route path="/reviews/*" element={<Reviews></Reviews>} exact></Route>
               <Route path="/tags/*" element={<Tags></Tags>} exact></Route>
             </Routes>
-            {/* <div className="add-comment">
-              <textarea
-                value={newReview}
-                onChange={(e) => setNewReview(e.target.value)}
-                placeholder="Add a comment..."
-              ></textarea>
-              <button onClick={handleReviewSubmit}>Submit</button>
-            </div> */}
+            <div className="add-comment">
+              <ReviewSection eventId={eventId} />
+            </div>
           </div>
         </div>
       )}
