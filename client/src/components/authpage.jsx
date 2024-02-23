@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Login from './login';
 import SignupForm from './signupform';
+import SignUp from './SignUp';
 
 const AuthPage = () => {
   const [isLoginView, setLoginView] = useState(true);
@@ -18,7 +19,8 @@ const AuthPage = () => {
       {isLoginView ? (
         <Login onSwitchToSignUp={toggleView} />
       ) : (
-        <SignupForm onBackToLogin={goToLogin} />
+        // <SignupForm onBackToLogin={goToLogin} />
+        <SignUp></SignUp>
       )}
 
       <p>
