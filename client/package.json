@@ -16,7 +16,12 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+<<<<<<< HEAD
     "@iconscout/unicons": "^4.0.8",
+=======
+    "@headlessui/react": "^1.7.18",
+    "@heroicons/react": "^2.1.1",
+>>>>>>> 01507b4f0ca97816d9289c61e7f6a5040e26ef53
     "axios": "^1.6.7",
     "props": "^0.3.0",
     "react": "^18.2.0",
@@ -28,10 +33,13 @@
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.17",
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
     "vite": "^5.1.3"
   }
 }
