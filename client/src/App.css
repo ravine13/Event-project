@@ -1,19 +1,21 @@
-#root {
-  background-color: #011c3b;
+*,
+*::before,
+::after{
   box-sizing: border-box;
+}
+#root {  
   margin: 0;
   padding: 0;
-  width: 100%;
-  overflow: hidden;
-  /* border: 2px solid yellow; */
+  width: 88%;
+  background-color: #011c3b;
 }
 #home {
-  /* border-color: greenyellow; */
+  
   background-image: url("./assets/podium fabric.jpg");
   background-size: cover;
   background-position: center;
   /* border: 2px solid rgb(59, 94, 6); */
-  height: 98vh;
+  height: 100vh;
 }
 .homed {
   /* border: 2px solid rgb(59, 94, 6); */
@@ -23,6 +25,7 @@
   text-align: center;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 #hom {
   /* border: 1px solid rgb(135, 107, 43); */
@@ -156,6 +159,9 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   align-items: center;
   justify-content: center;
+  background-color: rgba(255, 255, 255, 0.6);
+  color: #ddd;
+  font-size: 25px;
 }
 
 label {
@@ -173,7 +179,7 @@ input {
 button {
   padding: 10px;
   margin-top: 10px;
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.8);
   color: white;
   border: none;
   border-radius: 5px;
@@ -205,6 +211,8 @@ button:hover {
   /* border: 1px solid #ccc; */
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.6);
+  font-size: 25px;
 }
 
 .signup-form {
@@ -224,12 +232,13 @@ button:hover {
 }
 .card-event {
   display: flex;
+  flex-direction: column;
   margin-top: 20px;
  
 
 }
 .sidebar {
-  background-color: rgb(230, 228, 228);
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 20px;
   width: 400px;
   border: 2px solid rgb(135, 107, 43);
@@ -239,7 +248,7 @@ button:hover {
 .eventCard {
   display: flex;
   flex-wrap: wrap;
-  width: calc(100% - 400px);
+  width: auto;
   border: 1px solid rgb(135, 107, 43);
   justify-content: center;
 
@@ -366,26 +375,75 @@ button:hover {
 .pricing-table th:nth-child(3) {
   width: 30%;
 }
-.dashboard-container{
-  border: 1px solid rgb(135, 107, 43);
-  height: 80vh;
-  background-color: rgba(114, 114, 114, 0.8);
+.dashboard {
+  display: flex;
 }
-.sales-card{
-  border: 1px solid rgb(151, 3, 82);
-  height: 5vh;
+
+.sidebar {
+  width: 250px;
+  background-color: #f4f4f4;
+  padding: 20px;
+  position: fixed;
+  height: 70vh;
+  overflow-y: auto; /* Enable scrolling if content exceeds height */
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
+
+.sidebar ul li ul {
+  display: none;
+  list-style-type: none;
+}
+
+.sidebar ul li:hover ul {
+  display: block;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
   text-align: center;
 }
-.middle-container{
-  border: 1px solid rgb(217, 25, 11);
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  height: 75vh;
+
+.section {
+  margin-bottom: 40px;
 }
-.numbers-place{
-  border: 1px solid rgb(16, 19, 175)
+
+.section h2 {
+  margin-bottom: 20px;
 }
-.random-box{
-  border: 1px solid rgb(35, 148, 56)
+.event-form{
+  border: 1px solid rgb(135, 107, 43);
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 10px rgb(135, 107, 43) inset;
+  font-size: .9em;
+  line-height: 1.6;
+  padding: 10px;
+  width: 80%;
+  margin: auto;
+  height: 80vh;
+  color: #050505;
+  font-size: 20px;
+}
+.event-form h2{
+  text-align: center;
+  font-size: 24px;
+  color: rgb(135, 107, 43);
 }

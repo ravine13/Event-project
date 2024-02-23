@@ -10,6 +10,7 @@ with app.app_context():
     profiles = []
     events = []
     photos = []
+    prices = []
     billing_details = []
     advert_fees = []
 
@@ -41,11 +42,13 @@ with app.app_context():
     db.session.commit()
 
     image_urls = [
-        'https://www.ticketsasa.com/images/images.php?src=components/com_enmasse/upload/akili-02.jpg1707317289.jpg&h=320&w=320&zc=1&q=100&s=1&f=3,5|4,-5',
-        'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fkmcconaugheyray%2Fevent-posters%2F&psig=AOvVaw1mJ88lA6MzlUfmVekJsBCO&ust=1708578481592000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCJDEhoHVu4QDFQAAAAAdAAAAABAE',
+        'https://www.ticketsasa.com/images/images.php?src=components/com_enmasse/upload/akili-02.jpg1707317289.jpg&h=320&w=320&zc=1&q=100&s=1&f=3,5|4,-5',        
         'https://mir-s3-cdn-cf.behance.net/project_modules/disp/14cda14926289.560c6103a2798.png',
         'https://marketplace.canva.com/EAFJMl8KcjI/1/0/1131w/canva-purple-black-tropical-party-club-poster-orVwDS2lrfY.jpg',
-        'https://www.ticketsasa.com/components/com_enmasse/upload/davido__king_promise_1080_by_1080-4.jpg1707721788.jpg'
+        'https://www.ticketsasa.com/components/com_enmasse/upload/davido__king_promise_1080_by_1080-4.jpg1707721788.jpg',
+        'https://tlt-events.s3.amazonaws.com/4828/DEFAULT/c57fd18ae7130b3865995f224f85b4dbb911dd9fa96f8edea3715fc1e391cd29/da48edbe-814d-41f1-80c5-d0eb589ac96a.jpg',
+        'https://tlt-events.s3.amazonaws.com/4320/DEFAULT/8…0ef7d889/53b8fd2d-a477-400c-8638-eafffbf5420c.jpg'
+        
     ]
 
     for i in range(5):
@@ -129,6 +132,7 @@ with app.app_context():
             amount=float(i*10)
         )
         db.session.add(pricing)
+        prices.append(pricing)
 
     db.session.commit()
 
