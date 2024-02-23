@@ -6,6 +6,7 @@ import Home from './components/home';
 import Event from './components/event';
 import SignupForm from './components/signupform';
 import EventDetails from './components/eventdetails';
+import AdminDashboard from './components/DashBoards/Admin';
 
 function App() {
   
@@ -46,6 +47,11 @@ function App() {
             <div>
               <Link id='log-list' to="/event">Events</Link>
             </div>
+            
+            <div>
+              <Link to ="Admin">Admin</Link>
+            </div>
+            
             <div >
               <Link id='log-list' to="/authpage/signup">Login</Link>
             </div>
@@ -65,6 +71,7 @@ function App() {
           <Route path="/home/*" element={<Home />} />
           <Route path="/event/*" element={<Event />} />
           <Route path="/event/:eventId" element={<EventDetails />} />
+          <Route path = "/Admin/*" element={<AdminDashboard />} />
         </Routes>
         
       </div>
