@@ -5,7 +5,8 @@ import "./App.css";
 import Home from "./components/home";
 import Event from "./components/event";
 import EventDetails from "./components/eventdetails";
-import Booking from "./components/booking";
+import Booking from "./components/eventdetails";
+import Dashboard from './components/dashboard';
 
 function App() {
   const [showBackButton, setShowBackButton] = useState(false);
@@ -74,6 +75,7 @@ function App() {
           <Route path="/home/*" element={<Home />} />
           <Route path="/event/*" element={<Event />} />
           <Route path="/event/:eventId" element={<EventDetails />} />
+          <Route path="/dashboard/" element={<Dashboard />} />
           <Route path="/booking/:eventId" element={<Booking />} />
         </Routes>
       </div>

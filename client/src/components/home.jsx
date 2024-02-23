@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook, faInstagram, faLinkedinIn, faTwitter } from "@fortawesome/free-brands-svg-icons";
-import eventPageImage from "../assets/event-page-1.jpg"
-import '../App.css'
+import eventPageImage from "../assets/event-page-1.jpg";
+import '../App.css';
 
 function Home() {
   const [events, setEvents] = useState([]);
