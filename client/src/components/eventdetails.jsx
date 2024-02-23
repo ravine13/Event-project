@@ -48,15 +48,15 @@ function EventDetails() {
 
   // Fetching booking data after button click (Buyticket)
 
-  const handleBooking = (bookingId) => {
-    fetch(`http://localhost:5555/bookings/${bookingId}`)
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((error) =>
-        console.error("Error fetching data from bookings:", error)
-      );
-    console.log(bookingId);
-  };
+  // const handleBooking = (bookingId) => {
+  //   fetch(`http://localhost:5555/bookings/${bookingId}`)
+  //     .then((res) => res.json())
+  //     .then((data) => console.log(data))
+  //     .catch((error) =>
+  //       console.error("Error fetching data from bookings:", error)
+  //     );
+  //   console.log(bookingId);
+  // };
 
   const handleTicketQuantityChange = (ticketType, quantity) => {
     setTicketQuantities({ ...ticketQuantities, [ticketType]: quantity });
