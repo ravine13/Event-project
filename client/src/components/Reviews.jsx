@@ -29,19 +29,19 @@ function Reviews() {
 		e.preventDefault();
 
 		fetch(`http://localhost:5555/new_review`, {
-      		method: "POST",
-      		headers: {
-        		"Content-Type": "application/json",
-      			},
-      		body: JSON.stringify({ 'comment': newReview, 'event_id' : eventId }),
-    	})
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			}, 
+			body: JSON.stringify({ 'comment': newReview, 'event_id' : eventId }),
+    })
       .then((response) => response.json())
       .then((data) => {
         setReviews(current => [...current, data]);
         setNewReview("");
       })
       .catch((error) => console.error("Error submitting review:", error));
-  	};
+}
 
 	// DELETE
 	function handleReviewDelete(review_id){
@@ -56,17 +56,16 @@ function Reviews() {
 			})
 		} else {
 			alert('Action Aborted!')
-		}
-	};
+		}}
 
 	// UPDATE
 	function handleUpdate(review_id){
 		fetch(`http://localhost:5555/reviews/${review_id}`, {
 			method: "PATCH",
-      		headers: {
-        		"Content-Type": "application/json",
-      			},
-      		body: JSON.stringify({ 'comment': newReview }),
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ 'comment': newReview }),
 		})
 		.then(response => response.json())
 		.then((data) => {
@@ -80,11 +79,11 @@ function Reviews() {
 			})
 			setReviews(updatedReviews);
 		})
-	};
+	}
 
 	let review_cards = reviews.map((review) => {
 			return (
-				<div>
+			<div  key={review.id}>
 					<div>
 						<p className='text-white d-inline'>{review.comment}</p>
 						<NavLink to={`/event/${eventId}/reviews/edit`} exact>
@@ -116,8 +115,7 @@ function Reviews() {
 				</div>
 			)
 		})
-
-  	return (
+return (
 		<div>
 			{reviews[0] !== undefined ? review_cards : spinners}
 			<form action="" onSubmit={handleReviewSubmit}>
@@ -134,7 +132,7 @@ function Reviews() {
 				</button>
 			</form>
 		</div>
-  	);
-};
+		);
+	}
 
 export default Reviews;
