@@ -149,12 +149,12 @@
 #tck {
   color: rgb(135, 107, 43);
 }
-.log-container {
+/* .log-container {
   max-width: 60%;
   margin: auto;
   padding: 50px;
   height: 75vh;
-  /* border: 1px solid #ccc; */
+  border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   align-items: center;
@@ -162,21 +162,21 @@
   background-color: rgba(255, 255, 255, 0.6);
   color: #ddd;
   font-size: 25px;
-}
+} */
 
-label {
+/* label {
   display: block;
   margin-bottom: 15px;
-}
+} */
 
-input {
+/* input {
   width: 98%;
   padding: 12px;
   margin-bottom: 10px;
   border-radius: 8px;
-}
+} */
 
-button {
+/* button {
   padding: 10px;
   margin-top: 10px;
   background-color: rgba(255, 255, 255, 0.8);
@@ -186,39 +186,40 @@ button {
   cursor: pointer;
   margin-right: 25px;
   border-color: rgb(135, 107, 43);
-}
+} */
 
-button:hover {
-  /* background-color: #54585d; */
+/* button:hover {
+  background-color: #54585d;
   border-color: rgb(135, 107, 43);
-}
+} */
 
-.signup-form button {
+/* .signup-form button {
   margin-top: 10px;
   background-color: transparent;
-}
+} */
 
-.signup-form button:hover {
+/* .signup-form button:hover {
   border-color: rgb(135, 107, 43);
-}
+} */
 
-.signup-form-container {
+/* .signup-form-container {
   max-width: 65%;
   font-size: 20px;
   margin: auto;
   padding: 20px;
   height: 75vh;
-  /* border: 1px solid #ccc; */
+  border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: rgba(255, 255, 255, 0.6);
   font-size: 25px;
-}
+} */
 
-.signup-form {
+/* .signup-form {
   display: flex;
   flex-direction: column;
-}
+} */
+
 .events {
   display: flex;
   flex-direction: column;
