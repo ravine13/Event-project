@@ -26,7 +26,7 @@ function App() {
           <Route path="/authpage/*" element={<AuthPage />} />
           <Route path="/home/*" element={<Home />} />
           <Route path="/event/*" element={<Event />} />
-          <Route path="/event/:eventId" element={<EventDetails />} />
+          <Route path="/event/:eventId/*" element={<EventDetails />} />
           <Route path="/dashboard/" element={<Dashboard />} />
           <Route path="/booking/:eventId" element={<Booking />} />
           <Route path="/ticket-history" element={<TicketHistory />} />

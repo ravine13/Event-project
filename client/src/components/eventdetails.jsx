@@ -225,9 +225,9 @@ function EventDetails() {
               <Route path="/reviews/*" element={<Reviews></Reviews>} exact></Route>
               <Route path="/tags/*" element={<Tags></Tags>} exact></Route>
             </Routes>
-            <div className="add-comment">
+            {/* <div className="add-comment">
               <ReviewSection eventId={eventId} />
-            </div>
+            </div> */}
           </div>
         </div>
       )}
