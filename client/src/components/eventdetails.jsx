@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { fetchEvent } from '../services/api';
 import Reviews from "./Reviews";
+import Tags from "./Tags";
 import Footer from "./Footer";
 
 function EventDetails() {
@@ -243,12 +244,13 @@ function EventDetails() {
       </button>
       <div className="comments">
       <h4>
-              <NavLink to={`/event/${eventId}/reviews`} exact> <p className="text-primary">Reviews{" "}</p> </NavLink>
-              <FontAwesomeIcon
+              <NavLink to={`/event/${eventId}/reviews`} exact> <p className="text-primary m-2">Reviews</p> </NavLink>
+              <NavLink to={`/event/${eventId}/tags`} exact> <p className="text-primary m-2">Tags</p> </NavLink>
+              {/* <FontAwesomeIcon
                 icon={faComment}
                 size="1x"
                 color="rgb(135, 107, 43)"
-              />
+              /> */}
             </h4>
             <ul>
               {reviews.map((comment) => (
@@ -256,7 +258,8 @@ function EventDetails() {
               ))}
             </ul>
             <Routes>
-              <Route path="/reviews/*" element={<Reviews></Reviews>}></Route>
+              <Route path="/reviews/*" element={<Reviews></Reviews>} exact></Route>
+              <Route path="/tags/*" element={<Tags></Tags>} exact></Route>
             </Routes>
             {/* <div className="add-comment">
               <textarea
