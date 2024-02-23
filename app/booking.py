@@ -139,9 +139,10 @@ api.add_resource(BookingByID, '/bookings/<string:id>')
 
 class new_Booking(Resource):
     post_args = reqparse.RequestParser(bundle_errors=True)
-    post_args.add_argument('event_id', type=uuid_type, help='ID of the Event', required=True)
-    post_args.add_argument('user_id', type=uuid_type, help='ID of the User', required=True)
-    post_args.add_argument('pricing_id', type=uuid_type, help='ID of the Pricing', required=True)
+    post_args.add_argument('card_name', type=uuid_type, help="Card holder's name required", required=True)
+    post_args.add_argument('card_number', type=uuid_type, help='Card name required', required=True)
+    post_args.add_argument('exp_date', type=uuid_type, help='Expiration date required', required=True)
+    post_args.add_argument('cvv', type=uuid_type, help='cvv required', required=True)
 
     def post(self):
         new_bookings = self.post_args.parse_args()
