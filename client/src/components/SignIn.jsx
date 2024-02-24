@@ -1,9 +1,11 @@
 import React, {useState, useEffect, useRef, useContext} from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import "../SignUp.css";
+import { EventsContext } from '../App';
 
 export default function SignIn() {
 	const navigate = useNavigate();
+	let { setSignedIn } = useContext(EventsContext)
 	let [showPassword, setShowPassword] = useState(false);
 	let [signInData, setSignInData] = useState({})
 
@@ -51,6 +53,7 @@ export default function SignIn() {
 				localStorage.setItem("user_auth_token", data.token)
 				window.alert('Successfully Logged In')
 				navigate("/home")
+				setSignedIn(true)
 				console.log(data);
 			}
 		})
@@ -86,7 +89,7 @@ export default function SignIn() {
 				</div>
 
 				<p className='log_p text-white'>
-					Don't have an account? <NavLink to={'/signup'} ><span>Sign Up</span></NavLink>
+					Don't have an account? <NavLink to={'/signup'} ><span className='sign_span'>Sign Up</span></NavLink>
 				</p>
 			</form>
 		</div>

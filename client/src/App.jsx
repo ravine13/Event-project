@@ -1,6 +1,8 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { createContext, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import AuthPage from "./components/authpage";
 import "./App.css";
+import './SignUp.css';
 import Home from "./components/home";
 import Event from "./components/event";
 import EventDetails from "./components/eventdetails";
@@ -14,11 +16,35 @@ import BillingInfo from "./components/BillingInfo";
 import AdvertFeeInvoices from "./components/AdvertFeeInvoices";
 import TicketCount from "./components/TicketCount";
 import SignUp from "./components/SignUp";
-
+import { jwtDecode } from "jwt-decode";
+export const EventsContext = createContext();
 
 function App() {
+  let [signedIn, setSignedIn] = useState();
+  let token = localStorage.getItem('user_auth_token');
+  let token_exists = token !== null;
+  let user_id;
+  token_exists ? user_id = jwtDecode(token).sub : null;
+
+  function handleLogOutTokenBlock(){
+    localStorage.removeItem('user_auth_token');
+    setSignedIn(false);
+    jwtDecode(token).exp = 0;
+
+    fetch('http://127.0.0.1:5555/logout', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    }).then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
+  };
+
+
   return (
     <Router>
+      <EventsContext.Provider value={{token, token_exists, user_id, handleLogOutTokenBlock, signedIn, setSignedIn}}>
       <div id="home">
         <Navbar />
         <hr />
@@ -39,7 +65,9 @@ function App() {
           <Route path='/signup' element={<SignUp></SignUp>}></Route>
         </Routes>
       </div>
+      </EventsContext.Provider>
     </Router>
+
   );
 }
 

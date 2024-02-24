@@ -112,7 +112,7 @@ function SignUp() {
 				</div>
 
 				<p className='log_p text-white'>
-					Already have an account?<NavLink to={'/authpage/signup'} ><span>Login</span></NavLink>
+					Already have an account?<NavLink to={'/authpage/signup'} ><span className='sign_span'>Login</span></NavLink>
 				</p>
 			</form>
     	</div>

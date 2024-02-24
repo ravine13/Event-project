@@ -57,6 +57,40 @@ form.log_form{
 }
 
 .log_p span{
-	color: rgb(250, 20, 70);
+	color: rgb(250, 185, 20);
 	text-decoration: none;
+}
+
+.log_div{
+	transition: all 0.3s;
+}
+.log_div:hover{
+	transform: scale(1.1);
+}
+
+.log_link{
+	transition: all 0.5s;
+}
+.log_link:hover{
+	color: white;
+	box-shadow: 100px 0 0 0 navy inset;
+}
+
+.sign_span{
+	position: relative;
+}
+.sign_span::after{
+	content: '';
+	width: 0%;
+	height: 1.5px;
+
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: rgb(250, 185, 20);
+	transition: all 0.3s;
+}
+.sign_span:hover::after{
+	width: 100%;
 }
