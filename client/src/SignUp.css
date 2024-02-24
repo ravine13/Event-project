@@ -94,3 +94,25 @@ form.log_form{
 .sign_span:hover::after{
 	width: 100%;
 }
+
+div.nav-list {
+	gap: 30px;
+}
+
+div#nav{
+	justify-content: space-around;
+}
+body{
+	padding: 0;
+	margin: 0;
+}
+
+div#root {  
+	width: 100%;
+	background-color: white;
+}
+
+div.event-details{
+	backdrop-filter: blur(5px);
+	border-radius: 10px;
+}
