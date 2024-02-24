@@ -1,8 +1,9 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { EventsContext } from "../App";
 
 function Navbar() {
-  
-  
+  let { token_exists } = useContext(EventsContext);
   
     return (
     <div id="nav">
@@ -33,7 +34,7 @@ function Navbar() {
       </div>
       <div>
         <Link id="log-list" to="/authpage/signup">
-          Login
+          {!token_exists ? 'Login' : 'Logout'}
         </Link>
       </div>
       <div>
