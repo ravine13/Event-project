@@ -11,18 +11,15 @@ export const fetchUser = (userId) => api.get(`/user/${userId}`);
 
 export const fetchEvents = () => api.get('/events');
 export const fetchEvent = (eventId) => {
-  return fetch(`${BASE_URL}/events/${eventId}`)
+  return api.get(`${BASE_URL}/events/${eventId}`)
     .then(response => {
-      if (!response.ok) {
+      if (!response.status !== 200) {
         throw new Error('Network response was not ok');
       }
-      return response.json();
+      return response.data;
     })
-    .then(data => {
-      if (data.error) {
-        throw new Error(data.error);
-      }
-      return data;
+    .catch(error => {
+      throw error.response.data;
     });
 };
 

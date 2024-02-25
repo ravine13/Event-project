@@ -10,7 +10,7 @@ import Navbar from  './components/navabar';
 import TicketHistory from "./components/TicketHistory";
 import EventHistory from "./components/EventHistory";
 import NewEvent from "./components/new_Event";
-import BillingInfo from "./components/BillingInfo";
+import BillingInfo from "./components/billing_info";
 import AdvertFeeInvoices from "./components/AdvertFeeInvoices";
 import TicketCount from "./components/TicketCount";
 
@@ -29,11 +29,11 @@ function App() {
           <Route path="/event/:eventId" element={<EventDetails />} />
           <Route path="/dashboard/" element={<Dashboard />} />
           <Route path="/booking/:eventId" element={<Booking />} />
-          <Route path="/ticket-history" element={<TicketHistory />} />
-          <Route path="/event-history" element={<EventHistory />} />
+          <Route path="/TicketHistory" element={<TicketHistory />} />
+          <Route path="/EventHistory" element={<EventHistory />} />
           <Route path="/new_Event" element={<NewEvent />} />
-          <Route path="/billing-info" element={<BillingInfo />} />
-          <Route path="/advert-fee-invoices" element={<AdvertFeeInvoices />} />
+          <Route path="/billing_info" element={<BillingInfo />} />
+          <Route path="/AdvertFeeInvoices" element={<AdvertFeeInvoices />} />
           <Route path="/ticket-count" element={<TicketCount />} />
         </Routes>
       </div>

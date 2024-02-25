@@ -43,40 +43,35 @@ function Dashboard() {
     <div className="sidebar">
       <h2>Dashboard</h2>
       <ul className="dropdown">
-        <li>
-          <a href="#ticket-history">Ticket History</a>
+      <li>
+          <a href="#advert-fee-invoices">Advertisement</a>
           <ul>
-            <li><a href="#ticket-history">View Ticket History</a></li>
+          <li><Link to={'/AdvertFeeInvoices'} onClick={toggleForm}> View Fee Invoices</Link></li>
           </ul>
         </li>
         <li>
-          <a href="#event-history">Event History</a>
+          <a href="#billing-info">Billing</a>
           <ul>
-            <li><a href="#event-history">View Event History</a></li>
+          <li><Link to={'/billing_details'} onClick={toggleForm}> View Billing details</Link></li>
+          <li><Link to={'/billing_info'} onClick={toggleForm}> View Billing Info</Link></li>
           </ul>
         </li>
         <li>
-          <a href="#add-event">Add Event</a>
+          <a href="#add-event">Event</a>
           <ul>
-            <li><Link to={'/new_Event'} onClick={toggleForm}> Addd a New Event</Link></li>
+            <li><Link to={'/event'} onClick={toggleForm}> View Events</Link></li>
+            <li><Link to={'/new_Event'} onClick={toggleForm}> Add a New Event</Link></li>
+            <li><Link to={'/EventHistory'} onClick={toggleForm}> Event History</Link></li>
           </ul>
         </li>
+        
+        
         <li>
-          <a href="#billing-info">Billing Info</a>
+          <a href="#ticket-count">Tickets</a>
           <ul>
-            <li><a href="#billing-info">View Billing Info</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="#advert-fee-invoices">Advert Fee Invoices</a>
-          <ul>
-            <li><a href="#advert-fee-invoices">View Advert Fee Invoices</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="#ticket-count">Ticket Count for Event</a>
-          <ul>
-            <li><a href="#ticket-count">View Ticket Count</a></li>
+          <li><Link to={'/TicketCount'} onClick={toggleForm}> View Ticket Count</Link></li>
+          <li><Link to={'/Booking'} onClick={toggleForm}> View Tickets Booked</Link></li>
+          <li><Link to={'/TicketHistory'} onClick={toggleForm}> View Ticket History</Link></li>
           </ul>
         </li>
       </ul>
