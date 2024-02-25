@@ -15,7 +15,6 @@ function Reviews() {
 		<div className='spinner-grow text-primary mx-2'></div>
 	</div>);
 
-	// READ
 	useEffect(() => {
 		fetch(`http://localhost:5555/events/${eventId}`)
 		.then(response => response.json())
@@ -24,7 +23,6 @@ function Reviews() {
 		})
 	}, [eventId])
 
-	// CREATE
 	function handleReviewSubmit(e){
 		e.preventDefault();
 

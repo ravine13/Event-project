@@ -24,6 +24,7 @@ export const fetchEvent = (eventId) => {
 };
 
 export const fetchPricing = () => api.get('/pricing_list');
+export const fetchBookings = () => api.get('/bookings');
 
 export const fetchAuthorizations = () => api.get('/authorizations');
 

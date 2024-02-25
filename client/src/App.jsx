@@ -18,6 +18,7 @@ import BillingDetails from "./components/billing_details";
 import { jwtDecode } from "jwt-decode";
 export const EventsContext = createContext();
 import Booking from "./components/booking.jsx";
+import Booked from "./components/booked.jsx";
 
 function App() {
   let [signedIn, setSignedIn] = useState();
@@ -54,10 +55,11 @@ function App() {
           <Route path="/authpage/*" element={<AuthPage />} />
           <Route path="/home/*" element={<Home />} />
           <Route path="/event/*" element={<Event />} />
-          <Route path="/event/:eventId" element={<EventDetails />} />
+          <Route path="/event/:eventId/*" element={<EventDetails />} />
           <Route path="/minad/*" element={<AdminDashboard />} />
           <Route path="/AdminDash/" element={<Dashboard />} />
           <Route path="/booking/:eventId" element={<Booking />} />
+          <Route path="/booking/*" element={<Booking />} />
           <Route path="/TicketHistory" element={<TicketHistory />} />
           <Route path="/EventHistory" element={<EventHistory />} />
           <Route path="/new_Event" element={<NewEvent />} />
@@ -65,6 +67,7 @@ function App() {
           <Route path="/billing_details" element={<BillingDetails />} />
           <Route path="/AdvertFeeInvoices" element={<AdvertFeeInvoices />} />
           <Route path="/TicketCount" element={<TicketCount />} />
+          <Route path="/booked" element={<Booked />} />
         </Routes>
       </div>
       </EventsContext.Provider>

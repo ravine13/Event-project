@@ -71,7 +71,7 @@ function Dashboard() {
             </a>
             <ul className={activeMenu === "ticket" ? "active" : ""}>
               <li><Link to={'/TicketCount'}>View Ticket Count</Link></li>
-              <li><Link to={'/Booking'}>View Tickets Booked</Link></li>
+              <li><Link to={'/booked'}>View Tickets Booked</Link></li>
               <li><Link to={'/TicketHistory'}>View Ticket History</Link></li>
             </ul>
           </li>

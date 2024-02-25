@@ -202,7 +202,11 @@ function EventDetails() {
           <p>Total Amount: {calculateTotalAmount()}</p>
         </div>
       </div>
-      <Link to={'/booking'}><button id="buy-ticket-btn" onClick={handleBuyTicket}> </button></Link>
+      <Link to={'/booking'} style={{ textDecoration: 'none' }}>
+        <button id="buy-ticket-btn" onClick={handleBuyTicket} style={{ backgroundColor: 'rgb(135, 107, 43)', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '5px' }}>
+          Book Ticket
+         </button>
+        </Link>
       
       <div className="comments">
       <h4>
