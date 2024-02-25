@@ -11,24 +11,25 @@ export const fetchUser = (userId) => api.get(`/user/${userId}`);
 
 export const fetchEvents = () => api.get('/events');
 export const fetchEvent = (eventId) => {
-  return fetch(`${BASE_URL}/events/${eventId}`)
+  return api.get(`${BASE_URL}/events/${eventId}`)
     .then(response => {
-      if (!response.ok) {
+      if (!response.status !== 200) {
         throw new Error('Network response was not ok');
       }
-      return response.json();
+      return response.data;
     })
-    .then(data => {
-      if (data.error) {
-        throw new Error(data.error);
-      }
-      return data;
+    .catch(error => {
+      throw error.response.data;
     });
 };
 
 export const fetchPricing = () => api.get('/pricing_list');
 
 export const fetchAuthorizations = () => api.get('/authorizations');
+
+export const fetchBilling = () => api.get('/billing_info');
+
+export const fetchBillingDetails = () => api.get('/billing_details');
 
 export const registerUser = async (userData) => {
   try {
@@ -37,6 +38,23 @@ export const registerUser = async (userData) => {
   } catch (error) {
     throw error.response.data;
   }
+};
+
+export const login = async (email, password) => {
+  try {
+      const response = await axios.post(`${BASE_URL}/login`, { email, password });
+      const data = response.data;
+      localStorage.setItem('accessToken', data.access_token);
+      localStorage.setItem('refreshToken', data.refresh_token);
+      return data;
+  } catch (error) {
+      console.error('Error logging in:', error);
+      throw error;
+  }
+};
+const isTokenExpired = (token) => {
+  const expiry = token.exp * 1000;
+  return Date.now() >= expiry;
 };
 
 export const getAllUsers = async () => {

@@ -1,6 +1,8 @@
-import React, {useState} from "react";
+import {useState} from "react";
+import PropTypes from 'prop-types';
 
-export default function SignupForm(){
+
+export default function SignupForm({ onBackToLogin }){
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -14,7 +16,7 @@ export default function SignupForm(){
             ...formData,
             [name]:value
         })
-    };
+    }
 
     const handleSubmit = async(event) =>{
         event.preventDefault();
@@ -23,7 +25,7 @@ export default function SignupForm(){
             const response = await fetch ("http://127.0.0.1:5000/users",{
                 method: "POST",
                 headers:{
-                    "Content-Type":"application/jsom",
+                    "Content-Type":"application/json",
                 },
                 body: JSON.stringify(formData),
             });
@@ -35,13 +37,13 @@ export default function SignupForm(){
             console.log('Registration Successful')
         }
         catch(error){
-            console.error("error during registration", error.message);
+            console.error("Failed to register User", error.message);
         }
     };
 
     return(
-        <div>
-            <h2>Sign up Form</h2>
+        <div className="signup-form-container">
+            <h2>Sign up</h2>
 
             <form onSubmit={handleSubmit}>
                 <label>
@@ -75,8 +77,12 @@ export default function SignupForm(){
                 <br />
 
                 <button type="submit">Sign Up</button>
+                <button type="button" onClick={onBackToLogin}>Back to Login</button>
             </form>
         
         </div>
     )
 }
+SignupForm.propTypes = {
+    onBackToLogin: PropTypes.func.isRequired,
+  };
