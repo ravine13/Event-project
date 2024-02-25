@@ -50,7 +50,8 @@ class TagResources(Resource):
         data = request.get_json()
         new_tags = Tag(
             id = uuid4(),
-            name = data.get('name')
+            name = data.get('name'),
+            event_id = UUID(data.get('event_id'))
             )
         
         db.session.add(new_tags)

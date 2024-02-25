@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { EventsContext } from "../App";
 
 function Navbar() {
-  
-  
+  let { token_exists, handleLogOutTokenBlock, signedIn } = useContext(EventsContext);
   
     return (
     <div id="nav">
@@ -32,10 +33,19 @@ function Navbar() {
         </Link>
       </div>
       <div>
-        <Link id="log-list" to="/authpage/signup">
-          Login
+        <Link to ="Admin">
+          Admin
         </Link>
       </div>
+
+      <div className="log_div">
+        {token_exists || signedIn ?
+            <NavLink to='/authpage/signup' className='log_link p-1 px-2 border border-primary rounded-pill' exact onClick={handleLogOutTokenBlock}>Logout</NavLink>
+                :
+            <NavLink to='/authpage/signup' className='log_link p-1 px-2 border border-primary rounded-pill' exact>Login</NavLink>
+        }
+      </div>
+
       <div>
         <Link to="/event">
           <button id="tck-btn" type="button">

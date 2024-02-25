@@ -22,13 +22,14 @@ export default function SignupForm({ onBackToLogin }){
         event.preventDefault();
 
         try{
-            const response = await fetch ("http://127.0.0.1:5000/users",{
-                method: "POST",
-                headers:{
-                    "Content-Type":"application/json",
-                },
-                body: JSON.stringify(formData),
+            const response = await fetch ("http://127.0.0.1:5555/register",{
+                        method: "POST",
+                        headers:{
+                            "Content-Type":"application/json", // Corrected content type
+                        },
+                        body: JSON.stringify(formData),
             });
+
 
             if(!response.ok){
                 throw new Error('Registration failed')
@@ -62,7 +63,7 @@ export default function SignupForm({ onBackToLogin }){
 
                 <label>
                     Confirm Password:
-                    <input type="password" name="confirmed" value={formData.confirmPassword} onChange={handleChange} />
+                    <input type="password" name="confirmed" value={formData.confirmed} onChange={handleChange} />
                 </label>
 
                 <br />
