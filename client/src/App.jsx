@@ -1,8 +1,8 @@
-import { createContext, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import AuthPage from "./components/authpage";
 import "./App.css";
 import './SignUp.css';
+import AdminDashboard from './components/DashBoards/Admin';
 import Home from "./components/home";
 import Event from "./components/event";
 import EventDetails from "./components/eventdetails";
@@ -41,7 +41,7 @@ function App() {
     .then(data => {
       console.log(data);
     })
-  };
+  }
 
 
   return (
@@ -49,13 +49,15 @@ function App() {
       <EventsContext.Provider value={{token, token_exists, user_id, handleLogOutTokenBlock, signedIn, setSignedIn}}>
       <div id="home">
         <Navbar />
+
         <hr />
         <div></div>
         <Routes>
           <Route path="/authpage/*" element={<AuthPage />} />
           <Route path="/home/*" element={<Home />} />
           <Route path="/event/*" element={<Event />} />
-          <Route path="/event/:eventId/*" element={<EventDetails />} />
+          <Route path="/event/:eventId" element={<EventDetails />} />
+          <Route path = "/Admin/*" element={<AdminDashboard />} />
           <Route path="/dashboard/" element={<Dashboard />} />
           <Route path="/booking/:eventId" element={<Booking />} />
           <Route path="/TicketHistory" element={<TicketHistory />} />

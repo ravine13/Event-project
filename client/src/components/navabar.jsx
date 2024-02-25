@@ -32,6 +32,11 @@ function Navbar() {
           Events
         </Link>
       </div>
+      <div>
+        <Link to ="Admin">
+          Admin
+        </Link>
+      </div>
 
       <div className="log_div">
         {token_exists || signedIn ?
