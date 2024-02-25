@@ -6,7 +6,7 @@ import './SignUp.css';
 import Home from "./components/home";
 import Event from "./components/event";
 import EventDetails from "./components/eventdetails";
-import Booking from "./components/eventdetails";
+// import Booking from "./components/eventdetails";
 import Dashboard from './components/dashboard';
 import Navbar from  './components/navabar';
 import TicketHistory from "./components/TicketHistory";
@@ -19,6 +19,7 @@ import BillingDetails from "./components/billing_details";
 import SignUp from "./components/SignUp";
 import { jwtDecode } from "jwt-decode";
 export const EventsContext = createContext();
+import Booking from "./components/booking.jsx";
 
 function App() {
   let [signedIn, setSignedIn] = useState();
