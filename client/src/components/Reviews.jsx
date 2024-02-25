@@ -41,7 +41,6 @@ function Reviews() {
       .catch((error) => console.error("Error submitting review:", error));
 }
 
-	// DELETE
 	function handleReviewDelete(review_id){
 		if (window.confirm('Confirm Delete!')){
 			fetch(`http://localhost:5555/reviews/${review_id}`, {
@@ -56,7 +55,6 @@ function Reviews() {
 			alert('Action Aborted!')
 		}}
 
-	// UPDATE
 	function handleUpdate(review_id){
 		fetch(`http://localhost:5555/reviews/${review_id}`, {
 			method: "PATCH",
@@ -82,18 +80,10 @@ function Reviews() {
 	let review_cards = reviews.map((review) => {
 			return (
 			<div  key={review.id}>
-					<div>
-						<p className='text-white d-inline'>{review.comment}</p>
-						<NavLink to={`/event/${eventId}/reviews/edit`} exact>
-							<img src="https://cdn-icons-png.flaticon.com/128/860/860814.png" alt="NA" width={25} />
-						</NavLink>
-						<button className='delete-btn border-0' onClick={() => handleReviewDelete(review.id)}>
-							<img src="https://cdn-icons-png.flaticon.com/128/6861/6861362.png" alt="NA" width={25} />
-						</button>
-					</div>
+								
 					<Routes>
 						<Route path='/edit' element={
-						<div>
+							<div>
 							<textarea 
 								className='bg-white text-black'
 								name="" 
@@ -110,7 +100,18 @@ function Reviews() {
 						</div>
 						} exact></Route>
 					</Routes>
+					<div>
+							<p className='text-white d-inline'>{review.comment}</p>
+							<NavLink to={`/event/${eventId}/reviews/edit`} exact>
+								<img src="https://cdn-icons-png.flaticon.com/128/860/860814.png" alt="NA" width={25} />
+							</NavLink>
+							<button className='delete-btn border-0' onClick={() => handleReviewDelete(review.id)}>
+								<img src="https://cdn-icons-png.flaticon.com/128/6861/6861362.png" alt="NA" width={25} />
+							</button>
+						</div>
+
 				</div>
+			
 			)
 		})
 return (
