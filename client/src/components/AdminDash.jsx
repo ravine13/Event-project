@@ -1,7 +1,7 @@
 import { useState} from "react";
 import "../App.css";
 import { Link} from "react-router-dom";
-// import TicketCount from "./TicketCount";
+
 
 
 
@@ -10,9 +10,9 @@ import { Link} from "react-router-dom";
 function Dashboard() {
 
 
-    // const [ticketCount, setTicketCount] = useState(0);
+  
 
-   
+  
 
     const [activeMenu, setActiveMenu] = useState(null);
 
@@ -23,23 +23,7 @@ function Dashboard() {
     };
 
 
-    
-    // useEffect(() => {
-    //   fetchTicketData("http://localhost:5555/events");
-    //   .then(response => response.json())
-    //     .then(data => {})
-    // }, []); 
   
-    // const fetchTicketData = () => {
-      
-    //   fetch('/ticket_data')
-    //     .then(response => response.json())
-    //     .then(data => {
-    //       const totalCount = data.reduce((acc, ticket) => acc + ticket.quantity, 0);
-    //       setTicketCount(totalCount);
-    //     })
-    //     .catch(error => console.error('Error fetching ticket data:', error));
-    // };
 
 
 

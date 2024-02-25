@@ -1,9 +1,10 @@
-import React, {useState, useEffect, useRef, useContext} from 'react';
+import {useState, useRef, useContext} from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import "../SignUp.css";
 import { EventsContext } from '../App';
 
-export default function SignIn() {
+export default function SignIn({ onSwitchToSignUp }) {
 	const navigate = useNavigate();
 	let { setSignedIn } = useContext(EventsContext)
 	let [showPassword, setShowPassword] = useState(false);
@@ -26,7 +27,6 @@ export default function SignIn() {
 		setSignInData((current) => ({...current, [name]:value}))
 	}
 
-	// ON SUBMIT
 	function onLogFormSubmit(e){
 		e.preventDefault();
 		e.target.reset();
@@ -52,14 +52,13 @@ export default function SignIn() {
 			if(data){
 				localStorage.setItem("user_auth_token", data.token)
 				window.alert('Successfully Logged In')
-				navigate("/home")
+				navigate("/dashboard")
 				setSignedIn(true)
 				console.log(data);
 			}
 		})
 	}
 
-	// SHOW/HIDE PASSWORD
 	function toggle_show_password(){
 		setShowPassword(current => !current);
 		if (!showPassword) {
@@ -67,12 +66,13 @@ export default function SignIn() {
 		}
 		else{
 			password_input.current.type = 'password';
-		};
+		}
 	}
 
 	return (
 		<div className='account_div d-flex justify-content-center align-items-center my-3'>
-			<form onSubmit={onLogFormSubmit} className='log_form d-flex flex-column justify-content-center align-items-center'>
+		<h3>SignIn</h3>
+			<form onSubmit={onLogFormSubmit} className='log_form d-flex flex-column justify-content-center align-items-center'>				
 				<div className='log_inputs_div mt-4 m-2'>
 					<label ref={email_label} className='log_labels' htmlFor='log_email'>Email</label>
 					<input type='text' id="log_email" className='bg-white text-black' name='email' onClick={onInputClick} onChange={onInputChange} required></input>
@@ -86,12 +86,16 @@ export default function SignIn() {
 				
 				<div className='log_inputs_div mt-4 m-2'>
 					<input ref={logSubmit} type='submit' className='log_submit' value={'Log In'}></input>
+					<input onClick={onSwitchToSignUp} type='button' className='log_submit' value={'Sign Up'}></input>
 				</div>
 
-				<p className='log_p text-white'>
-					Don't have an account? <NavLink to={'/signup'} ><span className='sign_span'>Sign Up</span></NavLink>
+				<p className='log_p text-white'> Dont have an account? <NavLink to={'/SignUp'} ><span className='sign_span'>Sign Up</span></NavLink>
 				</p>
 			</form>
 		</div>
 	)
 }
+
+SignIn.propTypes = {
+	onSwitchToSignUp: PropTypes.func.isRequired,
+  };

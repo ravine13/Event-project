@@ -43,7 +43,7 @@ function BillingDetails() {
 
     return (
         <div className='billing-details'>
-            {/* <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <label>
                     Detail:
                     <input type="text" value={detail} onChange={e => setDetail(e.target.value)} />
@@ -53,7 +53,7 @@ function BillingDetails() {
                     <input type="text" value={name} onChange={e => setName(e.target.value)} />
                 </label>
                 <input type="submit" value="Submit" />
-            </form> */}
+            </form>
 
             {billingDetails.map(detail => (
                 <div key={detail.id}>

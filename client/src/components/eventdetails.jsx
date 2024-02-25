@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, NavLink, Routes, Route } from "react-router-dom";
+import { useParams, NavLink, Link, Routes, Route } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { fetchEvent } from '../services/api';
@@ -13,7 +13,6 @@ import ReviewSection from "./Reviews";
 function EventDetails() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
-  // const [bookings, setBookings] = useState([]);
   
 
   const [ticketQuantities, setTicketQuantities] = useState({
@@ -34,12 +33,6 @@ function EventDetails() {
   }, [eventId]);
 
 
-  // const fetchBookings = () => {
-  //   fetch(`http://localhost:5555/events/${eventId}/bookings`)
-  //     .then((response) => response.json())
-  //     .then((data) => setBookings(data))
-  //     .catch((error) => console.error("Error fetching bookings:", error));
-  // };
 
   // const fetchReviews = () => {
   //   fetch(`http://localhost:5555/events/${eventId}/reviews`)
@@ -209,25 +202,25 @@ function EventDetails() {
           <p>Total Amount: {calculateTotalAmount()}</p>
         </div>
       </div>
-      <Link to={'/billing_info'}><button id="buy-ticket-btn" onClick={handleBuyTicket}> </button></Link>
+      <Link to={'/booking'}><button id="buy-ticket-btn" onClick={handleBuyTicket}> </button></Link>
       
       <div className="comments">
       <h4>
               <NavLink to={`/event/${eventId}/reviews`} exact> <p className="text-primary m-2">Reviews</p> </NavLink>
               <NavLink to={`/event/${eventId}/tags`} exact> <p className="text-primary m-2">Tags</p> </NavLink>
-              {/* <FontAwesomeIcon
+              <FontAwesomeIcon
                 icon={faComment}
                 size="1x"
                 color="rgb(135, 107, 43)"
-              /> */}
+              />
             </h4>
             <Routes>
               <Route path="/reviews/*" element={<Reviews></Reviews>} exact></Route>
               <Route path="/tags/*" element={<Tags></Tags>} exact></Route>
             </Routes>
-            {/* <div className="add-comment">
+            <div className="add-comment">
               <ReviewSection eventId={eventId} />
-            </div> */}
+            </div>
           </div>
         </div>
       )}

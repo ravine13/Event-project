@@ -52,10 +52,11 @@ export const login = async (email, password) => {
       throw error;
   }
 };
-const isTokenExpired = (token) => {
-  const expiry = token.exp * 1000;
-  return Date.now() >= expiry;
-};
+
+// const isTokenExpired = (token) => {
+//   const expiry = token.exp * 1000;
+//   return Date.now() >= expiry;
+// };
 
 export const getAllUsers = async () => {
   try {
