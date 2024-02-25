@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import ReviewSection from "./Reviews";
+
 
 function EventDetails() {
   const { eventId } = useParams();
@@ -82,7 +83,8 @@ function EventDetails() {
   };
 
   return (
-    <div>
+    <>
+    <div className="event-bgd">
     {event && (
     <div className="event-details">
     <div  className="single-event">
@@ -203,9 +205,8 @@ function EventDetails() {
           <p>Total Amount: {calculateTotalAmount()}</p>
         </div>
       </div>
-      <button id="buy-ticket-btn" onClick={handleBuyTicket}>
-        Buy Ticket
-      </button>
+      <Link to={'/billing_info'}><button id="buy-ticket-btn" onClick={handleBuyTicket}> </button></Link>
+      
       <div className="comments">
       <h4>
               Comments{" "}
@@ -221,7 +222,31 @@ function EventDetails() {
           </div>
         </div>
       )}
+      
     </div>
+    <footer className="pageFooter">
+        <div id="pagination">
+          <h3>Pages</h3>
+          <p>Privacy Policy</p>
+          <p>Cookie Policy</p>
+          <p>Terms and Conditions</p>
+          <p>About</p>
+        </div>
+        <div id="pagination">
+          <h3>Contact Us</h3>
+          <p>3rd Floor, Lion Place, Westlands</p>
+          <p>Ticketing Issues and General Queries <br/>
+           <span>support@ticketnexus.com</span></p>
+          <p>Event Listing <br/>
+          <span>events@ticketnexus.com</span></p>
+        </div>
+        <div id="pagination">
+          <h3>About</h3>
+          <p>Our job is to ensure that your <br />
+            brand is effectively EVENTED</p>
+        </div>
+      </footer>
+    </>
   );
 }
 
