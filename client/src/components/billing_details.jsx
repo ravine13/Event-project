@@ -9,7 +9,7 @@ function BillingDetails() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get('/billing_details');
+            const response = await axios.get('http://localhost:5555/billing_details');
             setBillingDetails(response.data);
         };
 
@@ -20,14 +20,14 @@ function BillingDetails() {
         event.preventDefault();
 
         if (selectedId) {
-            const response = await axios.patch(`/billing_details/${selectedId}`, {
+            const response = await axios.patch(`http://localhost:5555/billing_details/${selectedId}`, {
                 detail: detail,
                 name: name
             });
 
             console.log(response.data);
         } else {
-            const response = await axios.post('/billing_details', {
+            const response = await axios.post('http://localhost:5555/billing_details', {
                 detail: detail,
                 name: name
             });
@@ -37,13 +37,13 @@ function BillingDetails() {
     };
 
     const handleDelete = async (id) => {
-        const response = await axios.delete(`/billing_details/${id}`);
+        const response = await axios.delete(`http://localhost:5555/billing_details/${id}`);
         console.log(response.data);
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
+        <div className='billing-details'>
+            {/* <form onSubmit={handleSubmit}>
                 <label>
                     Detail:
                     <input type="text" value={detail} onChange={e => setDetail(e.target.value)} />
@@ -53,7 +53,7 @@ function BillingDetails() {
                     <input type="text" value={name} onChange={e => setName(e.target.value)} />
                 </label>
                 <input type="submit" value="Submit" />
-            </form>
+            </form> */}
 
             {billingDetails.map(detail => (
                 <div key={detail.id}>

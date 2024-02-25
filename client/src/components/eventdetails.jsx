@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import ReviewSection from "./Reviews";
+
 
 function EventDetails() {
   const { eventId } = useParams();
@@ -204,9 +205,8 @@ function EventDetails() {
           <p>Total Amount: {calculateTotalAmount()}</p>
         </div>
       </div>
-      <button id="buy-ticket-btn" onClick={handleBuyTicket}>
-        Buy Ticket
-      </button>
+      <Link to={'/billing_info'}><button id="buy-ticket-btn" onClick={handleBuyTicket}> </button></Link>
+      
       <div className="comments">
       <h4>
               Comments{" "}

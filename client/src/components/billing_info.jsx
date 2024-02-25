@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../App.css'
 
 function BillingInfo() {
     const [billingInfos, setBillingInfos] = useState([]);
@@ -10,7 +11,7 @@ function BillingInfo() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get('/billing_info');
+            const response = await axios.get('http://localhost:5555/billing_info');
             setBillingInfos(response.data);
         };
 
@@ -21,7 +22,7 @@ function BillingInfo() {
         event.preventDefault();
 
         if (selectedId) {
-            const response = await axios.patch(`/billing_info/${selectedId}`, {
+            const response = await axios.patch(`http://localhost:5555/billing_info/${selectedId}`, {
                 payment_method: paymentMethod,
                 billing_details: billingDetails,
                 user: user
@@ -29,7 +30,7 @@ function BillingInfo() {
 
             console.log(response.data);
         } else {
-            const response = await axios.post('/billing_info', {
+            const response = await axios.post('http://localhost:5555/billing_info', {
                 payment_method: paymentMethod,
                 billing_details: billingDetails,
                 user: user
@@ -40,13 +41,16 @@ function BillingInfo() {
     };
 
     const handleDelete = async (id) => {
-        const response = await axios.delete(`/billing_info/${id}`);
+        const response = await axios.delete(`http://localhost:5555/billing_info/${id}`);
         console.log(response.data);
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
+        <div className='billing-details'>
+
+        {/* This should be in a different page */}
+        
+            {/* <form onSubmit={handleSubmit}>
                 <label>
                     Payment Method:
                     <input type="text" value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)} />
@@ -60,7 +64,7 @@ function BillingInfo() {
                     <input type="text" value={user} onChange={e => setUser(e.target.value)} />
                 </label>
                 <input type="submit" value="Submit" />
-            </form>
+            </form> */}
 
             {billingInfos.map(info => (
                 <div key={info.id}>

@@ -13,6 +13,7 @@ import NewEvent from "./components/new_Event";
 import BillingInfo from "./components/billing_info";
 import AdvertFeeInvoices from "./components/AdvertFeeInvoices";
 import TicketCount from "./components/TicketCount";
+import BillingDetails from "./components/billing_details";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path="/EventHistory" element={<EventHistory />} />
           <Route path="/new_Event" element={<NewEvent />} />
           <Route path="/billing_info" element={<BillingInfo />} />
+          <Route path="/billing_details" element={<BillingDetails />} />
           <Route path="/AdvertFeeInvoices" element={<AdvertFeeInvoices />} />
           <Route path="/ticket-count" element={<TicketCount />} />
         </Routes>

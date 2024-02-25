@@ -27,6 +27,10 @@ export const fetchPricing = () => api.get('/pricing_list');
 
 export const fetchAuthorizations = () => api.get('/authorizations');
 
+export const fetchBilling = () => api.get('/billing_info');
+
+export const fetchBillingDetails = () => api.get('/billing_details');
+
 export const registerUser = async (userData) => {
   try {
     const response = await api.post('/register', userData);
@@ -34,6 +38,23 @@ export const registerUser = async (userData) => {
   } catch (error) {
     throw error.response.data;
   }
+};
+
+export const login = async (email, password) => {
+  try {
+      const response = await axios.post(`${BASE_URL}/login`, { email, password });
+      const data = response.data;
+      localStorage.setItem('accessToken', data.access_token);
+      localStorage.setItem('refreshToken', data.refresh_token);
+      return data;
+  } catch (error) {
+      console.error('Error logging in:', error);
+      throw error;
+  }
+};
+const isTokenExpired = (token) => {
+  const expiry = token.exp * 1000;
+  return Date.now() >= expiry;
 };
 
 export const getAllUsers = async () => {
