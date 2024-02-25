@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams, NavLink, Routes, Route } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
+import { fetchEvent } from '../services/api';
+import Reviews from "./Reviews";
+import Tags from "./Tags";
+import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
 import ReviewSection from "./Reviews";
 
@@ -37,12 +41,12 @@ function EventDetails() {
   //     .catch((error) => console.error("Error fetching bookings:", error));
   // };
 
-  const fetchReviews = () => {
-    fetch(`http://localhost:5555/events/${eventId}/reviews`)
-      .then((response) => response.json())
-      .then((data) => setReviews(data))
-      .catch((error) => console.error("Error fetching reviews:", error));
-  };
+  // const fetchReviews = () => {
+  //   fetch(`http://localhost:5555/events/${eventId}/reviews`)
+  //     .then((response) => response.json())
+  //     .then((data) => setReviews(data))
+  //     .catch((error) => console.error("Error fetching reviews:", error));
+  // };
 
 
 
@@ -209,16 +213,21 @@ function EventDetails() {
       
       <div className="comments">
       <h4>
-              Comments{" "}
-              <FontAwesomeIcon
+              <NavLink to={`/event/${eventId}/reviews`} exact> <p className="text-primary m-2">Reviews</p> </NavLink>
+              <NavLink to={`/event/${eventId}/tags`} exact> <p className="text-primary m-2">Tags</p> </NavLink>
+              {/* <FontAwesomeIcon
                 icon={faComment}
                 size="1x"
                 color="rgb(135, 107, 43)"
-              />
+              /> */}
             </h4>
-            <div className="add-comment">
+            <Routes>
+              <Route path="/reviews/*" element={<Reviews></Reviews>} exact></Route>
+              <Route path="/tags/*" element={<Tags></Tags>} exact></Route>
+            </Routes>
+            {/* <div className="add-comment">
               <ReviewSection eventId={eventId} />
-            </div>
+            </div> */}
           </div>
         </div>
       )}
