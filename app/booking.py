@@ -5,6 +5,7 @@ from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema,auto_field
 from models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_Details, Advert_Fees, Pricing, Review, Booking, Photo, db
 from marshmallow import Schema, fields
+from sqlalchemy import func
 from flask_jwt_extended import jwt_required
 from uuid import UUID
 from uuid import uuid4
@@ -17,9 +18,12 @@ ma = Marshmallow(booking_bp)
 
 
 class BookingSchema(SQLAlchemyAutoSchema):
+    event_name = fields.Str(attribute="event.name")
+
     class Meta:
         model = Booking
         include_fk = True
+
 booking_schema = BookingSchema()
 
 class PricingSchema(SQLAlchemyAutoSchema):
@@ -43,9 +47,23 @@ def uuid_type(value):
 
 class Bookings(Resource):
     def get(self):
-        booking = Booking.query.all()
+        bookings = db.session.query(
+            Booking.id,
+            Booking.date_created,
+            Event.name.label('event_name')
+        ).join(Event, Booking.event_id == Event.id).all()
 
-        bookings = booking_schema.dump(booking,many = True)
+        bookingname = [
+            {
+                "id": booking.id,
+                "date_created": booking.date_created,
+                "event_name": booking.event_name
+            }
+            for booking in bookings
+        ]
+
+       
+        bookings = booking_schema.dump(bookingname, many=True)
 
         res = make_response(
             jsonify(bookings),
@@ -139,9 +157,10 @@ api.add_resource(BookingByID, '/bookings/<string:id>')
 
 class new_Booking(Resource):
     post_args = reqparse.RequestParser(bundle_errors=True)
-    post_args.add_argument('event_id', type=uuid_type, help='ID of the Event', required=True)
-    post_args.add_argument('user_id', type=uuid_type, help='ID of the User', required=True)
-    post_args.add_argument('pricing_id', type=uuid_type, help='ID of the Pricing', required=True)
+    post_args.add_argument('card_name', type=uuid_type, help="Card holder's name required", required=True)
+    post_args.add_argument('card_number', type=uuid_type, help='Card name required', required=True)
+    post_args.add_argument('exp_date', type=uuid_type, help='Expiration date required', required=True)
+    post_args.add_argument('cvv', type=uuid_type, help='cvv required', required=True)
 
     def post(self):
         new_bookings = self.post_args.parse_args()

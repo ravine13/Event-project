@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import "./Dashboard.css";
+import { useState, useEffect } from "react";
+// import './DashBoards/Dashboard.css';
 import axios from "axios";
 
 function AdminDashboard() {

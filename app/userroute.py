@@ -69,12 +69,12 @@ class new_User(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('email', type=str, required=True, help='Email is required')
         parser.add_argument('password', type=str, required=True, help='Password is required')
-        parser.add_argument('confirmed', type=str, required=False)
-        parser.add_argument('role', type=str, required=False)
+        parser.add_argument('confirmed', type=bool, required=False)
+        parser.add_argument('role', type=int, required=False)
         args = parser.parse_args()
 
         new_user = User(
-             id=str(uuid4()),
+            id=uuid4(),
             email=args['email'], 
             password=args['password'], 
             confirmed=args.get('confirmed', False), 

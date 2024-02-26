@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
 function EventGoerDashboard() {
     
 
@@ -9,3 +17,6 @@ function EventGoerDashboard() {
         </>
     )
 }
+
+
+export default EventGoerDashboard;

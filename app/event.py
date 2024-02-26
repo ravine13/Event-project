@@ -150,11 +150,12 @@ class new_Event(Resource):
     post_args.add_argument('end_time', type=str, help='End time of the Event', required=True)
     post_args.add_argument('duration', type=str, help='Duration of the Event', required=True)
     post_args.add_argument('venue', type=str, help='Venue of the Event', required=True)
-    post_args.add_argument('photo_id', type=uuid_type, help='PhotoID of the Event', required=True)
+    post_args.add_argument('photo_url', type=str, help='URL of the Event Photo', required=True)
 
     def post(self):
         new_events = self.post_args.parse_args()
-        new_event = Event(id=uuid4(),**new_events)
+        new_photo = Photo(url=new_events['photo_url'])
+        new_event = Event(id=uuid4(),**new_events, photo=new_photo)
 
         new_events['start_date'] = datetime.strptime(new_events['start_date'] + ' ' + new_events['start_time'], '%Y-%m-%d %H:%M:%S')
         new_events['end_date'] = datetime.strptime(new_events['end_date'] + ' ' + new_events['end_time'], '%Y-%m-%d %H:%M:%S')

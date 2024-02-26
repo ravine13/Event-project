@@ -10,7 +10,7 @@ function NewEvent() {
     end_time: '',
     duration: '',
     venue: '',
-    photo_id: '',
+    photo_url: '',
   });
 
   const handleChange = (e) => {
@@ -28,7 +28,7 @@ function NewEvent() {
     })
       .then((response) => response.json())
       .then((data) => console.log(data))
-      // .catch((error) => console.error('Error:', error));
+      .catch((error) => console.error('Error:', error));
   };
 
   return (
@@ -67,8 +67,8 @@ function NewEvent() {
         <input type="text" name="venue" value={eventDetails.venue} onChange={handleChange} required />
       </label>
       <label>
-        Photo ID:
-        <input type="text" name="photo_id" value={eventDetails.photo_id} onChange={handleChange} required />
+        Photo Url:
+        <input type="text" name="photo_url" value={eventDetails.photo_url} onChange={handleChange} required />
       </label>
       <button type="submit">Submit</button>
     </form>

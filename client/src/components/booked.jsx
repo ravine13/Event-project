@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import "../App.css";
 
-function Event() {
-  const [events, setEvents] = useState([]);
+function Booked() {
+  const [BookedEvent, setBookedEvent] = useState([]);
  
 
   useEffect(() => {
-    fetch("http://localhost:5555/events")
+    fetch("http://localhost:5555/bookings")
       .then((r) => r.json())
-      .then((events) => setEvents(events))
+      .then((BookedEvents) => setBookedEvent(BookedEvents))
       .catch((error) => console.error("Error fetching data:", error));
 
       
@@ -19,35 +18,20 @@ function Event() {
   return (
     <div>
       <div className="events">
-        <div className="tiles">
-          <div>
-            <h4>Upcoming Events</h4>
-          </div>
-        </div>
-        <div className="card-event">
-          <div className="results">
-            <div className="eventCard">
-              {events.map((event) => (
-                <Link key={event.id} to={`/event/${event.id}`}>
-                  <div className="profile">
-                    <img
-                      className="eventImage"
-                      src={event.photo.url}
-                      alt={`${event.name}`}
-                    />
+        <h3>Bookings</h3>
+        
+            <div className="bookingCard">
+              {BookedEvent.map((booking) => (
+                <div key={booking.id} to={`/bookings/${booking.id}`}>
+                  <div className="profile">            
                     <div className="eventInfo">
-                      <h2>
-                        <span> {event.name} </span><br/>
-                        <span> {event.venue}</span>{" "}
-                      </h2>
-                      <p> start Date: {event.start_date} </p>
+                      <p><span> Event: {booking.name} </span></p>
+                      <p> Start Date: {booking.start_date} </p>
                     </div>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
-          </div>
-        </div>
       </div>
       <footer className="pageFooter">
         <div id="pagination">
@@ -75,4 +59,4 @@ function Event() {
   );
 }
 
-export default Event;
+export default Booked;

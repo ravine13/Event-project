@@ -2,6 +2,7 @@ from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
 from uuid import UUID
+from uuid import UUID
 from flask import Blueprint
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import (JWTManager,
@@ -38,8 +39,15 @@ def user_lookup_callback(_jwt_header, jwt_data):
 class UserRegister(Resource):
     def post(self):
         data = register_args.parse_args()
+        email = data.get('email')
+        user_exists = User.query.filter_by(email = email).first() is not None
+        
+        if user_exists:
+            return abort(409, details='Conflict! Account Already Exists')
+        
         if data['password'] != data['confirm-password']:
             return abort(422,detail='Passwords do not match')
+        
         new_user = User(
             id=uuid4(), 
             email=data['email'], 
