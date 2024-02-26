@@ -76,6 +76,7 @@ class Event(db.Model):
     photo_id = Column(UUID, ForeignKey('Photo.id'))
     created_at = Column(DateTime)
     photo = relationship('Photo', back_populates='event')
+    bookings = relationship('Booking', back_populates='event')
 
 class Billing_Info(db.Model):
     __tablename__ = 'Billing_Info'
@@ -135,7 +136,7 @@ class Booking(db.Model):
     pricing_id = Column(UUID, ForeignKey('Pricing.id'))
     pricing = relationship('Pricing', backref='bookings')
     date_created = Column(DateTime)
-    event = relationship('Event', backref='bookings')
+    event = relationship('Event', back_populates='bookings')
     
 
 class Photo(db.Model):

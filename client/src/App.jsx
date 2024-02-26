@@ -18,6 +18,7 @@ import { jwtDecode } from "jwt-decode";
 export const EventsContext = createContext();
 import Booking from "./components/booking.jsx";
 import Booked from "./components/booked.jsx";
+import AdminDashboard from "./components/minad.jsx";
 
 function App() {
   return (
@@ -46,9 +47,8 @@ function App() {
           <Route path="/booked" element={<Booked />} />
         </Routes>
       </div>
-      </EventsContext.Provider>
+      {/* </EventsContext.Provider> */}
     </Router>
-
   );
 }
 
