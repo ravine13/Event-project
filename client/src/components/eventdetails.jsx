@@ -9,7 +9,6 @@ function EventDetails() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
   // const [bookings, setBookings] = useState([]);
-  
 
   const [ticketQuantities, setTicketQuantities] = useState({
     regular: 0,
@@ -28,7 +27,6 @@ function EventDetails() {
       .catch((error) => console.error("Error fetching data:", error));
   }, [eventId]);
 
-
   // const fetchBookings = () => {
   //   fetch(`http://localhost:5555/events/${eventId}/bookings`)
   //     .then((response) => response.json())
@@ -42,8 +40,6 @@ function EventDetails() {
       .then((data) => setReviews(data))
       .catch((error) => console.error("Error fetching reviews:", error));
   };
-
-
 
   // const handleReviewSubmit = () => {
   //   fetch(`http://localhost:5555/events/${eventId}/reviews`, {
@@ -64,9 +60,8 @@ function EventDetails() {
     console.log("Buy ticket button clicked");
   };
 
-
   const handleTicketQuantityChange = (ticketType, quantity) => {
-  setTicketQuantities({ ...ticketQuantities, [ticketType]: quantity });
+    setTicketQuantities({ ...ticketQuantities, [ticketType]: quantity });
   };
 
   const calculateTotalAmount = () => {
@@ -83,131 +78,133 @@ function EventDetails() {
 
   return (
     <div>
-    {event && (
-    <div className="event-details">
-    <div  className="single-event">
-    <div className="event-image"><img src={event.photo.url} alt={`Image of ${event.event.name}`} /></div>
-    <div>
-      <h2>{event.event.name}</h2>
-      <p>Venue: {event.event.venue}</p>
-			<p>Description: {event.event.description}</p>
-			<p>Duration: {event.event.duration}</p>
-			<p>Start Time: {event.event.start_time}</p>
-			<p>Start Date: {event.event.start_date}</p>
-    </div>
-    </div>
-      
-     
-			<div className="pricing">
-			<h3>Pricing</h3>
-			<table className="pricing-table">
-			<thead>
-				<tr>
-				<th>Ticket Type</th>
-				<th>Price</th>
-				<th>Quantity</th>
-				</tr>
-			</thead>
-          <tbody>
-            <tr>
-              <td>Regular</td>
-              <td>{event.event.amount}</td>
-              <td>
-                <select
-                  className="quantity-select"
-                  value={ticketQuantities.regular}
-                  onChange={(e) =>
-                    handleTicketQuantityChange(
-                      "regular",
-                      parseInt(e.target.value)
-                    )
-                  }>
-                  {[...Array(10).keys()].map((quantity) => (
-                    <option key={quantity} value={quantity}>
-                      {quantity}
-                    </option>
-                  ))}
-                </select>
-              </td>
-            </tr>
-            <tr>
-				<td>VIP</td>
-				<td>{event.event.regular_price}</td>
-				<td>
-					<select
-					className="quantity-select"
-					value={ticketQuantities.vip}
-					onChange={(e) =>
-						handleTicketQuantityChange(
-						"vip",
-						parseInt(e.target.value)
-						)
-					}
-					>
-					{[...Array(10).keys()].map((quantity) => (
-						<option key={quantity} value={quantity}>
-						{quantity}
-						</option>
-					))}
-                </select>
-              </td>
-            </tr>
+      {event && (
+        <div className="event-details">
+          <div className="single-event">
+            <div className="event-image">
+              <img src={event.photo.url} alt={`Image of ${event.event.name}`} />
+            </div>
+            <div>
+              <h2>{event.event.name}</h2>
+              <p>Venue: {event.event.venue}</p>
+              <p>Description: {event.event.description}</p>
+              <p>Duration: {event.event.duration}</p>
+              <p>Start Time: {event.event.start_time}</p>
+              <p>Start Date: {event.event.start_date}</p>
+            </div>
+          </div>
 
-            <tr>
-				<td>VVIP</td>
-				<td>{event.event.vvip_price}</td>
-				<td>
-					<select
-						className="quantity-select"
-						value={ticketQuantities.vvip}
-						onChange={(e) =>
-							handleTicketQuantityChange(
-							"vvip",
-							parseInt(e.target.value)
-							)
-						}
-						>
-						{[...Array(10).keys()].map((quantity) => (
-							<option key={quantity} value={quantity}>
-							{quantity}
-							</option>
-						))}
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>Group</td>
-              <td>{event.event.group_price}</td>
-              <td>
-                <select
-                  className="quantity-select"
-                  value={ticketQuantities.group}
-                  onChange={(e) =>
-                    handleTicketQuantityChange(
-                      "group",
-                      parseInt(e.target.value)
-                    )
-                  }
-                >
-                  {[...Array(10).keys()].map((quantity) => (
-                    <option key={quantity} value={quantity}>
-                      {quantity}
-                    </option>
-                  ))}
-                </select>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div>
-          <p>Total Amount: {calculateTotalAmount()}</p>
-        </div>
-      </div>
-      <button id="buy-ticket-btn" onClick={handleBuyTicket}>
-        Buy Ticket
-      </button>
-      <div className="comments">
-      <h4>
+          <div className="pricing">
+            <h3>Pricing</h3>
+            <table className="pricing-table">
+              <thead>
+                <tr>
+                  <th>Ticket Type</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Regular</td>
+                  <td>{event.event.amount}</td>
+                  <td>
+                    <select
+                      className="quantity-select"
+                      value={ticketQuantities.regular}
+                      onChange={(e) =>
+                        handleTicketQuantityChange(
+                          "regular",
+                          parseInt(e.target.value)
+                        )
+                      }
+                    >
+                      {[...Array(10).keys()].map((quantity) => (
+                        <option key={quantity} value={quantity}>
+                          {quantity}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>VIP</td>
+                  <td>{event.event.regular_price}</td>
+                  <td>
+                    <select
+                      className="quantity-select"
+                      value={ticketQuantities.vip}
+                      onChange={(e) =>
+                        handleTicketQuantityChange(
+                          "vip",
+                          parseInt(e.target.value)
+                        )
+                      }
+                    >
+                      {[...Array(10).keys()].map((quantity) => (
+                        <option key={quantity} value={quantity}>
+                          {quantity}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>VVIP</td>
+                  <td>{event.event.vvip_price}</td>
+                  <td>
+                    <select
+                      className="quantity-select"
+                      value={ticketQuantities.vvip}
+                      onChange={(e) =>
+                        handleTicketQuantityChange(
+                          "vvip",
+                          parseInt(e.target.value)
+                        )
+                      }
+                    >
+                      {[...Array(10).keys()].map((quantity) => (
+                        <option key={quantity} value={quantity}>
+                          {quantity}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Group</td>
+                  <td>{event.event.group_price}</td>
+                  <td>
+                    <select
+                      className="quantity-select"
+                      value={ticketQuantities.group}
+                      onChange={(e) =>
+                        handleTicketQuantityChange(
+                          "group",
+                          parseInt(e.target.value)
+                        )
+                      }
+                    >
+                      {[...Array(10).keys()].map((quantity) => (
+                        <option key={quantity} value={quantity}>
+                          {quantity}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div>
+              <p>Total Amount: {calculateTotalAmount()}</p>
+            </div>
+          </div>
+          <button id="buy-ticket-btn" onClick={handleBuyTicket}>
+            Buy Ticket
+          </button>
+          <div className="comments">
+            <h4>
               Comments{" "}
               <FontAwesomeIcon
                 icon={faComment}
