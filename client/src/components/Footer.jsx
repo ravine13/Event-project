@@ -1,5 +1,5 @@
 export default function Footer() {
-  	return (
+return (
 		<footer className='text-white'>
 			<div className='container'>
 				<div className='footer-div_1 d-flex justify-content-center'>Ticket Nexus</div>
@@ -38,5 +38,5 @@ export default function Footer() {
                 <p className='p-2 m-0'>&copy; 2024 Ticket Nexus. All rights reserved.</p>
 			</div>
 		</footer>
-  	)
+	)
 }

@@ -1,8 +1,9 @@
-import React, {useState, useEffect, useRef} from 'react';
+import {useState, useRef} from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import "../SignUp.css";
+import PropTypes from 'prop-types';
+import "../App.css";
 
-function SignUp() {
+function SignUp({onBackToLogin}) {
 	const navigate = useNavigate();
 	let [showPassword, setShowPassword] = useState(false);
 	let [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -21,7 +22,6 @@ function SignUp() {
 		setSignUpData((current) => ({...current, [name]:value}))
 	}
 
-	// ON SUBMIT
 	function onLogFormSubmit(e){
 		e.preventDefault();
 		e.target.reset();
@@ -67,7 +67,7 @@ function SignUp() {
 		}
 		else{
 			password_input.current.type = 'password';
-		};
+		}
 	}
 
 	function toggleShowConfirmpassword(){
@@ -77,12 +77,11 @@ function SignUp() {
 		}
 		else{
 			confirmPasswordInput.current.type = 'password';
-		};
+		}
 	}
 
-	// //
 	return (
-		<div className='account_div d-flex justify-content-center align-items-center my-3'>
+		<div className='signup-form-container'>
 			<form onSubmit={onLogFormSubmit} className='log_form d-flex flex-column justify-content-center align-items-center'>
 				<div className='log_inputs_div mt-4 m-2'>
 					<label ref={email_label} className='log_labels' htmlFor='log_email'>Email</label>
@@ -109,14 +108,18 @@ function SignUp() {
 
 				<div className='log_inputs_div mt-4 m-2'>
 					<input type='submit' className='log_submit' value={'Sign Up'}></input>
+					<input type="button" className='log_submit' onClick={onBackToLogin} value={'Back to Login'}></input>
 				</div>
 
 				<p className='log_p text-white'>
-					Already have an account?<NavLink to={'/authpage/signup'} ><span className='sign_span'>Login</span></NavLink>
+					Already have an account?<NavLink to={'/authpage/signup'} ><span className='sign_span'>   Sign In</span></NavLink>
 				</p>
 			</form>
-    	</div>
+    </div>
 	)
-};
+}
 
+SignUp.propTypes = {
+    onBackToLogin: PropTypes.func.isRequired,
+  };
 export default SignUp;

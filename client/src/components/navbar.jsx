@@ -33,7 +33,7 @@ function Navbar() {
         </Link>
       </div>
       <div>
-        <Link to ="Admin">
+        <Link to ="AdminDash">
           Admin
         </Link>
       </div>

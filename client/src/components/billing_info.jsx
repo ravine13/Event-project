@@ -50,7 +50,7 @@ function BillingInfo() {
 
         {/* This should be in a different page */}
         
-            {/* <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <label>
                     Payment Method:
                     <input type="text" value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)} />
@@ -64,7 +64,7 @@ function BillingInfo() {
                     <input type="text" value={user} onChange={e => setUser(e.target.value)} />
                 </label>
                 <input type="submit" value="Submit" />
-            </form> */}
+            </form>
 
             {billingInfos.map(info => (
                 <div key={info.id}>

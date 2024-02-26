@@ -1,20 +1,27 @@
 import { useState, useEffect } from "react";
-import { useParams, NavLink, Routes, Route } from "react-router-dom";
+
+import { useParams, NavLink, Link, Routes, Route } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComment } from "@fortawesome/free-solid-svg-icons";
-import { fetchEvent } from '../services/api';
+import { faComment, faHeart } from "@fortawesome/free-solid-svg-icons";
 import Reviews from "./Reviews";
 import Tags from "./Tags";
-import Footer from "./Footer";
-import { useNavigate } from "react-router-dom";
 import ReviewSection from "./Reviews";
+import '../App.css';
 
 
 function EventDetails() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
-  // const [bookings, setBookings] = useState([]);
-  
+  const [interestCount, setInterestCount] = useState(0);
+
+  const handleInterestClick = () => {
+    setInterestCount(interestCount + 1);
+    setShowBubble(true);
+    setTimeout(() => setShowBubble(false), 3000);
+  };
+
+
+  const [showBubble, setShowBubble] = useState(false);
 
   const [ticketQuantities, setTicketQuantities] = useState({
     regular: 0,
@@ -23,8 +30,8 @@ function EventDetails() {
     group: 0,
   });
 
-  const navigate = useNavigate();
-  const [pricing, setPricing] = useState(null);
+
+  
 
   useEffect(() => {
     fetch(`http://localhost:5555/events/${eventId}`)
@@ -33,38 +40,6 @@ function EventDetails() {
       .catch((error) => console.error("Error fetching data:", error));
   }, [eventId]);
 
-
-  // const fetchBookings = () => {
-  //   fetch(`http://localhost:5555/events/${eventId}/bookings`)
-  //     .then((response) => response.json())
-  //     .then((data) => setBookings(data))
-  //     .catch((error) => console.error("Error fetching bookings:", error));
-  // };
-
-  // const fetchReviews = () => {
-  //   fetch(`http://localhost:5555/events/${eventId}/reviews`)
-  //     .then((response) => response.json())
-  //     .then((data) => setReviews(data))
-  //     .catch((error) => console.error("Error fetching reviews:", error));
-  // };
-
-
-
-  // const handleReviewSubmit = () => {
-  //   fetch(`http://localhost:5555/events/${eventId}/reviews`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ text: newReview }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setReviews([...reviews, data]);
-  //       setNewReview("");
-  //     })
-  //     .catch((error) => console.error("Error submitting review:", error));
-  // };
   const handleBuyTicket = () => {
     console.log("Buy ticket button clicked");
   };
@@ -100,6 +75,19 @@ function EventDetails() {
 			<p>Duration: {event.event.duration}</p>
 			<p>Start Time: {event.event.start_time}</p>
 			<p>Start Date: {event.event.start_date}</p>
+
+      <p>
+        Interested?{" "}
+        <FontAwesomeIcon
+          icon={faHeart}
+          size="1x"
+          color="rgb(135, 107, 43)"
+          onClick={handleInterestClick}
+        />
+      </p>
+      {showBubble && <div className="bubble">Interest declared!</div>}
+      {/* Rest of the event details */}
+     
     </div>
     </div>
       
@@ -205,29 +193,37 @@ function EventDetails() {
             </tr>
           </tbody>
         </table>
+        <div  className="total-buy">
         <div>
           <p>Total Amount: {calculateTotalAmount()}</p>
         </div>
+      <div> 
+      <Link to={'/booking'} style={{ textDecoration: 'none' }}>
+        <button id="buy-ticket-btn" onClick={handleBuyTicket} style={{ backgroundColor: 'rgb(135, 107, 43)', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '5px' }}>
+          Book Ticket
+         </button>
+        </Link>
       </div>
-      <Link to={'/billing_info'}><button id="buy-ticket-btn" onClick={handleBuyTicket}> </button></Link>
+      </div>
+      </div>
+      
       
       <div className="comments">
-      <h4>
-              <NavLink to={`/event/${eventId}/reviews`} exact> <p className="text-primary m-2">Reviews</p> </NavLink>
-              <NavLink to={`/event/${eventId}/tags`} exact> <p className="text-primary m-2">Tags</p> </NavLink>
-              {/* <FontAwesomeIcon
-                icon={faComment}
-                size="1x"
-                color="rgb(135, 107, 43)"
-              /> */}
-            </h4>
+              <div className="rev-section">
+        <h4><NavLink to={`/event/${eventId}/reviews`} exact> <p className="text-primary m-2">Reviews <FontAwesomeIcon icon={faComment} size="1x" color="rgb(135, 107, 43)" /></p> </NavLink> </h4>
+            
             <Routes>
               <Route path="/reviews/*" element={<Reviews></Reviews>} exact></Route>
               <Route path="/tags/*" element={<Tags></Tags>} exact></Route>
             </Routes>
-            {/* <div className="add-comment">
+            <div className="add-comment">
               <ReviewSection eventId={eventId} />
-            </div> */}
+            </div>
+          </div>
+            <div className="tag-section">
+            <h4><NavLink to={`/event/${eventId}/tags`} exact> <p className="text-primary m-2">Tags</p> </NavLink> </h4>
+            </div>
+
           </div>
         </div>
       )}
@@ -258,5 +254,7 @@ function EventDetails() {
     </>
   );
 }
+
+
 
 export default EventDetails;

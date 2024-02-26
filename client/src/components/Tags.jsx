@@ -6,7 +6,7 @@ function Tags() {
 	const { eventId } = useParams();
 	const [newTag, setNewTag] = useState("");
 
-	// READ
+	
 	useEffect(() => {
 		fetch(`http://localhost:5555/hash_tags`)
 		.then(response => response.json())
@@ -15,26 +15,26 @@ function Tags() {
 		})
 	}, [eventId]);
 
-	// CREATE
+
 	function handleTagSubmit(e){
 		e.preventDefault();
 
 		fetch('http://127.0.0.1:5555/hash_tags', {
-      		method: "POST",
-      		headers: {
-        		"Content-Type": "application/json",
-      			},
-      		body: JSON.stringify({ 'name': newTag, 'event_id' : eventId }),
-    	})
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ 'name': newTag, 'event_id' : eventId }),
+    })
       .then((response) => response.json())
       .then((data) => {
         setTags(current => [...current, data]);
         setNewTag("");
       })
       .catch((error) => console.error("Error submitting tag:", error));
-  	};
+	}
 
-	// DELETE
+	
 	function handleTagDelete(tag_id){
 		if (window.confirm('Confirm Delete!')){
 			fetch(`http://localhost:5555/hash_tags/${tag_id}`, {
@@ -48,16 +48,16 @@ function Tags() {
 		} else {
 			alert('Action Aborted!')
 		}
-	};
+	}
 
-	// UPDATE
+
 	function handleUpdate(tag_id){
 		fetch(`http://localhost:5555/hash_tags/${tag_id}`, {
-			method: "PATCH",
-      		headers: {
-        		"Content-Type": "application/json",
-      			},
-      		body: JSON.stringify({ 'name': newTag }),
+		method: "PATCH",
+        headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ 'name': newTag }),
 		})
 		.then(response => response.json())
 		.then((data) => {
@@ -70,7 +70,7 @@ function Tags() {
 			})
 			setTags(updatedTags);
 		})
-	};
+	}
 
 
 	let eventTags = tags.map((tag) => {
@@ -138,6 +138,8 @@ function Tags() {
 			</form>
 		</div>
 	);
-};
+}
 
 export default Tags;
+
+

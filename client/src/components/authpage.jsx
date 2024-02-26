@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import Login from './login';
-import SignupForm from './signupform';
-import SignUp from './SignUp';
 import SignIn from './SignIn';
+import SignUp from './SignUp';
 
 const AuthPage = () => {
   const [isLoginView, setLoginView] = useState(true);
@@ -16,26 +14,18 @@ const AuthPage = () => {
   };
 
   return (
-    <><SignIn></SignIn></>
 
 
-    // <div>
-    //   {isLoginView ? (
-    //     <Login onSwitchToSignUp={toggleView} />
-    //   ) : (
-    //     // <SignupForm onBackToLogin={goToLogin} />
-    //     <SignUp></SignUp>
-    //   )}
+    <div>
+      {isLoginView ? (
+        <SignIn onSwitchToSignUp={toggleView} />
+      ) : (
+        <SignUp onBackToLogin={goToLogin} />
+        
+      )}
 
-    //   <p>
-    //     {isLoginView
-    //       ? "Don't have an account? Click here to"
-    //       : 'Already have an account? Click here to'}
-    //     <span onClick={toggleView}>
-    //       {isLoginView ? ' Sign Up' : ' Log In'}
-    //     </span>
-    //   </p>
-    // </div>
+      
+    </div>
   );
 };
 
