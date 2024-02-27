@@ -1,13 +1,5 @@
 import { useState, useEffect } from "react";
-
-import {
-  useParams,
-  NavLink,
-  Link,
-  Routes,
-  Route,
-  useNavigate,
-} from "react-router-dom";
+import { useParams, NavLink, Link, Routes, Route, useNavigate} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faHeart } from "@fortawesome/free-solid-svg-icons";
 import Reviews from "./Reviews";
@@ -94,7 +86,6 @@ function EventDetails() {
                   />
                 </p>
                 {showBubble && <div className="bubble">Interest declared!</div>}
-                {/* Rest of the event details */}
               </div>
             </div>
 
@@ -204,9 +195,12 @@ function EventDetails() {
                 <p>Total Amount: {calculateTotalAmount()}</p>
               </div>
             </div>
+            <Link to={'/booking'}>
             <button id="buy-ticket-btn" onClick={handleBuyTicket}>
               Buy Ticket
             </button>
+            </Link>
+            
             <div className="comments">
               <h4>
                 Comments{" "}

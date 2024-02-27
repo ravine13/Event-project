@@ -151,25 +151,46 @@ class new_Event(Resource):
     post_args.add_argument('duration', type=str, help='Duration of the Event', required=True)
     post_args.add_argument('venue', type=str, help='Venue of the Event', required=True)
     post_args.add_argument('photo_url', type=str, help='URL of the Event Photo', required=True)
+    post_args.add_argument('price', type=int, help='Price of the Event', required=True)
 
     def post(self):
-        new_events = self.post_args.parse_args()
-        new_photo = Photo(url=new_events['photo_url'])
-        new_event = Event(id=uuid4(),**new_events, photo=new_photo)
+        new_event_data = self.post_args.parse_args()
+        new_photo = Photo(id=uuid4(), url=new_event_data['photo_url'])
+                
 
-        new_events['start_date'] = datetime.strptime(new_events['start_date'] + ' ' + new_events['start_time'], '%Y-%m-%d %H:%M:%S')
-        new_events['end_date'] = datetime.strptime(new_events['end_date'] + ' ' + new_events['end_time'], '%Y-%m-%d %H:%M:%S')
+        start_datetime = datetime.strptime(new_event_data['start_date'] + ' ' + new_event_data['start_time'], '%Y-%m-%d %H%M')
+        end_datetime = datetime.strptime(new_event_data['end_date'] + ' ' + new_event_data['end_time'], '%Y-%m-%d %H%M')
 
-        del new_events['start_time']
-        del new_events['end_time']
-        db.session.add(new_event)
-        db.session.commit()
-        res = make_response(
-            jsonify(event_schema.dump(new_event))
-            ,201
 
+        # del new_event_data['start_time']
+        # del new_event_data['end_time']
+
+
+        new_event = Event(id=uuid4(),
+            name=new_event_data['name'],
+            description=new_event_data['description'],
+            start_date=start_datetime,
+            end_date=end_datetime,
+            duration=new_event_data['duration'],
+            venue=new_event_data['venue'],
+            photo=new_photo
             )
         
-        return res
+        new_pricing = Pricing(id=uuid4(), event=new_event, amount=new_event_data['price'])
+
+        try:
+            db.session.add(new_photo)
+            db.session.add(new_event)
+            db.session.add(new_pricing)
+            db.session.commit()
+
+            return {'message': 'New event created successfully', 'event': new_event_data}, 201
+        
+        except Exception as e:
+
+            db.session.rollback()
+            return {'message': f'Coul not create new event: {str(e)}'}, 500
+
+        
 
 api.add_resource(new_Event, '/new_event')
