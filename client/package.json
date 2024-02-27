@@ -20,6 +20,7 @@
     "@heroicons/react": "^2.1.1",
     "@iconscout/unicons": "^4.0.8",
     "axios": "^1.6.7",
+    "cssesc": "^3.0.0",
     "jwt-decode": "^4.0.0",
     "props": "^0.3.0",
     "react": "^18.2.0",

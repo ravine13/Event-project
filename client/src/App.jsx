@@ -2,6 +2,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, createContext } from "react";
 import AuthPage from "./components/authpage";
 import "./App.css";
+<<<<<<< HEAD
+=======
+import AdminDashboard from "./components/minad.jsx";
+>>>>>>> 9bf1dee (fix: UI fixed looking good)
 import Home from "./components/home";
 import Event from "./components/event";
 import EventDetails from "./components/eventdetails";
@@ -21,9 +25,46 @@ import Booked from "./components/booked.jsx";
 import AdminDashboard from "./components/minad.jsx";
 
 function App() {
+<<<<<<< HEAD
   return (
     <EventsContext.Provider value={jwtDecode}>
       <Router>
+=======
+  let [signedIn, setSignedIn] = useState();
+  let token = localStorage.getItem("user_auth_token");
+  let token_exists = token !== null;
+  let user_id;
+  token_exists ? (user_id = jwtDecode(token).sub) : null;
+
+  function handleLogOutTokenBlock() {
+    localStorage.removeItem("user_auth_token");
+    setSignedIn(false);
+    jwtDecode(token).exp = 0;
+
+    fetch("http://127.0.0.1:5555/logout", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }
+
+  return (
+    <Router>
+      <EventsContext.Provider
+        value={{
+          token,
+          token_exists,
+          user_id,
+          handleLogOutTokenBlock,
+          signedIn,
+          setSignedIn,
+        }}
+      >
+>>>>>>> 9bf1dee (fix: UI fixed looking good)
         <div id="home">
           <Navbar />
 
@@ -31,7 +72,11 @@ function App() {
           <div></div>
           <Routes>
             <Route path="/authpage/*" element={<AuthPage />} />
+<<<<<<< HEAD
             <Route path="/home/*" element={<Home />} />
+=======
+            <Route path="/" element={<Home />} />
+>>>>>>> 9bf1dee (fix: UI fixed looking good)
             <Route path="/event/*" element={<Event />} />
             <Route path="/event/:eventId/*" element={<EventDetails />} />
             <Route path="/minad/*" element={<AdminDashboard />} />
@@ -48,8 +93,13 @@ function App() {
             <Route path="/booked" element={<Booked />} />
           </Routes>
         </div>
+<<<<<<< HEAD
       </Router>
     </EventsContext.Provider>
+=======
+      </EventsContext.Provider>
+    </Router>
+>>>>>>> 9bf1dee (fix: UI fixed looking good)
   );
 }
 
