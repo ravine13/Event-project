@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import AuthPage from "./components/authpage";
 import "./App.css";
+import AdminDashboard from "./components/minad.jsx";
 import Home from "./components/home";
 import Event from "./components/event";
 import EventDetails from "./components/eventdetails";
@@ -14,25 +15,58 @@ import BillingInfo from "./components/billing_info";
 import AdvertFeeInvoices from "./components/AdvertFeeInvoices";
 import TicketCount from "./components/TicketCount";
 import BillingDetails from "./components/billing_details";
-import { jwtDecode } from "jwt-decode";
-export const EventsContext = createContext();
 import Booking from "./components/booking.jsx";
 import Booked from "./components/booked.jsx";
-import AdminDashboard from "./components/minad.jsx";
 import Reviews from "./components/Reviews.jsx";
+import { jwtDecode } from "jwt-decode";
+
+export const EventsContext = createContext();
 
 function App() {
+  const [signedIn, setSignedIn] = useState(false);
+  const token = localStorage.getItem("user_auth_token");
+  const token_exists = token !== null;
+  let user_id;
+  if (token_exists) {
+    user_id = jwtDecode(token).sub;
+  }
+
+  function handleLogOutTokenBlock() {
+    localStorage.removeItem("user_auth_token");
+    setSignedIn(false);
+    jwtDecode(token).exp = 0;
+
+    fetch("http://127.0.0.1:5555/logout", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }
+
   return (
-    <EventsContext.Provider value={jwtDecode}>
-      <Router>
+    <Router>
+      <EventsContext.Provider
+        value={{
+          token,
+          token_exists,
+          user_id,
+          handleLogOutTokenBlock,
+          signedIn,
+          setSignedIn,
+        }}
+      >
         <div id="home">
           <Navbar />
-
           <hr />
           <div></div>
           <Routes>
             <Route path="/authpage/*" element={<AuthPage />} />
             <Route path="/home/*" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/event/*" element={<Event />} />
             <Route path="/event/:eventId/*" element={<EventDetails />} />
             <Route path="/minad/*" element={<AdminDashboard />} />
@@ -48,11 +82,10 @@ function App() {
             <Route path="/TicketCount" element={<TicketCount />} />
             <Route path="/booked" element={<Booked />} />
             <Route path="/booked" element={<Reviews />} />
-
           </Routes>
         </div>
-      </Router>
-    </EventsContext.Provider>
+      </EventsContext.Provider>
+    </Router>
   );
 }
 
