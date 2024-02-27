@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState, createContext } from "react";
+import { createContext } from "react";
 import AuthPage from "./components/authpage";
 import "./App.css";
 import Home from "./components/home";
@@ -19,6 +19,7 @@ export const EventsContext = createContext();
 import Booking from "./components/booking.jsx";
 import Booked from "./components/booked.jsx";
 import AdminDashboard from "./components/minad.jsx";
+import Reviews from "./components/Reviews.jsx";
 
 function App() {
   return (
@@ -46,6 +47,8 @@ function App() {
             <Route path="/AdvertFeeInvoices" element={<AdvertFeeInvoices />} />
             <Route path="/TicketCount" element={<TicketCount />} />
             <Route path="/booked" element={<Booked />} />
+            <Route path="/booked" element={<Reviews />} />
+
           </Routes>
         </div>
       </Router>
