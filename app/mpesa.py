@@ -59,4 +59,4 @@ def make_payment(number):
 
     res = requests.post('https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest', headers=headers, json=payload)
     return res.json()
-make_payment('254759288652')
+make_payment('254705820725')
