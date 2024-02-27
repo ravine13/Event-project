@@ -19,7 +19,7 @@ export const EventsContext = createContext();
 import Booking from "./components/booking.jsx";
 import Booked from "./components/booked.jsx";
 import AdminDashboard from "./components/minad.jsx";
-
+import UserDashboard from "././components/DashBoards/userDashboard.jsx";
 function App() {
   return (
     <EventsContext.Provider value={jwtDecode}>
@@ -46,6 +46,7 @@ function App() {
             <Route path="/AdvertFeeInvoices" element={<AdvertFeeInvoices />} />
             <Route path="/TicketCount" element={<TicketCount />} />
             <Route path="/booked" element={<Booked />} />
+            <Route path="/profile" element={<UserDashboard />} />
           </Routes>
         </div>
       </Router>
