@@ -8,7 +8,7 @@ function Navbar() {
   let { token_exists, handleLogOutTokenBlock, signedIn } =
     useContext(EventsContext);
 
- const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <>
