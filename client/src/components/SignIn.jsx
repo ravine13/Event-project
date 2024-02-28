@@ -48,7 +48,15 @@ export default function SignIn({ onSwitchToSignUp }) {
         if (data) {
           localStorage.setItem("user_auth_token", data.token);
           window.alert("Successfully Logged In");
-          navigate("/admin_dashboard");
+          if (data.role === 100) {
+            navigate("/user_dashboard");
+          }
+          else if (data.role === 101) {
+            navigate("/organizer_dashboard");
+          }
+          else if (data.role === 111){
+            navigate("/admin_dashboard");
+          }
           setSignedIn(true);
           console.log(data);
         }

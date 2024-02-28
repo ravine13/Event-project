@@ -3,10 +3,19 @@
     margin-top: 7%;
 }
 
+.dash_main{
+    width: 50%;
+    float: right;
+    margin: auto;
+}
+
 .admin_sidebar{
     color: white;
-    background-color: rgba(30, 30, 30, 0.9);
+    background-color: rgb(50, 50, 50);
     float: left;
+    position: fixed;
+    z-index: 1000;
+    top: 5%;
     margin-left: 1%;
 }
 

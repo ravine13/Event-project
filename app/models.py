@@ -10,7 +10,6 @@ class User(db.Model):
     __tablename__ = 'user'
     id = Column(UUID, primary_key=True)
     password = Column(String)
-    confirmed = Column(Boolean)
     role = Column(Integer)
     created_at = Column(DateTime, default = datetime.utcnow)
     email = Column(String)
@@ -73,6 +72,7 @@ class Event(db.Model):
     end_time = Column(DateTime)
     duration = Column(String)
     venue = Column(String)
+    confirmed = Column(Boolean)
     photo_id = Column(UUID, ForeignKey('Photo.id'))
     created_at = Column(DateTime, default=datetime.now())
     photo = relationship('Photo', back_populates='event')

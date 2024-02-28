@@ -21,13 +21,17 @@ import Booking from "./components/booking.jsx";
 import Booked from "./components/booked.jsx";
 
 import AdminDashBrd from "./components/AdminDash/AdminDashBoard.jsx";
+// import EventGoerDash from "./components/EventGoerDash/EventGoerDash.jsx";
+import OrganizerDashBoard from "./components/OrganizerDash/OrganizerDashBoard.jsx";
 
 function App() {
   let [signedIn, setSignedIn] = useState();
   let token = localStorage.getItem("user_auth_token");
   let token_exists = token !== null;
   let user_id;
+  let role;
   token_exists ? (user_id = jwtDecode(token).sub) : null;
+  token_exists ? (role = jwtDecode(token).role) : null;
 
   function handleLogOutTokenBlock() {
     localStorage.removeItem("user_auth_token");
@@ -55,13 +59,14 @@ function App() {
           handleLogOutTokenBlock,
           signedIn,
           setSignedIn,
+          role
         }}
       >
         <div id="home">
           <Navbar />
 
-          <hr />
-          <div></div>
+          {/* <hr />
+          <div></div> */}
           <Routes>
             <Route path="/authpage/*" element={<AuthPage />} />
             <Route path="/" element={<Home />} />
@@ -81,6 +86,8 @@ function App() {
             <Route path="/booked" element={<Booked />} />
             
             <Route path="/admin_dashboard/*" element={<AdminDashBrd></AdminDashBrd>} exact></Route>
+            {/* <Route path="/event_goer_dashboard/*" element={<EventGoerDash></EventGoerDash>} exact></Route> */}
+            <Route path="/organizer_dashboard/*" element={<OrganizerDashBoard></OrganizerDashBoard>} exact></Route>
           </Routes>
         </div>
       </EventsContext.Provider>

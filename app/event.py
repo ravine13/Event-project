@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, jsonify, make_response
+from flask import Flask, Blueprint, jsonify, make_response, request
 from datetime import datetime
 from flask_restful import Api, Resource, reqparse
 from flask_marshmallow import Marshmallow
@@ -19,8 +19,14 @@ class PhotoSchema(SQLAlchemyAutoSchema):
         model = Photo
 photo_schema = PhotoSchema()
 
+class UserSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = User
+user_schema = UserSchema()
+
 class EventSchema(SQLAlchemyAutoSchema):
     photo = fields.Nested(PhotoSchema)  
+    organizer = fields.Nested(UserSchema)
 
     class Meta:
         model = Event
@@ -144,30 +150,44 @@ class new_Event(Resource):
     post_args = reqparse.RequestParser(bundle_errors=True)
     post_args.add_argument('name', type=str, help='Name of the Event', required=True)
     post_args.add_argument('description', type=str, help='Description of the Event', required=True)
-    post_args.add_argument('start_date', type=str, help='Start date of the Event', required=True)
-    post_args.add_argument('start_time', type=str, help='Start time of the Event', required=True)
-    post_args.add_argument('end_date', type=str, help='End date of the Event', required=True)
-    post_args.add_argument('end_time', type=str, help='End time of the Event', required=True)
-    post_args.add_argument('duration', type=str, help='Duration of the Event', required=True)
+    post_args.add_argument('start_date', type=str, help='Start date of the Event', required=False)
+    post_args.add_argument('start_time', type=str, help='Start time of the Event', required=False)
+    post_args.add_argument('end_date', type=str, help='End date of the Event', required=False)
+    post_args.add_argument('end_time', type=str, help='End time of the Event', required=False)
+    post_args.add_argument('duration', type=str, help='Duration of the Event', required=False)
     post_args.add_argument('venue', type=str, help='Venue of the Event', required=True)
-    post_args.add_argument('photo_url', type=str, help='URL of the Event Photo', required=True)
+    post_args.add_argument('organiser_id', type=uuid_type, help='Login Required', required=True)
+    post_args.add_argument('photo_id', type=uuid_type, help='Please Provide a Photo URL', required=True)
 
     def post(self):
-        new_events = self.post_args.parse_args()
-        new_photo = Photo(url=new_events['photo_url'])
-        new_event = Event(id=uuid4(),**new_events, photo=new_photo)
+        data = request.get_json()
+        # data = self.post_args.parse_args()
+        photo_id = data.get('photo_id')
+        photo_uuid = UUID(photo_id)
+        
+        new_event = Event(id=uuid4(),
+                          organiser_id = UUID(data['organiser_id']),
+                          photo_id = photo_uuid,
+                          name = data['name'],
+                          description = data['description'],
+                          start_date = data['start_date'],
+                          end_date = data['end_date'],
+                          start_time = data['start_time'],
+                          end_time = data['end_time'],
+                          duration = data['duration'],
+                          venue = data['venue'],
+                        )
 
-        new_events['start_date'] = datetime.strptime(new_events['start_date'] + ' ' + new_events['start_time'], '%Y-%m-%d %H:%M:%S')
-        new_events['end_date'] = datetime.strptime(new_events['end_date'] + ' ' + new_events['end_time'], '%Y-%m-%d %H:%M:%S')
+        # new_events['start_date'] = datetime.strptime(new_events['start_date'] + ' ' + new_events['start_time'], '%Y-%m-%d %H:%M:%S')
+        # new_events['end_date'] = datetime.strptime(new_events['end_date'] + ' ' + new_events['end_time'], '%Y-%m-%d %H:%M:%S')
 
-        del new_events['start_time']
-        del new_events['end_time']
+        # del new_events['start_time']
+        # del new_events['end_time']
         db.session.add(new_event)
         db.session.commit()
         res = make_response(
             jsonify(event_schema.dump(new_event))
             ,201
-
             )
         
         return res
