@@ -10,7 +10,7 @@ function NewEvent() {
     end_time: '',
     duration: '',
     venue: '',
-    photo_id: '',
+    photo_url: '',
   });
 
   const handleChange = (e) => {
@@ -19,7 +19,7 @@ function NewEvent() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('/new_event', {
+    fetch('http://localhost:5555/new_event', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -32,16 +32,44 @@ function NewEvent() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="name" value={eventDetails.name} onChange={handleChange} required />
-      <input type="text" name="description" value={eventDetails.description} onChange={handleChange} required />
-      <input type="date" name="start_date" value={eventDetails.start_date} onChange={handleChange} required />
-      <input type="time" name="start_time" value={eventDetails.start_time} onChange={handleChange} required />
-      <input type="date" name="end_date" value={eventDetails.end_date} onChange={handleChange} required />
-      <input type="time" name="end_time" value={eventDetails.end_time} onChange={handleChange} required />
-      <input type="text" name="duration" value={eventDetails.duration} onChange={handleChange} required />
-      <input type="text" name="venue" value={eventDetails.venue} onChange={handleChange} required />
-      <input type="text" name="photo_id" value={eventDetails.photo_id} onChange={handleChange} required />
+    <form className='event-form' onSubmit={handleSubmit}>
+        <h2>New Event</h2>
+      <label>
+        Event Name:
+        <input type="text" name="name" value={eventDetails.name} onChange={handleChange} required />
+      </label>
+      <label>
+        Description:
+        <input type="text" name="description" value={eventDetails.description} onChange={handleChange} required />
+      </label>
+      <label>
+        Start Date:
+        <input type="date" name="start_date" value={eventDetails.start_date} onChange={handleChange} required />
+      </label>
+      <label>
+        Start Time:
+        <input type="time" name="start_time" value={eventDetails.start_time} onChange={handleChange} required />
+      </label>
+      <label>
+        End Date:
+        <input type="date" name="end_date" value={eventDetails.end_date} onChange={handleChange} required />
+      </label>
+      <label>
+        End Time:
+        <input type="time" name="end_time" value={eventDetails.end_time} onChange={handleChange} required />
+      </label>
+      <label>
+        Duration:
+        <input type="text" name="duration" value={eventDetails.duration} onChange={handleChange} required />
+      </label>
+      <label>
+        Venue:
+        <input type="text" name="venue" value={eventDetails.venue} onChange={handleChange} required />
+      </label>
+      <label>
+        Photo Url:
+        <input type="text" name="photo_url" value={eventDetails.photo_url} onChange={handleChange} required />
+      </label>
       <button type="submit">Submit</button>
     </form>
   );

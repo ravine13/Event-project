@@ -1,119 +1,46 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import Footer from "./footer";
 import "../App.css";
 
 function Event() {
   const [events, setEvents] = useState([]);
-  const [genreFilter, setGenreFilter] = useState("All");
-  const [searchFilter, setSearchFilter] = useState("");
-  const [dateFilter, setDateFilter] = useState("");
-
-  console.log(events);
 
   useEffect(() => {
     fetch("http://localhost:5555/events")
       .then((r) => r.json())
       .then((events) => setEvents(events))
       .catch((error) => console.error("Error fetching data:", error));
-
-      
   }, []);
 
-  const filteredData =
-    genreFilter === "All"
-      ? events
-      : events.filter((event) => event.genre === genreFilter);
-
-  const filteredEvent = filteredData
-    .filter((event) =>
-      event.name.toLowerCase().includes(searchFilter.toLowerCase())
-    )
-    .filter((event) =>
-      dateFilter ? event.date.toString() === dateFilter.toString() : true
-    );
-
   return (
-    <div>
-      <div className="events">
-        <div className="tiles">
-          <div>
-            <h4>Upcoming Events</h4>
-          </div>
-        </div>
-        <div className="card-event">
-          <div className="sidebar">
-            <p id="app-name" className="nameed">
-              <span></span>
-            </p>
-            <div className="search-bar">
-              <div>
-                <input
-                  className="search"
-                  placeholder="Enter event"
-                  value={searchFilter}
-                  onChange={(e) => setSearchFilter(e.target.value)}
-                />
-              </div>
-              <div className="searc con">
-                <FontAwesomeIcon icon={faSearch} size="2x" color="#000000" />
-              </div>
-            </div>
-            <div>
-              <p className="nameed">Filter by Date:</p>
-              <input
-                type="number"
-                placeholder="Enter Date"
-                value={dateFilter}
-                onChange={(e) => setDateFilter(e.target.value)}
-              />
-            </div>
-            <p className="nameed">Sort by:</p>
-            <label>
-              <input
-                className="rd-btn"
-                name="options"
-                value="All"
-                checked={genreFilter === "All"}
-                onChange={() => setGenreFilter("All")}
-                type="radio"
-              />
-              All
-            </label>
-            <label>
-              <input
-                className="rd-btn"
-                name="options"
-                value="Male"
-                checked={genreFilter === "Male"}
-                onChange={() => setGenreFilter("Male")}
-                type="radio"
-              />
-              Entertainment
-            </label>
-            <label>
-              <input
-                className="rd-btn"
-                name="options"
-                value="Female"
-                checked={genreFilter === "Female"}
-                onChange={() => setGenreFilter("Female")}
-                type="radio"
-              />
-              Tech
-            </label>
-          </div>
-          <div className="eventCard">
-            {filteredEvent.map((event) => (
+    <>
+      <div className="bg-white mt-24">
+        <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-900">
+            Upcoming Events
+          </h2>
+
+          <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+            {events.map((event) => (
               <Link key={event.id} to={`/event/${event.id}`}>
-                <div className="profile">
-                  <img className="eventImage" src={event.photo.url} alt={`${event.name}`} />
-                  <div className="eventInfo">
-                    <h2>
-                      <span> {event.name} </span><span> {event.venue}</span>{" "}
-                    </h2>
-                    <p> start Date: {event.start_date} </p>
+                <div className="group relative">
+                  <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                    <img
+                      className="eventImage"
+                      src={event.photo.url}
+                      alt={`${event.name}`}
+                    />
+                  </div>
+                  <div className="mt-4 justify-between">
+                    <h3 className="text-sm text-gray-700">
+                      <span aria-hidden="true" className="absolute inset-0" />
+                      {event.name}
+                    </h3>
+                    <p className="mt-1 text-sm text-gray-500">{event.venue}</p>
+                    <p className="text-sm font-medium text-gray-900">
+                      Start Date: {event.start_date}
+                    </p>
                   </div>
                 </div>
               </Link>
@@ -121,7 +48,9 @@ function Event() {
           </div>
         </div>
       </div>
-    </div>
+
+      <Footer />
+    </>
   );
 }
 

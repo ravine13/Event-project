@@ -32,14 +32,26 @@ login_args.add_argument('password', type=str, required=True)
 
 @jwt.user_lookup_loader
 def user_lookup_callback(_jwt_header, jwt_data):
-    identity = UUID(jwt_data["sub"])  
-    return User.query.filter_by(id=identity).first()
+    sub_value = jwt_data.get("sub")
+    if sub_value and UUID(sub_value, version=4).hex == sub_value:
+        identity = UUID(sub_value).hex  
+        user = User.query.filter_by(id=identity).first()
+        return user
+    else:
+        return None
 
 class UserRegister(Resource):
     def post(self):
         data = register_args.parse_args()
+        email = data.get('email')
+        user_exists = User.query.filter_by(email = email).first() is not None
+        
+        if user_exists:
+            return abort(409, details='Conflict! Account Already Exists')
+        
         if data['password'] != data['confirm-password']:
             return abort(422,detail='Passwords do not match')
+        
         new_user = User(
             id=uuid4(), 
             email=data['email'], 
@@ -64,8 +76,9 @@ class UserLogin(Resource):
             return abort(404, detail="User does not exist")
         if not bcrypt.check_password_hash(user.password, data.password):
             return abort(403, detail="Wrong password")
-
-        token = create_access_token(identity=user.id)
+        print(type(user.id))
+        print(user.id)
+        token = create_access_token(identity=str(user.id))
         return {'token': token, 'role': user.role} 
 
 api.add_resource(UserLogin,'/login')
