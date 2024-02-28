@@ -17,6 +17,7 @@ flask-jwt-extended = "*"
 api-jwt = "*"
 flask-bcrypt = "*"
 marshmallow = "*"
+flask-mail = "*"
 
 [dev-packages]
 
