@@ -74,7 +74,7 @@ class Event(db.Model):
     duration = Column(String)
     venue = Column(String)
     photo_id = Column(UUID, ForeignKey('Photo.id'))
-    created_at = Column(DateTime)
+    created_at = Column(DateTime, default=datetime.now())
     photo = relationship('Photo', back_populates='event')
     bookings = relationship('Booking', back_populates='event')
 
