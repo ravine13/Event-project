@@ -32,14 +32,14 @@ login_args.add_argument('password', type=str, required=True)
 
 @jwt.user_lookup_loader
 def user_lookup_callback(_jwt_header, jwt_data):
-    sub_value = jwt_data.get("sub")
-    if sub_value and UUID(sub_value, version=4).hex == sub_value:
-        identity = UUID(sub_value).hex  
-        user = User.query.filter_by(id=identity).first()
+    identity = jwt_data.get("sub")
+    if identity:
+        identity_uuid = UUID(identity)
+        user = User.query.filter_by(id=identity_uuid).first()
         return user
     else:
         return None
-
+    
 class UserRegister(Resource):
     def post(self):
         data = register_args.parse_args()
@@ -87,10 +87,11 @@ class Logout(Resource):
     @jwt_required()
     def get(self):
         token = get_jwt()
-        jti = token['jti']  
+        jti = token['jti'].replace('-', '')  # Remove hyphens
         blocked_token = TokenBlocklist(jti=jti, created_at=datetime.utcnow())
         db.session.add(blocked_token)
         db.session.commit()
         return {'detail': "Token logged out"}
 
 api.add_resource(Logout,'/logout')
+

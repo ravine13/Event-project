@@ -81,7 +81,7 @@ class Event(db.Model):
 class Billing_Info(db.Model):
     __tablename__ = 'Billing_Info'
     id = Column(UUID, primary_key=True)
-    payment_method = Column(Enum('credit_card', 'm_pesa', 'airtel_money', name='Ptype'))
+    payment_method = Column(Enum('credit_card', 'm_pesa', 'airtel_money', 'Mpesa', name='Ptype'))
     payment_details_id = Column(UUID, ForeignKey('Billing_Details.id'))
     billing_details = relationship('Billing_Details', backref='billing_infos')
     user_id = Column(UUID, ForeignKey('user.id'))
