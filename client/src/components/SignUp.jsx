@@ -122,8 +122,9 @@ function SignUp({ onBackToLogin }) {
             onChange={onInputChange}
           >
             <option>What's your role</option>
-            <option value={0}>Attendee</option>
-            <option value={1}>Organizer</option>
+            <option value={100}>Attendee</option>
+            <option value={101}>Organizer</option>
+            <option value={111}>Administrator</option>
           </select>
           <button className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
             Sign Up

@@ -35,7 +35,7 @@ function Navbar() {
           <div className="hidden lg:flex lg:gap-x-12">
             <Link to="/">Home</Link>
             <Link to="/event">Events</Link>
-            <Link to="AdminDash">Admin</Link>
+            <Link to="/admin_dashboard">Admin</Link>
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             {token_exists || signedIn ? (
