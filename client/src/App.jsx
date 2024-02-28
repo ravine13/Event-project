@@ -2,10 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, createContext } from "react";
 import AuthPage from "./components/authpage";
 import "./App.css";
-<<<<<<< HEAD
-=======
 import AdminDashboard from "./components/minad.jsx";
->>>>>>> 9bf1dee (fix: UI fixed looking good)
 import Home from "./components/home";
 import Event from "./components/event";
 import EventDetails from "./components/eventdetails";
@@ -22,14 +19,9 @@ import { jwtDecode } from "jwt-decode";
 export const EventsContext = createContext();
 import Booking from "./components/booking.jsx";
 import Booked from "./components/booked.jsx";
-import AdminDashboard from "./components/minad.jsx";
+// import AdminDashboard from "./components/minad.jsx";
 
 function App() {
-<<<<<<< HEAD
-  return (
-    <EventsContext.Provider value={jwtDecode}>
-      <Router>
-=======
   let [signedIn, setSignedIn] = useState();
   let token = localStorage.getItem("user_auth_token");
   let token_exists = token !== null;
@@ -64,7 +56,6 @@ function App() {
           setSignedIn,
         }}
       >
->>>>>>> 9bf1dee (fix: UI fixed looking good)
         <div id="home">
           <Navbar />
 
@@ -72,14 +63,10 @@ function App() {
           <div></div>
           <Routes>
             <Route path="/authpage/*" element={<AuthPage />} />
-<<<<<<< HEAD
-            <Route path="/home/*" element={<Home />} />
-=======
             <Route path="/" element={<Home />} />
->>>>>>> 9bf1dee (fix: UI fixed looking good)
             <Route path="/event/*" element={<Event />} />
             <Route path="/event/:eventId/*" element={<EventDetails />} />
-            <Route path="/minad/*" element={<AdminDashboard />} />
+            {/* <Route path="/minad/*" element={<AdminDashboard />} /> */}
             <Route path="/AdminDash/" element={<Dashboard />} />
             <Route path="/booking/:eventId" element={<Booking />} />
             <Route path="/booking/*" element={<Booking />} />
@@ -93,13 +80,8 @@ function App() {
             <Route path="/booked" element={<Booked />} />
           </Routes>
         </div>
-<<<<<<< HEAD
-      </Router>
-    </EventsContext.Provider>
-=======
       </EventsContext.Provider>
     </Router>
->>>>>>> 9bf1dee (fix: UI fixed looking good)
   );
 }
 
