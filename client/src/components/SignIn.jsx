@@ -98,6 +98,12 @@ export default function SignIn({ onSwitchToSignUp }) {
             Sign In
           </button>
 
+          <div className="text-center">
+            <NavLink className={'text-primary'}>
+              Forgot Password?
+            </NavLink>
+          </div>
+
           <Link
             to="/authpage/signup"
             className="flex items-center gap-1 text-sm text-gray-900 duration-150 font-medium"

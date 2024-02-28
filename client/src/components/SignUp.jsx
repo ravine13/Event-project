@@ -45,9 +45,9 @@ function SignUp({ onBackToLogin }) {
       .then((data) => {
         if (data) {
           window.alert("Your account has been successfully created!");
-          navigate("/authpage/signup");
+          navigate("/authpage/signin");
         } else {
-          navigate("/authpage/signup");
+          navigate("/authpage/signin");
         }
       });
   }
