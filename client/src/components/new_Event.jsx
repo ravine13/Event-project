@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { addEvent } from '../services/api';
 
 function NewEvent() {
   const [eventDetails, setEventDetails] = useState({
@@ -9,31 +10,44 @@ function NewEvent() {
     end_date: '',
     end_time: '',
     duration: '',
+    price: '',
     venue: '',
     photo_url: '',
   });
 
   const handleChange = (e) => {
-    setEventDetails({ ...eventDetails, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    let formattedValue = value;
+
+    if (name === 'start_time' || name === 'end_time') {
+      formattedValue = value.replace(/[^0-9:]/g, '');
+      const [hours, minutes] = formattedValue.split(':').map(part => parseInt(part));
+      if (!isNaN(hours) && !isNaN(minutes)) {
+        const formattedHours = Math.min(Math.max(hours, 0), 23);
+        const formattedMinutes = Math.min(Math.max(minutes, 0), 59);
+        formattedValue = `${formattedHours.toString().padStart(2, '0')}:${formattedMinutes.toString().padStart(2, '0')}`;
+      }
+    }
+
+    setEventDetails({ ...eventDetails, [name]: formattedValue });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch('http://localhost:5555/new_event', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(eventDetails),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error('Error:', error));
+    e.target.reset();
+  
+    try {
+      const response = await addEvent(eventDetails);
+      console.log('Event created successfully:', response.data); 
+    } catch (error) {
+      console.error('Error creating event:', error.response.data);
+    }
   };
+  
 
   return (
     <form className='event-form' onSubmit={handleSubmit}>
-        <h2>New Event</h2>
+      <h2>New Event</h2>
       <label>
         Event Name:
         <input type="text" name="name" value={eventDetails.name} onChange={handleChange} required />
@@ -65,6 +79,10 @@ function NewEvent() {
       <label>
         Venue:
         <input type="text" name="venue" value={eventDetails.venue} onChange={handleChange} required />
+      </label>
+      <label>
+        Set Price:
+        <input type="number" name="price" value={eventDetails.price} onChange={handleChange} required />
       </label>
       <label>
         Photo Url:

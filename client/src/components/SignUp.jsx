@@ -18,6 +18,7 @@ function SignUp({ onBackToLogin }) {
   function onInputChange(e) {
     let name = e.target.name;
     let value = e.target.value;
+    console.log(signUpData);
 
     setSignUpData((current) => ({ ...current, [name]: value }));
   }
@@ -37,16 +38,14 @@ function SignUp({ onBackToLogin }) {
         if (response.ok) {
           return response.json();
         } else {
-          window.alert("Account already exits!");
-          navigate("/signin");
+          navigate("/authpage/signin");
         }
       })
       .then((data) => {
         if (data) {
-          window.alert("Your account has been successfully created!");
-          navigate("/authpage/signup");
+          navigate("/authpage/signin");
         } else {
-          navigate("/authpage/signup");
+          navigate("/authpage/signin");
         }
       });
   }
@@ -83,21 +82,23 @@ function SignUp({ onBackToLogin }) {
             <label className="font-medium">Email</label>
             <input
               type="email"
+              name="email"
               onClick={onInputClick}
               onChange={onInputChange}
               required
-              className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+              className="w-full mt-2 px-3 py-2 text-dark bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
             />
           </div>
           <div>
             <label className="font-medium">Password</label>
             <input
               type="password"
+              name="password"
               ref={password_label}
               onClick={onInputClick}
               onChange={onInputChange}
               required
-              className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+              className="w-full mt-2 px-3 py-2 text-dark bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
             />
           </div>
           <div>
@@ -105,11 +106,12 @@ function SignUp({ onBackToLogin }) {
 
             <input
               type="password"
+              name="confirm-password"
               ref={confirmPasswordInput}
               onClick={onInputClick}
               onChange={onInputChange}
               required
-              className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+              className="w-full mt-2 px-3 py-2 text-dark bg-transparent outline-none border shadow-sm rounded-lg"
             />
           </div>
           <select
@@ -118,11 +120,12 @@ function SignUp({ onBackToLogin }) {
             onChange={onInputChange}
           >
             <option>What's your role</option>
-            <option value={0}>Attendee</option>
-            <option value={1}>Organizer</option>
+            <option value={100}>Attendee</option>
+            <option value={101}>Organizer</option>
+            <option value={111}>Administrator</option>
           </select>
           <button className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
-            Sign In
+            Sign Up
           </button>
 
           <Link

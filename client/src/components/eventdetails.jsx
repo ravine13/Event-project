@@ -1,15 +1,7 @@
 import { useState, useEffect } from "react";
-
-import {
-  useParams,
-  NavLink,
-  Link,
-  Routes,
-  Route,
-  useNavigate,
-} from "react-router-dom";
+import { useParams, NavLink, Link, Routes, Route} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComment, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import Reviews from "./Reviews";
 import Tags from "./Tags";
 import ReviewSection from "./Reviews";
