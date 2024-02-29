@@ -1,7 +1,7 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import { useNavigate, NavLink, Link } from "react-router-dom";
+import ReCAPTCHA from "react-google-recaptcha";
 import PropTypes from "prop-types";
-import "../SignUp.css";
 import { EventsContext } from "../App";
 
 export default function SignIn({ onSwitchToSignUp }) {
@@ -9,11 +9,29 @@ export default function SignIn({ onSwitchToSignUp }) {
   let { setSignedIn } = useContext(EventsContext);
   let [showPassword, setShowPassword] = useState(false);
   let [signInData, setSignInData] = useState({});
+  let [recaptchaCheck, setRecaptchaCheck] = useState(false);
 
   let email_label = useRef();
   let password_label = useRef();
   let password_input = useRef();
   let logSubmit = useRef();
+
+  function onRecaptchaCheck(){
+		setRecaptchaCheck(current => !current)
+	}
+
+  function handleLogSubmitBtn(){
+		if (!recaptchaCheck) {
+			logSubmit.current.style.cssText = `transform: scale(0.9); cursor: no-drop;`;
+		}
+		else{
+			logSubmit.current.style.cssText = `transform: scale(1.1); cursor: pointer;`;
+		}
+	}
+
+  useEffect(() => {
+		setTimeout(()=> handleLogSubmitBtn(), 500)
+	});
 
   function onInputClick() {
     email_label.current.style.cssText = `transform: translate(-10%, -140%) scale(0.9); background-color: rgb(20, 0, 100); color: white; border-radius: 1000px;`;
@@ -29,7 +47,6 @@ export default function SignIn({ onSwitchToSignUp }) {
 
   function onLogFormSubmit(e) {
     e.preventDefault();
-    e.target.reset();
 
     fetch("http://127.0.0.1:5555/login", {
       method: "POST",
@@ -48,8 +65,15 @@ export default function SignIn({ onSwitchToSignUp }) {
       .then((data) => {
         if (data) {
           localStorage.setItem("user_auth_token", data.token);
-          window.alert("Successfully Logged In");
-          navigate("/dashboard");
+          if (data.role === 100) {
+            navigate("/user_dashboard");
+          }
+          else if (data.role === 101) {
+            navigate("/organizer_dashboard");
+          }
+          else if (data.role === 111){
+            navigate("/admin_dashboard");
+          }
           setSignedIn(true);
           console.log(data);
         }
@@ -73,29 +97,40 @@ export default function SignIn({ onSwitchToSignUp }) {
             <label className="font-medium">Email</label>
             <input
               type="email"
+              name="email"
               onClick={onInputClick}
               onChange={onInputChange}
               required
-              className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+              className="w-full mt-2 px-3 py-2 text-dark bg-transparent outline-none border shadow-sm rounded-lg"
             />
           </div>
           <div>
             <label className="font-medium">Password</label>
             <input
               type="password"
+              name="password"
               ref={password_input}
               onClick={onInputClick}
               onChange={onInputChange}
               required
-              className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+              className="w-full mt-2 px-3 py-2 text-dark bg-transparent outline-none border shadow-sm rounded-lg"
             />
           </div>
+          <ReCAPTCHA className='recaptcha mt-4 m-2' sitekey="6LdeE1MpAAAAAEfpO0m3ZVvfjnAVGJU4-Nr0HpSq" onChange={onRecaptchaCheck}/>
           <button
-            onClick={onSwitchToSignUp}
+            ref={logSubmit}
+            onClick={onLogFormSubmit}
+            disabled={!recaptchaCheck}
             className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
           >
             Sign In
           </button>
+
+          <div className="text-center">
+            <NavLink className={'text-primary'} to={'/request_password_reset'}>
+              Forgot Password?
+            </NavLink>
+          </div>
 
           <Link
             to="/user"

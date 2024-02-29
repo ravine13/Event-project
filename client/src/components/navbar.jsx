@@ -5,8 +5,26 @@ import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 function Navbar() {
-  let { token_exists, handleLogOutTokenBlock, signedIn } =
+  let { token_exists, handleLogOutTokenBlock, signedIn, role } =
     useContext(EventsContext);
+
+  let dash_url;
+  if (role === 100) {
+    dash_url = "/user_dashboard";
+  } else if (role === 101) {
+    dash_url = "/organizer_dashboard";
+  } else if (role === 111) {
+    dash_url = "/admin_dashboard";
+  }
+
+  let dash_url;
+  if (role === 100) {
+    dash_url = "/user_dashboard";
+  } else if (role === 101) {
+    dash_url = "/organizer_dashboard";
+  } else if (role === 111) {
+    dash_url = "/admin_dashboard";
+  }
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -33,15 +51,16 @@ function Navbar() {
             </button>
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
-            <Link to="/">Home</Link>
+            <Link to="/home">Home</Link>
             <Link to="/event">Events</Link>
-            <Link to="AdminDash">Admin</Link>
+            {token_exists && <Link to={dash_url}>Dashboard</Link>}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             {token_exists || signedIn ? (
               <NavLink
                 to="/authpage/signup"
                 className="log_link p-1 px-4 border border-primary rounded-pill"
+                exact="true"
                 exact="true"
                 onClick={handleLogOutTokenBlock}
               >
@@ -51,6 +70,7 @@ function Navbar() {
               <NavLink
                 to="/authpage/signup"
                 className="log_link p-1 px-4 border border-primary rounded-pill"
+                exact="true"
                 exact="true"
               >
                 Login
@@ -87,7 +107,7 @@ function Navbar() {
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
-                  <Link id="log-list" to="/">
+                  <Link id="log-list" to="/home">
                     Home
                   </Link>
                   <Link id="log-list" to="/event">
@@ -100,7 +120,7 @@ function Navbar() {
                     <NavLink
                       to="/authpage/signup"
                       className="log_link p-1 px-2 border border-primary rounded-pill"
-                      exact
+                      exact="true"
                       onClick={handleLogOutTokenBlock}
                     >
                       Logout
@@ -109,7 +129,7 @@ function Navbar() {
                     <NavLink
                       to="/authpage/signup"
                       className="log_link p-1 px-2 border border-primary rounded-pill"
-                      exact
+                      exact="true"
                     >
                       Login
                     </NavLink>
