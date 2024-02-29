@@ -99,7 +99,7 @@ function Navbar() {
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
-                  <Link id="log-list" to="/">
+                  <Link id="log-list" to="/home">
                     Home
                   </Link>
                   <Link id="log-list" to="/event">

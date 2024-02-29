@@ -2,7 +2,6 @@ import { useState, useRef, useContext, useEffect } from "react";
 import { useNavigate, NavLink, Link } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
 import PropTypes from "prop-types";
-import "../SignUp.css";
 import { EventsContext } from "../App";
 
 export default function SignIn({ onSwitchToSignUp }) {
