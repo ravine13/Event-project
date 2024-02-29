@@ -5,6 +5,8 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import Reviews from "./Reviews";
 import Tags from "./Tags";
 import ReviewSection from "./Reviews";
+import "../App.css";
+import Footer from "./footer";
 
 function EventDetails() {
   const { eventId } = useParams();
@@ -276,6 +278,7 @@ function EventDetails() {
           </div>
         )}
       </div>
+      <Footer />
     </>
   );
 }

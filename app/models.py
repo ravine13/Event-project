@@ -10,8 +10,8 @@ class User(db.Model):
     __tablename__ = 'user'
     id = Column(UUID, primary_key=True)
     password = Column(String)
-    confirmed = Column(Boolean)
     role = Column(Integer)
+    confirmed = Column(Boolean)
     created_at = Column(DateTime, default = datetime.utcnow)
     email = Column(String)
 
@@ -67,21 +67,21 @@ class Event(db.Model):
     description = Column(String)
     organiser_id = Column(UUID, ForeignKey('user.id'))
     organiser = relationship('User', backref='events')
-    start_date = Column(DateTime)
-    start_time = Column(DateTime)
-    end_date = Column(DateTime)
-    end_time = Column(DateTime)
+    start_date = Column(String)
+    start_time = Column(String)
+    end_date = Column(String)
+    end_time = Column(String)
     duration = Column(String)
     venue = Column(String)
     photo_id = Column(UUID, ForeignKey('Photo.id'))
-    created_at = Column(DateTime)
+    created_at = Column(DateTime, default=datetime.now())
     photo = relationship('Photo', back_populates='event')
     bookings = relationship('Booking', back_populates='event')
 
 class Billing_Info(db.Model):
     __tablename__ = 'Billing_Info'
     id = Column(UUID, primary_key=True)
-    payment_method = Column(Enum('credit_card', 'm_pesa', 'airtel_money', name='Ptype'))
+    payment_method = Column(Enum('credit_card', 'm_pesa', 'airtel_money', 'Mpesa', name='Ptype'))
     payment_details_id = Column(UUID, ForeignKey('Billing_Details.id'))
     billing_details = relationship('Billing_Details', backref='billing_infos')
     user_id = Column(UUID, ForeignKey('user.id'))

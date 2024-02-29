@@ -73,7 +73,8 @@ class UserLogin(Resource):
         if not bcrypt.check_password_hash(user.password, data.password):
             return abort(403, detail="Wrong password")
 
-        token = create_access_token(identity=user.id)
+        metadata = {'role': user.role}
+        token = create_access_token(identity=user.id, additional_claims=metadata)
         return {'token': token, 'role': user.role} 
 
 api.add_resource(UserLogin,'/login')

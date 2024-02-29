@@ -3,6 +3,7 @@ from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_cors import CORS
 import os
+from flask_mail import Mail
 from models import db
 from tags import tags_bp
 from event import event_bp
