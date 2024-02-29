@@ -17,12 +17,12 @@ import TicketCount from "./components/TicketCount";
 import BillingDetails from "./components/billing_details";
 import { jwtDecode } from "jwt-decode";
 export const EventsContext = createContext();
-import Booking from "./components/booking.jsx";
-import Booked from "./components/booked.jsx";
+import Booking from "./components/booking";
+import Booked from "./components/booked";
 
-import AdminDashBrd from "./components/AdminDash/AdminDashBoard.jsx";
+import AdminDashBrd from "./components/AdminDash";
 // import EventGoerDash from "./components/EventGoerDash/EventGoerDash.jsx";
-import OrganizerDashBoard from "./components/OrganizerDash/OrganizerDashBoard.jsx";
+// import OrganizerDashBoard from "./components/OrganizerDash/OrganizerDashBoard.jsx";
 
 function App() {
   let [signedIn, setSignedIn] = useState();
@@ -87,7 +87,7 @@ function App() {
             
             <Route path="/admin_dashboard/*" element={<AdminDashBrd></AdminDashBrd>} exact></Route>
             {/* <Route path="/event_goer_dashboard/*" element={<EventGoerDash></EventGoerDash>} exact></Route> */}
-            <Route path="/organizer_dashboard/*" element={<OrganizerDashBoard></OrganizerDashBoard>} exact></Route>
+            {/* <Route path="/organizer_dashboard/*" element={<OrganizerDashBoard></OrganizerDashBoard>} exact></Route> */}
           </Routes>
         </div>
       </EventsContext.Provider>
