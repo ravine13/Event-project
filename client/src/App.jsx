@@ -74,7 +74,6 @@ function App() {
           <div></div> */}
           <Routes>
             <Route path="/authpage/*" element={<AuthPage />} />
-
             <Route path="/home/*" element={<Home />} /> 
             <Route path="/event/*" element={<Event />} />
             <Route path="/event/:eventId/*" element={<EventDetails />} />
@@ -91,8 +90,7 @@ function App() {
             <Route path="/TicketCount" element={<TicketCount />} />
             <Route path="/booked" element={<Booked />} />
             <Route path='/request_password_reset' element={<PassReset></PassReset>}></Route>
-            <Route path="/booked" element={<Reviews />} />
-            
+            <Route path="/booked" element={<Reviews />} />            
             <Route path="/admin_dashboard/*" element={<AdminDashBrd></AdminDashBrd>} exact></Route>
             {/* <Route path="/event_goer_dashboard/*" element={<EventGoerDash></EventGoerDash>} exact></Route> */}
             {/* <Route path="/organizer_dashboard/*" element={<OrganizerDashBoard></OrganizerDashBoard>} exact></Route> */}
