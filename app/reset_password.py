@@ -31,7 +31,7 @@ class ResetPassword(Resource):
 
         token = secrets.token_urlsafe(32)
 
-        expires_delta = timedelta(hours=24) 
+        expires_delta = timedelta(minutes=30)
         expiration_date = datetime.utcnow() + expires_delta
 
         reset_tokens[user.id] = {"token": token, "expiration_date": expiration_date}

@@ -18,8 +18,7 @@ from pricing_controller import pricing_bp
 from routes.advert import advert_fees_bp
 from routes.profiles import profiles_bp
 from billing_details import billing_details_bp
-
-
+from reset_password import email_reset_bp
 
 def create_app():
     app = Flask(__name__)    
@@ -47,6 +46,7 @@ def create_app():
     app.register_blueprint(pricing_bp)
     app.register_blueprint(photo_bp)
     app.register_blueprint(billing_details_bp)
+    app.register_blueprint(email_reset_bp)
     CORS(app, resources={r"*": {"origins": "*"}})
  
     
