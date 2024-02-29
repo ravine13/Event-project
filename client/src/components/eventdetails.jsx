@@ -31,7 +31,11 @@ function EventDetails() {
   useEffect(() => {
     fetch(`http://localhost:5555/events/${eventId}`)
       .then((response) => response.json())
-      .then((data) => setEvent(data))
+      .then((data) => {
+        setEvent(data);
+        console.log(data);
+      }
+      )
       .catch((error) => console.error("Error fetching data:", error));
   }, [eventId]);
 

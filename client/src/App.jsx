@@ -23,7 +23,7 @@ import Reviews from "./components/Reviews.jsx";
 
 import AdminDashBrd from "./components/AdminDash";
 // import EventGoerDash from "./components/EventGoerDash/EventGoerDash.jsx";
-// import OrganizerDashBoard from "./components/OrganizerDash/OrganizerDashBoard.jsx";
+import OrganizerDashBoard from "./components/OrganizerDash/OrganizerDashBoard.jsx";
 import PassReset from "./components/PasswordReset/PassReset.jsx";
 
 function App() {
@@ -70,8 +70,6 @@ function App() {
       >
         <div id="home">
           <Navbar />
-          {/* <hr />
-          <div></div> */}
           <Routes>
             <Route path="/authpage/*" element={<AuthPage />} />
 
@@ -90,12 +88,12 @@ function App() {
             <Route path="/AdvertFeeInvoices" element={<AdvertFeeInvoices />} />
             <Route path="/TicketCount" element={<TicketCount />} />
             <Route path="/booked" element={<Booked />} />
-            <Route path='/request_password_reset' element={<PassReset></PassReset>}></Route>
+            <Route path='/password_reset/*' element={<PassReset></PassReset>}></Route>
             <Route path="/booked" element={<Reviews />} />
             
             <Route path="/admin_dashboard/*" element={<AdminDashBrd></AdminDashBrd>} exact></Route>
             {/* <Route path="/event_goer_dashboard/*" element={<EventGoerDash></EventGoerDash>} exact></Route> */}
-            {/* <Route path="/organizer_dashboard/*" element={<OrganizerDashBoard></OrganizerDashBoard>} exact></Route> */}
+            <Route path="/organizer_dashboard/*" element={<OrganizerDashBoard></OrganizerDashBoard>} exact></Route>
           </Routes>
         </div>
       </EventsContext.Provider>
