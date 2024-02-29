@@ -42,7 +42,7 @@ function Navbar() {
               <NavLink
                 to="/authpage/signup"
                 className="log_link p-1 px-4 border border-primary rounded-pill"
-                exact
+                exact="true"
                 onClick={handleLogOutTokenBlock}
               >
                 Logout
@@ -51,7 +51,7 @@ function Navbar() {
               <NavLink
                 to="/authpage/signup"
                 className="log_link p-1 px-4 border border-primary rounded-pill"
-                exact
+                exact="true"
               >
                 Login
               </NavLink>

@@ -20,9 +20,10 @@ export const EventsContext = createContext();
 import Booking from "./components/booking.jsx";
 import Booked from "./components/booked.jsx";
 
-import AdminDashBrd from "./components/AdminDash/AdminDashBoard.jsx";
+import AdminDashBrd from "./components/AdminDash.jsx";
+import User from "./components/DashBoards/userDashboard.jsx";
 // import EventGoerDash from "./components/EventGoerDash/EventGoerDash.jsx";
-import OrganizerDashBoard from "./components/OrganizerDash/OrganizerDashBoard.jsx";
+// import OrganizerDashBoard from "./components/OrganizerDash/OrganizerDashBoard.jsx";
 
 function App() {
   let [signedIn, setSignedIn] = useState();
@@ -88,14 +89,14 @@ function App() {
             <Route
               path="/admin_dashboard/*"
               element={<AdminDashBrd></AdminDashBrd>}
-              exact
+              exact="true"
             ></Route>
-            {/* <Route path="/event_goer_dashboard/*" element={<EventGoerDash></EventGoerDash>} exact></Route> */}
-            <Route
+            <Route path="/user/*" element={<User></User>} exact="true"></Route>
+            {/* <Route
               path="/organizer_dashboard/*"
               element={<OrganizerDashBoard></OrganizerDashBoard>}
               exact
-            ></Route>
+            ></Route> */}
           </Routes>
         </div>
       </EventsContext.Provider>

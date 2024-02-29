@@ -98,7 +98,7 @@ export default function SignIn({ onSwitchToSignUp }) {
           </button>
 
           <Link
-            to="/authpage/signup"
+            to="/user"
             className="flex items-center gap-1 text-sm text-gray-900 duration-150 font-medium"
           >
             Don't have an account
