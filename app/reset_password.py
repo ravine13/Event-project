@@ -19,8 +19,10 @@ reset_password_parser.add_argument('email', type=str, required=True, help="Email
 
 class ResetPassword(Resource):
     def post(self):
-        data = reset_password_parser.parse_args()
+        # data = reset_password_parser.parse_args()
+        data = request.get_json()
         email = data['email'].lower()
+        # email = data.get('email')
 
         user = User.query.filter_by(email=email).first()
 

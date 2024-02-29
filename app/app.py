@@ -18,7 +18,6 @@ from pricing_controller import pricing_bp
 from routes.advert import advert_fees_bp
 from routes.profiles import profiles_bp
 from billing_details import billing_details_bp
-from reset_password import email_reset_bp
 
 
 
@@ -26,11 +25,6 @@ def create_app():
     app = Flask(__name__)    
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'app.db')
     app.config['SECRET_KEY'] = b"\x06F\x14\x91\xba\xdc\x9a\x96g'\xc7\xb0"
-    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-    app.config['MAIL_PORT'] = 465
-    app.config['MAIL_USE_SSL'] = True
-    app.config['MAIL_USERNAME'] = 'youremail@gmail.com'  # Your email
-    app.config['MAIL_PASSWORD'] = 'your-password'  # Your password
     
     main_bp = Blueprint('main', __name__)
     db.init_app(app)
@@ -53,7 +47,6 @@ def create_app():
     app.register_blueprint(pricing_bp)
     app.register_blueprint(photo_bp)
     app.register_blueprint(billing_details_bp)
-    app.register_blueprint(email_reset_bp)
     CORS(app, resources={r"*": {"origins": "*"}})
  
     

@@ -2,6 +2,7 @@ from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
 from uuid import UUID
+from uuid import UUID
 from flask import Blueprint
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import (JWTManager,
@@ -32,14 +33,9 @@ login_args.add_argument('password', type=str, required=True)
 
 @jwt.user_lookup_loader
 def user_lookup_callback(_jwt_header, jwt_data):
-    identity = jwt_data.get("sub")
-    if identity:
-        identity_uuid = UUID(identity)
-        user = User.query.filter_by(id=identity_uuid).first()
-        return user
-    else:
-        return None
-    
+    identity = UUID(jwt_data["sub"])  
+    return User.query.filter_by(id=identity).first()
+
 class UserRegister(Resource):
     def post(self):
         data = register_args.parse_args()
@@ -76,9 +72,9 @@ class UserLogin(Resource):
             return abort(404, detail="User does not exist")
         if not bcrypt.check_password_hash(user.password, data.password):
             return abort(403, detail="Wrong password")
-        print(type(user.id))
-        print(user.id)
-        token = create_access_token(identity=str(user.id))
+
+        metadata = {'role': user.role}
+        token = create_access_token(identity=user.id, additional_claims=metadata)
         return {'token': token, 'role': user.role} 
 
 api.add_resource(UserLogin,'/login')
@@ -87,11 +83,10 @@ class Logout(Resource):
     @jwt_required()
     def get(self):
         token = get_jwt()
-        jti = token['jti'].replace('-', '')  # Remove hyphens
+        jti = token['jti']  
         blocked_token = TokenBlocklist(jti=jti, created_at=datetime.utcnow())
         db.session.add(blocked_token)
         db.session.commit()
         return {'detail': "Token logged out"}
 
 api.add_resource(Logout,'/logout')
-
