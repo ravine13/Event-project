@@ -64,7 +64,7 @@ function App() {
           handleLogOutTokenBlock,
           signedIn,
           setSignedIn,
-          role
+          role,
         }}
       >
         <div id="home">
