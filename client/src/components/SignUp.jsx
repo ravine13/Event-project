@@ -79,6 +79,28 @@ function SignUp({ onBackToLogin }) {
       <div className="flex-1 mt-12 sm:max-w-lg lg:max-w-md">
         <form onSubmit={onLogFormSubmit} className="space-y-5">
           <div>
+            <label className="font-medium">First Name</label>
+            <input
+              type="first_name"
+              name="first_name"
+              onClick={onInputClick}
+              onChange={onInputChange}
+              required
+              className="w-full mt-2 px-3 py-2 text-dark bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+            />
+          </div>
+          <div>
+            <label className="font-medium">Last Name</label>
+            <input
+              type="last_name"
+              name="last_name"
+              onClick={onInputClick}
+              onChange={onInputChange}
+              required
+              className="w-full mt-2 px-3 py-2 text-dark bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+            />
+          </div>
+          <div>
             <label className="font-medium">Email</label>
             <input
               type="email"

@@ -1,8 +1,10 @@
+import uuid
 from sqlalchemy import Column, DateTime, String, Integer, ForeignKey, Boolean, Enum, Float
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+
 
 db = SQLAlchemy()
 
@@ -27,7 +29,7 @@ class User(db.Model):
 
 class Profile(db.Model):
     __tablename__ = 'Profile'
-    id = Column(UUID, primary_key=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user = relationship('User', backref='profiles')
     user_id = Column(UUID, ForeignKey('user.id'))
     first_name = Column(String)

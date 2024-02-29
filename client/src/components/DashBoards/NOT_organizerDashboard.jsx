@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const User = () => {
-  const [userProfile, setUserProfile] = useState(null);
+const Organizer = () => {
+  const [organizerProfile, setOrganizerProfile] = useState(null);
   const [updatedProfileData, setUpdatedProfileData] = useState({
     first_name: "",
     last_name: "",
@@ -12,18 +12,18 @@ const User = () => {
 
   useEffect(() => {
     axios
-      .get(`/profile/${userProfile}`)
+      .get("/profile/organizerId")
       .then((response) => {
-        setUserProfile(response.data);
+        setOrganizerProfile(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching user profile:", error);
+        console.error("Error fetching organizer profile:", error);
       });
   }, []);
 
   const updateProfile = () => {
     axios
-      .patch(`/profile/${userProfile.id}`, updatedProfileData)
+      .patch(`/profile/${organizerProfile.id}`, updatedProfileData)
       .then((response) => {
         console.log("Profile updated:", response.data.message);
         setIsEditing(false);
@@ -35,9 +35,9 @@ const User = () => {
 
   return (
     <div>
-      {userProfile ? (
+      {organizerProfile ? (
         <>
-          <h2>User Profile</h2>
+          <h2>Organizer Profile</h2>
           {isEditing ? (
             <>
               <label>First Name:</label>
@@ -77,9 +77,9 @@ const User = () => {
             </>
           ) : (
             <>
-              <p>First Name: {userProfile.first_name}</p>
-              <p>Last Name: {userProfile.last_name}</p>
-              <p>Profile Photo: {userProfile.profile_photo}</p>
+              <p>First Name: {organizerProfile.first_name}</p>
+              <p>Last Name: {organizerProfile.last_name}</p>
+              <p>Profile Photo: {organizerProfile.profile_photo}</p>
               <button onClick={() => setIsEditing(true)}>Edit</button>
             </>
           )}
@@ -91,4 +91,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default Organizer;

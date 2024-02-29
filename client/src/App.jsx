@@ -20,15 +20,12 @@ export const EventsContext = createContext();
 import Booking from "./components/booking";
 import Booked from "./components/booked";
 import Reviews from "./components/Reviews.jsx";
-
 import AdminDashBrd from "./components/AdminDash";
 // import EventGoerDash from "./components/EventGoerDash/EventGoerDash.jsx";
 // import OrganizerDashBoard from "./components/OrganizerDash/OrganizerDashBoard.jsx";
 import PassReset from "./components/PasswordReset/PassReset.jsx";
 
 function App() {
-
-
   let [signedIn, setSignedIn] = useState(false);
   let token = localStorage.getItem("user_auth_token");
   let token_exists = token !== null;
@@ -74,7 +71,7 @@ function App() {
           <div></div> */}
           <Routes>
             <Route path="/authpage/*" element={<AuthPage />} />
-            <Route path="/home/*" element={<Home />} /> 
+            <Route path="/home/*" element={<Home />} />
             <Route path="/event/*" element={<Event />} />
             <Route path="/event/:eventId/*" element={<EventDetails />} />
             <Route path="/minad/*" element={<AdminDashboard />} />
@@ -89,11 +86,11 @@ function App() {
             <Route path="/AdvertFeeInvoices" element={<AdvertFeeInvoices />} />
             <Route path="/TicketCount" element={<TicketCount />} />
             <Route path="/booked" element={<Booked />} />
-            <Route path='/request_password_reset' element={<PassReset></PassReset>}></Route>
-            <Route path="/booked" element={<Reviews />} />            
-            <Route path="/admin_dashboard/*" element={<AdminDashBrd></AdminDashBrd>} exact></Route>
-            {/* <Route path="/event_goer_dashboard/*" element={<EventGoerDash></EventGoerDash>} exact></Route> */}
-            {/* <Route path="/organizer_dashboard/*" element={<OrganizerDashBoard></OrganizerDashBoard>} exact></Route> */}
+            <Route path="/request_password_reset" element={<PassReset></PassReset>}></Route>
+            <Route path="/booked" element={<Reviews />} />
+            <Route path="/admin_dashboard/*" element={<AdminDashBrd></AdminDashBrd>} exact ='true'></Route>
+            {/* <Route path="/event_goer_dashboard/*" element={<EventGoerDash></EventGoerDash>} exact ='true'></Route> */}
+            {/* <Route path="/organizer_dashboard/*" element={<OrganizerDashBoard></OrganizerDashBoard>} exact ='true'></Route> */}
           </Routes>
         </div>
       </EventsContext.Provider>

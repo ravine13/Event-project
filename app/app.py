@@ -25,7 +25,7 @@ def create_app():
     app = Flask(__name__)    
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'app.db')
     app.config['SECRET_KEY'] = b"\x06F\x14\x91\xba\xdc\x9a\x96g'\xc7\xb0"
-    
+    CORS(app, resources={r"*": {"origins": "*"}})
     main_bp = Blueprint('main', __name__)
     db.init_app(app)
     jwt.init_app(app)
@@ -46,9 +46,9 @@ def create_app():
     app.register_blueprint(tags_bp)
     app.register_blueprint(pricing_bp)
     app.register_blueprint(photo_bp)
-    app.register_blueprint(billing_details_bp)
     app.register_blueprint(mpesa_bp)
-    CORS(app, resources={r"*": {"origins": "*"}})
+    app.register_blueprint(billing_details_bp)
+    
  
     
     return app
