@@ -44,7 +44,7 @@ function Navbar() {
             </button>
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
-            <Link to="/">Home</Link>
+            <Link to="/home">Home</Link>
             <Link to="/event">Events</Link>
             {token_exists && <Link to={dash_url}>Dashboard</Link>}
 
