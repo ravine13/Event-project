@@ -16,6 +16,7 @@ from billing_info import billing_info_bp
 from pricing_controller import pricing_bp
 from routes.advert import advert_fees_bp
 from routes.profiles import profiles_bp
+from billing_details import billing_details_bp
 
 
 
@@ -44,6 +45,7 @@ def create_app():
     app.register_blueprint(tags_bp)
     app.register_blueprint(pricing_bp)
     app.register_blueprint(photo_bp)
+    app.register_blueprint(billing_details_bp)
     CORS(app, resources={r"*": {"origins": "*"}})
  
     

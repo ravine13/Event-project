@@ -1,7 +1,8 @@
 from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
-
+from uuid import UUID
+from uuid import UUID
 from flask import Blueprint
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import (JWTManager,
@@ -32,14 +33,21 @@ login_args.add_argument('password', type=str, required=True)
 
 @jwt.user_lookup_loader
 def user_lookup_callback(_jwt_header, jwt_data):
-    identity = jwt_data["sub"]
+    identity = UUID(jwt_data["sub"])  
     return User.query.filter_by(id=identity).first()
 
 class UserRegister(Resource):
     def post(self):
         data = register_args.parse_args()
+        email = data.get('email')
+        user_exists = User.query.filter_by(email = email).first() is not None
+        
+        if user_exists:
+            return abort(409, details='Conflict! Account Already Exists')
+        
         if data['password'] != data['confirm-password']:
             return abort(422,detail='Passwords do not match')
+        
         new_user = User(
             id=uuid4(), 
             email=data['email'], 
@@ -65,18 +73,20 @@ class UserLogin(Resource):
         if not bcrypt.check_password_hash(user.password, data.password):
             return abort(403, detail="Wrong password")
 
-        token = create_access_token(identity=user.id)
+        metadata = {'role': user.role}
+        token = create_access_token(identity=user.id, additional_claims=metadata)
         return {'token': token, 'role': user.role} 
 
 api.add_resource(UserLogin,'/login')
 
-class UserLogout(Resource):
+class Logout(Resource):
     @jwt_required()
     def get(self):
         token = get_jwt()
-        blocked_token = TokenBlocklist(jti=token['jti'], created_at=datetime.now(timezone.utc))
+        jti = token['jti']  
+        blocked_token = TokenBlocklist(jti=jti, created_at=datetime.utcnow())
         db.session.add(blocked_token)
         db.session.commit()
-        return {"detail":"token logging out"}
-    
-api.add_resource(UserLogout,'/logout')
+        return {'detail': "Token logged out"}
+
+api.add_resource(Logout,'/logout')

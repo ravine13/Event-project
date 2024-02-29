@@ -120,10 +120,10 @@ api.add_resource(ReviewByID, '/reviews/<string:id>')
 
 class new_Review(Resource):
     post_args = reqparse.RequestParser(bundle_errors=True)
-    post_args.add_argument('user_id', type=uuid_type, help='ID of the User', required=True)
-    post_args.add_argument('event_id', type=uuid_type, help='ID of the Event', required=True)
-    post_args.add_argument('rating', type=int, help='Rating of the Review', required=True)
-    post_args.add_argument('comment', type=str, help='Comment of the Review', required=True)
+    post_args.add_argument('user_id', type=uuid_type, help='ID of the User', required=False)
+    post_args.add_argument('event_id', type=uuid_type, help='ID of the Event', required=False)
+    post_args.add_argument('rating', type=int, help='Rating of the Review', required=False)
+    post_args.add_argument('comment', type=str, help='Comment of the Review', required=False)
 
     def post(self):
         new_reviews = self.post_args.parse_args()
