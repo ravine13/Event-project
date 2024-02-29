@@ -1,44 +1,62 @@
-import { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 
-const PaymentForm = () => {
-  const [phoneNumber, setPhoneNumber] = useState('');
+const PaymentForm = ({ phoneNumber, setPhoneNumber, handleSubmit }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handlePaymentSubmit = () => {
+    if (!phoneNumber) {
+      setMessage('Please enter a valid phone number');
+      return;
+    }
+
     setIsLoading(true);
     setMessage('');
 
-    try {
-      const response = await axios.post('http://localhost:5555/make_payment', { number: phoneNumber });
-      setMessage(response.data.message);
-    } catch (error) {
-      setMessage('An error occurred while processing the payment.');
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
+    console.log('Sending request with phone number:', phoneNumber);
+
+    // Make API call to your backend for payment
+    fetch('http://127.0.0.1:5555/api/make_payment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ phoneNumber }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setIsLoading(false);
+        setMessage('Payment successful!');
+        handleSubmit(); // Callback to handle the booking details after payment
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setMessage('Payment failed. Please try again.');
+        console.error('Error:', error);
+      });
   };
 
   return (
     <div>
       <h2>Make Payment</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Phone Number:
-          <input
-            type="text"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Processing...' : 'Make Payment'}
-        </button>
-      </form>
+      <label>
+        Phone Number:
+        <input
+          type="tel"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+          placeholder="Phone Number"
+          required
+        />
+      </label>
+      <button type="button" disabled={isLoading} onClick={handlePaymentSubmit}>
+        {isLoading ? 'Processing...' : 'Make Payment'}
+      </button>
       {message && <p>{message}</p>}
     </div>
   );
