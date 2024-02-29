@@ -1,5 +1,6 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import { useNavigate, NavLink, Link } from "react-router-dom";
+import ReCAPTCHA from "react-google-recaptcha";
 import PropTypes from "prop-types";
 import "../SignUp.css";
 import { EventsContext } from "../App";
@@ -9,11 +10,29 @@ export default function SignIn({ onSwitchToSignUp }) {
   let { setSignedIn } = useContext(EventsContext);
   let [showPassword, setShowPassword] = useState(false);
   let [signInData, setSignInData] = useState({});
+  let [recaptchaCheck, setRecaptchaCheck] = useState(false);
 
   let email_label = useRef();
   let password_label = useRef();
   let password_input = useRef();
   let logSubmit = useRef();
+
+  function onRecaptchaCheck(){
+		setRecaptchaCheck(current => !current)
+	};
+
+  function handleLogSubmitBtn(){
+		if (!recaptchaCheck) {
+			logSubmit.current.style.cssText = `transform: scale(0.9); cursor: no-drop;`;
+		}
+		else{
+			logSubmit.current.style.cssText = `transform: scale(1.1); cursor: pointer;`;
+		}
+	};
+
+  useEffect(() => {
+		setTimeout(()=> handleLogSubmitBtn(), 500)
+	});
 
   function onInputClick() {
     email_label.current.style.cssText = `transform: translate(-10%, -140%) scale(0.9); background-color: rgb(20, 0, 100); color: white; border-radius: 1000px;`;
@@ -47,7 +66,6 @@ export default function SignIn({ onSwitchToSignUp }) {
       .then((data) => {
         if (data) {
           localStorage.setItem("user_auth_token", data.token);
-          window.alert("Successfully Logged In");
           if (data.role === 100) {
             navigate("/user_dashboard");
           }
@@ -99,8 +117,11 @@ export default function SignIn({ onSwitchToSignUp }) {
               className="w-full mt-2 px-3 py-2 text-dark bg-transparent outline-none border shadow-sm rounded-lg"
             />
           </div>
+          <ReCAPTCHA className='recaptcha mt-4 m-2' sitekey="6LdeE1MpAAAAAEfpO0m3ZVvfjnAVGJU4-Nr0HpSq" onChange={onRecaptchaCheck}/>
           <button
+            ref={logSubmit}
             onClick={onLogFormSubmit}
+            disabled={!recaptchaCheck}
             className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
           >
             Sign In

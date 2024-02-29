@@ -38,13 +38,11 @@ function SignUp({ onBackToLogin }) {
         if (response.ok) {
           return response.json();
         } else {
-          window.alert("Account already exits!");
           navigate("/authpage/signin");
         }
       })
       .then((data) => {
         if (data) {
-          window.alert("Your account has been successfully created!");
           navigate("/authpage/signin");
         } else {
           navigate("/authpage/signin");
