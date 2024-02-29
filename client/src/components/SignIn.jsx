@@ -107,7 +107,7 @@ export default function SignIn({ onSwitchToSignUp }) {
           </button>
 
           <div className="text-center">
-            <NavLink className={'text-primary'}>
+            <NavLink className={'text-primary'} to={'/request_password_reset'}>
               Forgot Password?
             </NavLink>
           </div>
