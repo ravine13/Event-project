@@ -25,6 +25,7 @@ class ResetPassword(Resource):
         user = User.query.filter_by(email=email).first()
 
         if not user:
+            print("User not found")
             return {"message": "User not found"}, 404
 
         token = secrets.token_urlsafe(32)
@@ -33,6 +34,7 @@ class ResetPassword(Resource):
         expiration_date = datetime.utcnow() + expires_delta
 
         reset_tokens[user.id] = {"token": token, "expiration_date": expiration_date}
+        print(f"Reset tokens: {reset_tokens}")
 
         jwt_token = create_access_token(identity=str(user.id), expires_delta=expires_delta)
 
@@ -45,16 +47,19 @@ class VerifyPasswordReset(Resource):
     def post(self):
         
         current_user_id = UUID(get_jwt_identity())
+        print(f"Current user ID: {current_user_id}")
 
         user = User.query.filter_by(id=current_user_id).first()
 
         if not user:
+            print("User not found")
             return {"message": "User not found"}, 404
 
         data = request.get_json()
         new_password = data.get('new_password')
 
         if not new_password:
+            print("New password is empty")
             return {"message": "New password cannot be empty"}, 400
         user.password = bcrypt.generate_password_hash(new_password).decode('utf-8')
 
@@ -64,5 +69,5 @@ class VerifyPasswordReset(Resource):
         db.session.commit()
 
         return {"message": "Password reset successfully"}, 200
-
+    
 api.add_resource(VerifyPasswordReset, '/reset_password/verify')
