@@ -10,6 +10,7 @@ export const fetchUsers = () => api.get('/users');
 export const fetchUser = (userId) => api.get(`/user/${userId}`);
 
 export const fetchEvents = () => api.get('/events');
+
 export const fetchEvent = (eventId) => {
   return api.get(`${BASE_URL}/events/${eventId}`)
     .then(response => {
@@ -35,6 +36,14 @@ export const fetchBillingDetails = () => api.get('/billing_details');
 export const registerUser = async (userData) => {
   try {
     const response = await api.post('/register', userData);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+export const addEvent = async (eventData) => {
+  try {
+    const response = await api.post('/new_event', eventData);
     return response.data;
   } catch (error) {
     throw error.response.data;
