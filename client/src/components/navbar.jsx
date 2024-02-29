@@ -5,8 +5,19 @@ import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 function Navbar() {
-  let { token_exists, handleLogOutTokenBlock, signedIn } =
+  let { token_exists, handleLogOutTokenBlock, signedIn, role } =
     useContext(EventsContext);
+  
+  let dash_url;
+  if (role === 100){
+    dash_url = '/user_dashboard'
+  }
+  else if (role === 101){
+    dash_url = '/organizer_dashboard'
+  }
+  else if (role === 111){
+    dash_url = '/admin_dashboard'
+  }
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -35,14 +46,15 @@ function Navbar() {
           <div className="hidden lg:flex lg:gap-x-12">
             <Link to="/">Home</Link>
             <Link to="/event">Events</Link>
-            <Link to="AdminDash">Admin</Link>
+            {token_exists && <Link to={dash_url}>Dashboard</Link>}
+
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             {token_exists || signedIn ? (
               <NavLink
                 to="/authpage/signup"
                 className="log_link p-1 px-4 border border-primary rounded-pill"
-                exact
+                exact = "true"
                 onClick={handleLogOutTokenBlock}
               >
                 Logout
@@ -51,7 +63,7 @@ function Navbar() {
               <NavLink
                 to="/authpage/signup"
                 className="log_link p-1 px-4 border border-primary rounded-pill"
-                exact
+                exact = "true"
               >
                 Login
               </NavLink>
@@ -100,7 +112,7 @@ function Navbar() {
                     <NavLink
                       to="/authpage/signup"
                       className="log_link p-1 px-2 border border-primary rounded-pill"
-                      exact
+                      exact = "true"
                       onClick={handleLogOutTokenBlock}
                     >
                       Logout
@@ -109,7 +121,7 @@ function Navbar() {
                     <NavLink
                       to="/authpage/signup"
                       className="log_link p-1 px-2 border border-primary rounded-pill"
-                      exact
+                      exact = "true"
                     >
                       Login
                     </NavLink>
