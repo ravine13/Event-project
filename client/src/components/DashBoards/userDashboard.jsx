@@ -12,7 +12,7 @@ const User = () => {
 
   useEffect(() => {
     axios
-      .get("/profile/eventGoerId")
+      .get(`/profile/${userProfile}`)
       .then((response) => {
         setUserProfile(response.data);
       })

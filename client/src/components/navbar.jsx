@@ -17,15 +17,6 @@ function Navbar() {
     dash_url = "/admin_dashboard";
   }
 
-  let dash_url;
-  if (role === 100) {
-    dash_url = "/user_dashboard";
-  } else if (role === 101) {
-    dash_url = "/organizer_dashboard";
-  } else if (role === 111) {
-    dash_url = "/admin_dashboard";
-  }
-
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -61,7 +52,6 @@ function Navbar() {
                 to="/authpage/signup"
                 className="log_link p-1 px-4 border border-primary rounded-pill"
                 exact="true"
-                exact="true"
                 onClick={handleLogOutTokenBlock}
               >
                 Logout
@@ -70,7 +60,6 @@ function Navbar() {
               <NavLink
                 to="/authpage/signup"
                 className="log_link p-1 px-4 border border-primary rounded-pill"
-                exact="true"
                 exact="true"
               >
                 Login

@@ -16,22 +16,21 @@ export default function SignIn({ onSwitchToSignUp }) {
   let password_input = useRef();
   let logSubmit = useRef();
 
-  function onRecaptchaCheck(){
-		setRecaptchaCheck(current => !current)
-	}
+  function onRecaptchaCheck() {
+    setRecaptchaCheck((current) => !current);
+  }
 
-  function handleLogSubmitBtn(){
-		if (!recaptchaCheck) {
-			logSubmit.current.style.cssText = `transform: scale(0.9); cursor: no-drop;`;
-		}
-		else{
-			logSubmit.current.style.cssText = `transform: scale(1.1); cursor: pointer;`;
-		}
-	}
+  function handleLogSubmitBtn() {
+    if (!recaptchaCheck) {
+      logSubmit.current.style.cssText = `transform: scale(0.9); cursor: no-drop;`;
+    } else {
+      logSubmit.current.style.cssText = `transform: scale(1.1); cursor: pointer;`;
+    }
+  }
 
   useEffect(() => {
-		setTimeout(()=> handleLogSubmitBtn(), 500)
-	});
+    setTimeout(() => handleLogSubmitBtn(), 500);
+  });
 
   function onInputClick() {
     email_label.current.style.cssText = `transform: translate(-10%, -140%) scale(0.9); background-color: rgb(20, 0, 100); color: white; border-radius: 1000px;`;
@@ -67,11 +66,9 @@ export default function SignIn({ onSwitchToSignUp }) {
           localStorage.setItem("user_auth_token", data.token);
           if (data.role === 100) {
             navigate("/user_dashboard");
-          }
-          else if (data.role === 101) {
+          } else if (data.role === 101) {
             navigate("/organizer_dashboard");
-          }
-          else if (data.role === 111){
+          } else if (data.role === 111) {
             navigate("/admin_dashboard");
           }
           setSignedIn(true);
@@ -116,7 +113,11 @@ export default function SignIn({ onSwitchToSignUp }) {
               className="w-full mt-2 px-3 py-2 text-dark bg-transparent outline-none border shadow-sm rounded-lg"
             />
           </div>
-          <ReCAPTCHA className='recaptcha mt-4 m-2' sitekey="6LdeE1MpAAAAAEfpO0m3ZVvfjnAVGJU4-Nr0HpSq" onChange={onRecaptchaCheck}/>
+          <ReCAPTCHA
+            className="recaptcha mt-4 m-2"
+            sitekey="6LdeE1MpAAAAAEfpO0m3ZVvfjnAVGJU4-Nr0HpSq"
+            onChange={onRecaptchaCheck}
+          />
           <button
             ref={logSubmit}
             onClick={onLogFormSubmit}
@@ -127,13 +128,13 @@ export default function SignIn({ onSwitchToSignUp }) {
           </button>
 
           <div className="text-center">
-            <NavLink className={'text-primary'} to={'/request_password_reset'}>
+            <NavLink className={"text-primary"} to={"/request_password_reset"}>
               Forgot Password?
             </NavLink>
           </div>
 
           <Link
-            to="/user"
+            to="authpage/signup"
             className="flex items-center gap-1 text-sm text-gray-900 duration-150 font-medium"
           >
             Don't have an account

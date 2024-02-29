@@ -13,7 +13,7 @@ from flask_jwt_extended import (JWTManager,
 )
 from flask_restful import Resource, Api, reqparse , abort
 
-from models import User, db, TokenBlocklist
+from models import User, db, TokenBlocklist, Profile
 from uuid import uuid4
 
 auth_bp = Blueprint('auth',__name__)
@@ -22,6 +22,9 @@ jwt = JWTManager()
 api = Api(auth_bp)
 
 register_args = reqparse.RequestParser()
+register_args.add_argument('first_name', type=str, required = True)
+register_args.add_argument('last_name', type=str, required = True)
+register_args.add_argument('profile_photo', type=str, required=False)
 register_args.add_argument('email',type=str, required=True)
 register_args.add_argument('password',type=str, required=True)
 register_args.add_argument('confirm-password',type=str, required=True)
@@ -56,7 +59,19 @@ class UserRegister(Resource):
         )
         db.session.add(new_user)
         db.session.commit()
+
+        new_profile=Profile(
+            user_id=new_user.id, 
+            first_name = data['first_name'],
+            last_name = data['last_name'],
+            profile_photo = data['profile_photo']
+        )
+        db.session.add(new_profile)
+        db.session.commit()
+        
         return {'detail':f'User {data.email} has been created successfully'}
+    
+        
 
 api.add_resource(UserRegister,'/register')
 
