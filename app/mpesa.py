@@ -59,4 +59,9 @@ def make_payment(number):
 
     res = requests.post('https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest', headers=headers, json=payload)
     return res.json()
-make_payment('254705820725')
+
+def send_prompt(request):
+    phone_number = request.json.get('number')
+    response = make_payment(phone_number) 
+    return response
+

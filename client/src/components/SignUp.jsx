@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
-import { NavLink, useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import "../App.css";
+
 
 function SignUp({ onBackToLogin }) {
   const navigate = useNavigate();
@@ -92,7 +92,7 @@ function SignUp({ onBackToLogin }) {
           <div>
             <label className="font-medium">Password</label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               ref={password_label}
               onClick={onInputClick}
@@ -100,6 +100,9 @@ function SignUp({ onBackToLogin }) {
               required
               className="w-full mt-2 px-3 py-2 text-dark bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
             />
+            <button onClick={toggle_show_password}>
+        {showPassword ? "Hide" : "Show"} Password
+      </button>
           </div>
           <div>
             <label className="font-medium">Confirm Password</label>
@@ -113,6 +116,10 @@ function SignUp({ onBackToLogin }) {
               required
               className="w-full mt-2 px-3 py-2 text-dark bg-transparent outline-none border shadow-sm rounded-lg"
             />
+             <button onClick={toggleShowConfirmpassword}>
+        {showPassword ? "Hide" : "Show"} Password
+            </button>
+
           </div>
           <select
             className="w-full text-sm px-3 py-2.5 bg-transparent outline-none border rounded-lg h-full shadow-sm"
@@ -127,9 +134,16 @@ function SignUp({ onBackToLogin }) {
           <button className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
             Sign Up
           </button>
+            <button
+                type="button"
+                onClick={onBackToLogin}
+                className="w-full px-4 py-2 mt-4 text-white font-medium bg-gray-500 hover:bg-gray-600 rounded-lg duration-150"
+              >
+                Back to Login
+  </button>
 
           <Link
-            to={"/authpage/signin"}
+            to={"/authpage/signin/"}
             className="flex items-center gap-1 text-sm text-gray-900 duration-150 font-medium"
           >
             Already have an account
