@@ -1,8 +1,9 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { EventsContext } from "../App";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import "../App.css";
 
 function Navbar() {
   let { token_exists, handleLogOutTokenBlock, signedIn, role } =
@@ -10,11 +11,11 @@ function Navbar() {
 
   let dash_url;
   if (role === 100) {
-    dash_url = "/user_dashboard";
+    dash_url = "/userDashboard";
   } else if (role === 101) {
-    dash_url = "/organizer_dashboard";
+    dash_url = "/OrganizerDashBoard";
   } else if (role === 111) {
-    dash_url = "/admin_dashboard";
+    dash_url = "/AdminDash";
   }
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

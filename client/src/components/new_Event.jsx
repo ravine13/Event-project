@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { addEvent } from '../services/api';
+import '../App.css';
 
 function NewEvent() {
   const [eventDetails, setEventDetails] = useState({
@@ -43,7 +44,6 @@ function NewEvent() {
       console.error('Error creating event:', error.response.data);
     }
   };
-  
 
   return (
     <form className='event-form' onSubmit={handleSubmit}>

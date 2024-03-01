@@ -2,7 +2,7 @@ import { useState, useRef, useContext, useEffect } from "react";
 import { useNavigate, NavLink, Link } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
 import PropTypes from "prop-types";
-import "../SignUp.css";
+import "../App.css"; 
 import { EventsContext } from "../App";
 
 export default function SignIn({ onSwitchToSignUp }) {
@@ -17,22 +17,22 @@ export default function SignIn({ onSwitchToSignUp }) {
   let password_input = useRef();
   let logSubmit = useRef();
 
-  function onRecaptchaCheck(){
-		setRecaptchaCheck(current => !current)
-	}
+  function onRecaptchaCheck() {
+    setRecaptchaCheck(current => !current)
+  }
 
-  function handleLogSubmitBtn(){
-		if (!recaptchaCheck) {
-			logSubmit.current.style.cssText = `transform: scale(0.9); cursor: no-drop;`;
-		}
-		else{
-			logSubmit.current.style.cssText = `transform: scale(1.1); cursor: pointer;`;
-		}
-	}
+  function handleLogSubmitBtn() {
+    if (!recaptchaCheck) {
+      logSubmit.current.style.cssText = `transform: scale(0.9); cursor: no-drop;`;
+    }
+    else {
+      logSubmit.current.style.cssText = `transform: scale(1.1); cursor: pointer;`;
+    }
+  }
 
   useEffect(() => {
-		setTimeout(()=> handleLogSubmitBtn(), 500)
-	});
+    setTimeout(() => handleLogSubmitBtn(), 500)
+  });
 
   function onInputClick() {
     email_label.current.style.cssText = `transform: translate(-10%, -140%) scale(0.9); background-color: rgb(20, 0, 100); color: white; border-radius: 1000px;`;
@@ -72,7 +72,7 @@ export default function SignIn({ onSwitchToSignUp }) {
           else if (data.role === 101) {
             navigate("/OrganizerDashBoard");
           }
-          else if (data.role === 111){
+          else if (data.role === 111) {
             navigate("/admin_dashboard");
           }
           setSignedIn(true);
@@ -91,22 +91,22 @@ export default function SignIn({ onSwitchToSignUp }) {
   }
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-      <div style={{ flex: 1, marginTop: '3rem', maxWidth: '18rem' }}>
-        <form onSubmit={onLogFormSubmit} style={{ gap: '1.25rem' }}>
+    <div className="signin-container">
+      <div className="signin-form">
+        <form onSubmit={onLogFormSubmit}>
           <div>
-            <label style={{ fontWeight: '500' }}>Email</label>
+            <label>Email</label>
             <input
               type="email"
               name="email"
               onClick={onInputClick}
               onChange={onInputChange}
               required
-              style={{ width: '100%', marginTop: '0.5rem', paddingLeft: '0.75rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', color: '#374151', backgroundColor: 'transparent', outline: 'none', border: 'none', boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', borderRadius: '0.375rem' }}
+              className="signin-input"
             />
           </div>
           <div>
-            <label style={{ fontWeight: '500' }}>Password</label>
+            <label>Password</label>
             <input
               type="password"
               name="password"
@@ -114,48 +114,41 @@ export default function SignIn({ onSwitchToSignUp }) {
               onClick={onInputClick}
               onChange={onInputChange}
               required
-              style={{ width: '100%', marginTop: '0.5rem', paddingLeft: '0.75rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', color: '#374151', backgroundColor: 'transparent', outline: 'none', border: 'none', boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', borderRadius: '0.375rem' }}
+              className="signin-input"
             />
           </div>
-          <ReCAPTCHA className='recaptcha mt-4 m-2' sitekey="6LdeE1MpAAAAAEfpO0m3ZVvfjnAVGJU4-Nr0HpSq" onChange={onRecaptchaCheck}/>
+          <ReCAPTCHA
+            className='signin-recaptcha'
+            sitekey="6LdeE1MpAAAAAEfpO0m3ZVvfjnAVGJU4-Nr0HpSq"
+            onChange={onRecaptchaCheck}
+          />
           <button
             ref={logSubmit}
             onClick={onLogFormSubmit}
             disabled={!recaptchaCheck}
-            style={{ width: '100%', paddingLeft: '1rem', paddingRight: '1rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', color: '#F9FAFB', fontWeight: '500', backgroundColor: '#6366F1', borderRadius: '0.375rem', transition: 'all 0.15s ease-in-out' }}
+            className="signin-button"
           >
             Sign In
           </button>
           <button
-              type="button"
-              onClick={onSwitchToSignUp}
-              className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
-            >
-              Sign Up
-            </button>
-
-          <div style={{ textAlign: 'center' }}>
+            type="button"
+            onClick={onSwitchToSignUp}
+            className="signin-button"
+          >
+            Sign Up
+          </button>
+          <div className="signin-forgot-password">
             <NavLink className={'text-primary'} to={'/password_reset'}>
               Forgot Password?
             </NavLink>
           </div>
-
-          <Link
-            to="/authpage/signup"
-            style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.875rem', color: '#1F2937', transition: 'all 0.15s ease-in-out', fontWeight: '500' }}
-          >
+          <Link to="/authpage/signup" className="signin-switch-to-signup">
             Don't have an account
-            <span
-              style={{ color: '#6366F1', transition: 'all 0.15s ease-in-out' }}
-              onClick={onSwitchToSignUp}
-            >
-              Sign Up
-            </span>
+            <span onClick={onSwitchToSignUp}>Sign Up</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
-              style={{ width: '1.25rem', height: '1.25rem', color: '#6366F1', transition: 'all 0.15s ease-in-out' }}
             >
               <path
                 fillRule="evenodd"

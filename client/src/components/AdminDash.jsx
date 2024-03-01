@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import '../App.css';
 
 const Admin = () => {
   const [activeMenu, setActiveMenu] = useState(null);
