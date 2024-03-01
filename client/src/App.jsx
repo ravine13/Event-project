@@ -23,7 +23,7 @@ import AdminDashBrd from "./components/AdminDash";
 import OrganizerDashBoard from "./components/OrganizerDash/OrganizerDashBoard";
 
 // import EventGoerDash from "./components/EventGoerDash/EventGoerDash.jsx";
-// import OrganizerDashBoard from "./components/OrganizerDash/OrganizerDashBoard.jsx";
+import OrganizerDashBoard from "./components/OrganizerDash/OrganizerDashBoard.jsx";
 import PassReset from "./components/PasswordReset/PassReset.jsx";
 import User from "./components/DashBoards/userDashboard";
 
@@ -69,8 +69,6 @@ function App() {
       >
         <div id="home">
           <Navbar />
-          {/* <hr />
-          <div></div> */}
           <Routes>
             <Route path="/authpage/*" element={<AuthPage />} />
             <Route path="/home/*" element={<Home />} />
@@ -95,6 +93,12 @@ function App() {
             <Route path="/admin_dashboard/*" element={<AdminDashBrd></AdminDashBrd>} exact ='true'></Route>
             {/* <Route path="/event_goer_dashboard/*" element={<EventGoerDash></EventGoerDash>} exact ='true'></Route> */}
             {/* <Route path="/organizer_dashboard/*" element={<OrganizerDashBoard></OrganizerDashBoard>} exact ='true'></Route> */}
+            <Route path='/password_reset/*' element={<PassReset></PassReset>}></Route>
+            <Route path="/booked" element={<Reviews />} />
+            
+            <Route path="/admin_dashboard/*" element={<AdminDashBrd></AdminDashBrd>} exact></Route>
+            {/* <Route path="/event_goer_dashboard/*" element={<EventGoerDash></EventGoerDash>} exact></Route> */}
+            <Route path="/organizer_dashboard/*" element={<OrganizerDashBoard></OrganizerDashBoard>} exact></Route>
           </Routes>
         </div>
       </EventsContext.Provider>

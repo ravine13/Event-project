@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function PasswordResetRequest() {
+	let navigate = useNavigate();
 	let [email, setEmail] = useState('');
 
 	function handleSubmit(e){
@@ -24,6 +26,8 @@ function PasswordResetRequest() {
 		})
 		.then( data => {
 			console.log(data);
+			localStorage.setItem('password_reset', data.token)
+			navigate('/password_reset/new_password')
 		})
 	}
 
