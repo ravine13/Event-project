@@ -73,11 +73,10 @@ function SignUp({ onBackToLogin }) {
       confirmPasswordInput.current.type = "password";
     }
   }
-
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="flex-1 mt-12 sm:max-w-lg lg:max-w-md">
-        <form onSubmit={onLogFormSubmit} className="space-y-5">
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+      <div style={{ flex: '1', marginTop: '3rem', maxWidth: '44rem' }}>
+        <form onSubmit={onLogFormSubmit} style={{ marginBlock: '1.25rem' }}>
           <div>
             <label className="font-medium">First Name</label>
             <input
@@ -102,17 +101,18 @@ function SignUp({ onBackToLogin }) {
           </div>
           <div>
             <label className="font-medium">Email</label>
+            <label style={{ fontWeight: '500' }}>Email</label>
             <input
               type="email"
               name="email"
               onClick={onInputClick}
               onChange={onInputChange}
               required
-              className="w-full mt-2 px-3 py-2 text-dark bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+              style={{ width: '100%', marginTop: '0.5rem', paddingLeft: '0.75rem', paddingRight: '0.75rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', color: '#111827', backgroundColor: 'transparent', outline: '2px solid transparent', outlineOffset: '2px', borderWidth: '1px', boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', borderRadius: '.375rem' }}
             />
           </div>
           <div>
-            <label className="font-medium">Password</label>
+            <label style={{ fontWeight: '500' }}>Password</label>
             <input
               type={showPassword ? "text" : "password"}
               name="password"
@@ -120,15 +120,14 @@ function SignUp({ onBackToLogin }) {
               onClick={onInputClick}
               onChange={onInputChange}
               required
-              className="w-full mt-2 px-3 py-2 text-dark bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+              style={{ width: '100%', marginTop: '0.5rem', paddingLeft: '0.75rem', paddingRight: '0.75rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', color: '#111827', backgroundColor: 'transparent', outline: '2px solid transparent', outlineOffset: '2px', borderWidth: '1px', boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', borderRadius: '.375rem' }}
             />
             <button onClick={toggle_show_password}>
         {showPassword ? "Hide" : "Show"} Password
       </button>
           </div>
           <div>
-            <label className="font-medium">Confirm Password</label>
-
+            <label style={{ fontWeight: '500' }}>Confirm Password</label>
             <input
               type="password"
               name="confirm-password"
@@ -136,7 +135,7 @@ function SignUp({ onBackToLogin }) {
               onClick={onInputClick}
               onChange={onInputChange}
               required
-              className="w-full mt-2 px-3 py-2 text-dark bg-transparent outline-none border shadow-sm rounded-lg"
+              style={{ width: '100%', marginTop: '0.5rem', paddingLeft: '0.75rem', paddingRight: '0.75rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', color: '#111827', backgroundColor: 'transparent', outline: '2px solid transparent', outlineOffset: '2px', borderWidth: '1px', boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', borderRadius: '.375rem' }}
             />
              <button onClick={toggleShowConfirmpassword}>
         {showPassword ? "Hide" : "Show"} Password
@@ -144,7 +143,7 @@ function SignUp({ onBackToLogin }) {
 
           </div>
           <select
-            className="w-full text-sm px-3 py-2.5 bg-transparent outline-none border rounded-lg h-full shadow-sm"
+            style={{ width: '100%', fontSize: '0.875rem', paddingLeft: '0.75rem', paddingRight: '0.75rem', paddingTop: '0.625rem', paddingBottom: '0.625rem', backgroundColor: 'transparent', outline: '2px solid transparent', outlineOffset: '2px', borderWidth: '1px', boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', borderRadius: '.375rem', height: '100%' }}
             name="role"
             onChange={onInputChange}
           >
@@ -153,7 +152,7 @@ function SignUp({ onBackToLogin }) {
             <option value={101}>Organizer</option>
             <option value={111}>Administrator</option>
           </select>
-          <button className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
+          <button style={{ width: '100%', paddingLeft: '1rem', paddingRight: '1rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', color: 'white', fontWeight: '500', backgroundColor: '#6366F1', borderRadius: '.375rem', transitionDuration: '150ms' }}>
             Sign Up
           </button>
             <button
@@ -165,12 +164,12 @@ function SignUp({ onBackToLogin }) {
   </button>
 
           <Link
-            to={"/authpage/signin/"}
-            className="flex items-center gap-1 text-sm text-gray-900 duration-150 font-medium"
+            to={"/authpage/signin"}
+            style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.875rem', color: '#1F2937', transitionDuration: '150ms', fontWeight: '500' }}
           >
             Already have an account
             <span
-              className="text-indigo-600 hover:text-indigo-400"
+              style={{ color: '#6366F1' }}
               onClick={onBackToLogin}
             >
               Sign In
@@ -179,7 +178,7 @@ function SignUp({ onBackToLogin }) {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
-              className="w-5 h-5 text-indigo-600 hover:text-indigo-400"
+              style={{ width: '1.25rem', height: '1.25rem', color: '#6366F1' }}
             >
               <path
                 fillRule="evenodd"

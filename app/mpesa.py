@@ -74,4 +74,3 @@ class PaymentResource(Resource):
 
 api.add_resource(PaymentResource, '/api/make_payment')
 
-

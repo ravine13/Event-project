@@ -14,17 +14,16 @@ function Booked() {
       
   }, []);
  
-
   return (
     <div>
-      <div className="events">
+      <div style={{ fontFamily: 'sans-serif', padding: '1rem', minHeight: '100vh' }}>
         <h3>Bookings</h3>
         
-            <div className="bookingCard">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               {BookedEvent.map((booking) => (
                 <div key={booking.id} to={`/bookings/${booking.id}`}>
-                  <div className="profile">            
-                    <div className="eventInfo">
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>            
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                       <p><span> Event: {booking.name} </span></p>
                       <p> Start Date: {booking.start_date} </p>
                     </div>
@@ -33,7 +32,7 @@ function Booked() {
               ))}
             </div>
       </div>
-      <footer className="pageFooter">
+      <footer style={{ fontFamily: 'sans-serif', padding: '1rem', minHeight: '100vh' }}>
         <div id="pagination">
           <h3>Pages</h3>
           <p>Privacy Policy</p>

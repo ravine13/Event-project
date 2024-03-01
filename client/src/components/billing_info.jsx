@@ -47,8 +47,6 @@ function BillingInfo() {
 
     return (
         <div className='billing-details'>
-
-        {/* This should be in a different page */}
         
             <form onSubmit={handleSubmit}>
                 <label>

@@ -15,7 +15,7 @@ const PaymentForm = ({ phoneNumber, setPhoneNumber, handleSubmit }) => {
 
     console.log('Sending request with phone number:', phoneNumber);
 
-    // Make API call to your backend for payment
+    
     fetch('http://127.0.0.1:5555/api/make_payment', {
       method: 'POST',
       headers: {
@@ -32,7 +32,7 @@ const PaymentForm = ({ phoneNumber, setPhoneNumber, handleSubmit }) => {
       .then((data) => {
         setIsLoading(false);
         setMessage('Payment successful!');
-        handleSubmit(); // Callback to handle the booking details after payment
+        handleSubmit(); 
       })
       .catch((error) => {
         setIsLoading(false);

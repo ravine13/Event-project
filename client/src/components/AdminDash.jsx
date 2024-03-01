@@ -9,54 +9,54 @@ const Admin = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen">
-      <aside className="bg-gray-50 border-r mt-20 text-gray-600 px-4 md:px-8 md:w-64 flex-shrink-0">
-        <div className="mt-10">
-          <ul className={activeMenu === "advert" ? "active" : ""}>
-            <li className="block w-full py-2 hover:border-indigo-600 hover:text-gray-900 duration-150">
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <aside style={{ backgroundColor: '#F9FAFB', borderRight: '1px solid #D1D5DB', marginTop: '5rem', color: '#4B5563', padding: '1rem', width: '16rem', flexShrink: 0 }}>
+        <div style={{ marginTop: '2.5rem' }}>
+          <ul style={{ listStyleType: 'none', padding: 0 }}>
+            <li style={{ width: '100%', padding: '0.5rem 0', transition: 'all 0.15s ease-in-out' }}>
               <Link to={"/AdvertFeeInvoices"}>View Fee Invoices</Link>
             </li>
-            <li className="block w-full py-2 hover:border-indigo-600 hover:text-gray-900 duration-150">
+            <li style={{ width: '100%', padding: '0.5rem 0', transition: 'all 0.15s ease-in-out' }}>
               <a href="#billing-info" onClick={() => toggleMenu("billing")}>
                 Billing
               </a>
-              <ul className={activeMenu === "billing" ? "active" : ""}>
-                <li className="block w-full py-2 hover:border-indigo-600 hover:text-gray-900 duration-150">
+              <ul style={{ listStyleType: 'none', padding: 0 }}>
+                <li style={{ width: '100%', padding: '0.5rem 0', transition: 'all 0.15s ease-in-out' }}>
                   <Link to={"/billing_details"}>View Billing details</Link>
                 </li>
-                <li className="block w-full py-2 hover:border-indigo-600 hover:text-gray-900 duration-150">
+                <li style={{ width: '100%', padding: '0.5rem 0', transition: 'all 0.15s ease-in-out' }}>
                   <Link to={"/billing_info"}>View Billing Info</Link>
                 </li>
               </ul>
             </li>
-            <li className="block w-full py-2 hover:border-indigo-600 hover:text-gray-900 duration-150">
+            <li style={{ width: '100%', padding: '0.5rem 0', transition: 'all 0.15s ease-in-out' }}>
               <a href="#add-event" onClick={() => toggleMenu("event")}>
                 Event
               </a>
-              <ul className={activeMenu === "event" ? "active" : ""}>
-                <li className="block w-full py-2 hover:border-indigo-600 hover:text-gray-900 duration-150">
+              <ul style={{ listStyleType: 'none', padding: 0 }}>
+                <li style={{ width: '100%', padding: '0.5rem 0', transition: 'all 0.15s ease-in-out' }}>
                   <Link to={"/event"}>View Events</Link>
                 </li>
-                <li className="block w-full py-2 hover:border-indigo-600 hover:text-gray-900 duration-150">
-                  <Link to={"/OrganizerDash/NewEvent"}>Add a New Event</Link>
+                <li style={{ width: '100%', padding: '0.5rem 0', transition: 'all 0.15s ease-in-out' }}>
+                  <Link to={"/new_Event"}>Add a New Event</Link>
                 </li>
-                <li className="block w-full py-2 hover:border-indigo-600 hover:text-gray-900 duration-150">
+                <li style={{ width: '100%', padding: '0.5rem 0', transition: 'all 0.15s ease-in-out' }}>
                   <Link to={"/EventHistory"}>Event History</Link>
                 </li>
               </ul>
             </li>
-            <li className="block w-full py-2 hover:border-indigo-600 hover:text-gray-900 duration-150">
+            <li style={{ width: '100%', padding: '0.5rem 0', transition: 'all 0.15s ease-in-out' }}>
               <a href="#ticket-count" onClick={() => toggleMenu("ticket")}>
                 Tickets
               </a>
-              <ul className={activeMenu === "ticket" ? "active" : ""}>
-                <li className="block w-full py-2 hover:border-indigo-600 hover:text-gray-900 duration-150">
+              <ul style={{ listStyleType: 'none', padding: 0 }}>
+                <li style={{ width: '100%', padding: '0.5rem 0', transition: 'all 0.15s ease-in-out' }}>
                   <Link to={"/TicketCount"}>View Ticket Count</Link>
                 </li>
-                <li className="block w-full py-2 hover:border-indigo-600 hover:text-gray-900 duration-150">
+                <li style={{ width: '100%', padding: '0.5rem 0', transition: 'all 0.15s ease-in-out' }}>
                   <Link to={"/booked"}>View Tickets Booked</Link>
                 </li>
-                <li className="block w-full py-2 hover:border-indigo-600 hover:text-gray-900 duration-150">
+                <li style={{ width: '100%', padding: '0.5rem 0', transition: 'all 0.15s ease-in-out' }}>
                   <Link to={"/TicketHistory"}>View Ticket History</Link>
                 </li>
               </ul>
@@ -64,9 +64,9 @@ const Admin = () => {
           </ul>
         </div>
       </aside>
-      <main className="flex-1 mt-20 px-4 md:px-8">
-        <div className="p-4">
-          <h1 className="text-6xl font-bold">Welcome to Admin Dashboard</h1>
+      <main style={{ flex: 1, marginTop: '5rem', padding: '1rem' }}>
+        <div style={{ padding: '1rem' }}>
+          <h1 style={{ fontSize: '3rem', fontWeight: 'bold' }}>Welcome to Admin Dashboard</h1>
         </div>
       </main>
     </div>

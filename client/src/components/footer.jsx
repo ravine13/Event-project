@@ -8,21 +8,21 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="text-gray-500 bg-white px-4 py-5 max-w-screen-xl mx-auto md:px-8">
-      <div className="gap-6 justify-between md:flex">
-        <div className="flex-1">
-          <div className="max-w-xs">
-            <h1 className="font-bold text-2xl text-indigo-600">Ticket Nexus</h1>
-            <p className="leading-relaxed mt-2 text-[15px]">
+    <footer style={{ color: '#6B7280', backgroundColor: '#F9FAFB', paddingLeft: '1rem', paddingTop: '1.25rem', paddingBottom: '1.25rem', maxWidth: '72rem', marginLeft: 'auto', marginRight: 'auto' }}>
+      <div style={{ gap: '1.5rem', justifyContent: 'space-between', display: 'flex' }}>
+        <div style={{ flex: 1 }}>
+          <div style={{ maxWidth: '16rem' }}>
+            <h1 style={{ fontWeight: 'bold', fontSize: '1.5rem', color: '#6366F1' }}>Ticket Nexus</h1>
+            <p style={{ lineHeight: '1.25rem', marginTop: '0.5rem', fontSize: '0.9375rem' }}>
               You can always meet us around the corners where we plan and hold
               events for you. Now come and discover experiences out of this
               world with us.
             </p>
           </div>
         </div>
-        <div className="flex-1 mt-10 space-y-6 items-center justify-between sm:flex md:space-y-0 md:mt-0">
-          <ul className="space-y-4">
-            <h4 className="text-gray-800 font-medium">Pages</h4>
+        <div style={{ flex: 1, marginTop: '2.5rem', gap: '1.5rem', alignItems: 'center', justifyContent: 'space-between', display: 'flex' }}>
+          <ul style={{ gap: '1rem' }}>
+            <h4 style={{ color: '#1F2937', fontWeight: '500' }}>Pages</h4>
             <li>
               <a href="/home">Homes</a>
             </li>
@@ -34,8 +34,8 @@ const Footer = () => {
             </li>
           </ul>
 
-          <ul className="space-y-4">
-            <h4 className="text-gray-800 font-medium">Company</h4>
+          <ul style={{ gap: '1rem' }}>
+            <h4 style={{ color: '#1F2937', fontWeight: '500' }}>Company</h4>
             <li>
               <a href="/">Invest</a>
             </li>
@@ -47,8 +47,8 @@ const Footer = () => {
             </li>
           </ul>
 
-          <ul className="space-y-4">
-            <h4 className="text-gray-800 font-medium">FAQS</h4>
+          <ul style={{ gap: '1rem' }}>
+            <h4 style={{ color: '#1F2937', fontWeight: '500' }}>FAQS</h4>
             <li>
               <a href="/">About</a>
             </li>
@@ -67,31 +67,31 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-      <div className="mt-8 py-6 border-t items-center justify-between sm:flex">
-        <div className="mt-4 sm:mt-0">
-          &copy; 2024 Ticket Nexus All rights reserved.
+      <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid #D1D5DB', alignItems: 'center', justifyContent: 'space-between', display: 'flex' }}>
+        <div style={{ marginTop: '1rem' }}>
+          © 2024 Ticket Nexus All rights reserved.
         </div>
-        <div className="mt-6 sm:mt-0">
-          <ul className="flex items-center space-x-4">
-            <li className="w-10 h-10 flex items-center justify-center cursor-pointer">
+        <div style={{ marginTop: '1.5rem' }}>
+          <ul style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <li style={{ width: '2.5rem', height: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
               <a href="#">
                 <FontAwesomeIcon icon={faFacebook} size="2x" />
               </a>
             </li>
 
-            <li className="w-10 h-10 flex items-center justify-center cursor-pointer">
+            <li style={{ width: '2.5rem', height: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
               <a href="#">
                 <FontAwesomeIcon icon={faTwitter} size="2x" />
               </a>
             </li>
 
-            <li className="w-10 h-10 flex items-center justify-center cursor-pointer">
+            <li style={{ width: '2.5rem', height: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
               <a href="#">
                 <FontAwesomeIcon icon={faLinkedinIn} size="2x" />
               </a>
             </li>
 
-            <li className="w-10 h-10 flex items-center justify-center cursor-pointer">
+            <li style={{ width: '2.5rem', height: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
               <a href="#">
                 <FontAwesomeIcon icon={faInstagram} size="2x" />
               </a>
@@ -99,13 +99,6 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-      {/* <style jsx>{`
-        .svg-icon path,
-        .svg-icon polygon,
-        .svg-icon rect {
-          fill: currentColor;
-        }
-      `}</style> */}
     </footer>
   );
 };
