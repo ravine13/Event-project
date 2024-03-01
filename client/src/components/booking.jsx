@@ -1,4 +1,3 @@
-// Booking.jsx
 import React, { useState } from "react";
 import "../App.css";
 import PaymentForm from "./paymentForm";
@@ -59,7 +58,6 @@ const Booking = () => {
           </p>
           <form className="mt-12 max-w-lg">
             <div className="grid gap-6">
-              {/* Payment options */}
               <div>
                 <label className="text-gray-100 text-sm block mb-2">
                   Payment Option:
@@ -78,21 +76,20 @@ const Booking = () => {
                 </select>
               </div>
 
-              {/* Display card payment details if selected */}
+          
               {formData.paymentOption === "card" && (
                 <>
-                  {/* ... (same as your existing code) */}
+                  
                 </>
               )}
 
-              {/* Display Paypal details if selected */}
+              
               {formData.paymentOption === "paypal" && (
                 <>
-                  {/* ... (same as your existing code) */}
+                  
                 </>
               )}
-
-              {/* Display M-Pesa details if selected */}
+              
               {formData.paymentOption === "mpesa" && (
                 <>
                   <PaymentForm

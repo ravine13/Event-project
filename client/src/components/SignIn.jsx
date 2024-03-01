@@ -70,7 +70,7 @@ export default function SignIn({ onSwitchToSignUp }) {
             navigate("/userDashboard");
           }
           else if (data.role === 101) {
-            navigate("/organizer_dashboard");
+            navigate("/OrganizerDashBoard");
           }
           else if (data.role === 111){
             navigate("/admin_dashboard");

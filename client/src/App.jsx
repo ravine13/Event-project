@@ -20,6 +20,7 @@ import Booking from "./components/booking";
 import Booked from "./components/booked";
 import Reviews from "./components/Reviews.jsx";
 import AdminDashBrd from "./components/AdminDash";
+import OrganizerDashBoard from "./components/OrganizerDash/OrganizerDashBoard";
 
 // import EventGoerDash from "./components/EventGoerDash/EventGoerDash.jsx";
 // import OrganizerDashBoard from "./components/OrganizerDash/OrganizerDashBoard.jsx";
@@ -82,8 +83,9 @@ function App() {
             <Route path="/booking/*" element={<Booking />} />
             <Route path="/TicketHistory" element={<TicketHistory />} />
             <Route path="/EventHistory" element={<EventHistory />} />
-            <Route path="/OrganizerDash/NewEvent" element={<NewOrganizerEvent />} />
+            <Route path="/OrganizerDash" element={<NewOrganizerEvent />} />
             <Route path="/billing_info" element={<BillingInfo />} />
+            <Route path="/OrganizerDashBoard" element={<OrganizerDashBoard />} />
             <Route path="/billing_details" element={<BillingDetails />} />
             <Route path="/AdvertFeeInvoices" element={<AdvertFeeInvoices />} />
             <Route path="/TicketCount" element={<TicketCount />} />

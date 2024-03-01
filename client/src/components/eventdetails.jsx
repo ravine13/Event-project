@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useParams, NavLink, Link, Routes, Route} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, NavLink, Link, Routes, Route } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import Reviews from "./Reviews";
@@ -12,15 +12,7 @@ function EventDetails() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [interestCount, setInterestCount] = useState(0);
-
-  const handleInterestClick = () => {
-    setInterestCount(interestCount + 1);
-    setShowBubble(true);
-    setTimeout(() => setShowBubble(false), 3000);
-  };
-
   const [showBubble, setShowBubble] = useState(false);
-
   const [ticketQuantities, setTicketQuantities] = useState({
     regular: 0,
     vip: 0,
@@ -35,24 +27,34 @@ function EventDetails() {
       .catch((error) => console.error("Error fetching data:", error));
   }, [eventId]);
 
-  const handleBuyTicket = () => {
-    console.log("Buy ticket button clicked");
+  const handleInterestClick = () => {
+    setInterestCount(interestCount + 1);
+    setShowBubble(true);
+    setTimeout(() => setShowBubble(false), 3000);
   };
 
   const handleTicketQuantityChange = (ticketType, quantity) => {
     setTicketQuantities({ ...ticketQuantities, [ticketType]: quantity });
   };
 
+  const regularPrice = Math.floor((Math.random() * (5000 - 2000 + 1) + 2000) / 100) * 100;
+
   const calculateTotalAmount = () => {
     let totalAmount = 0;
     if (event) {
+      
       totalAmount +=
-        event.regular_price * ticketQuantities.regular +
-        event.vip_price * ticketQuantities.vip +
-        event.vvip_price * ticketQuantities.vvip +
-        event.group_price * ticketQuantities.group;
+        (regularPrice * ticketQuantities.regular) +
+        (regularPrice * 1.70 * ticketQuantities.vip) + 
+        (regularPrice * 3.50 * ticketQuantities.vvip) + 
+        (regularPrice * 0.85 * ticketQuantities.group); 
     }
     return totalAmount;
+  };
+
+  const handleBuyTicket = () => {
+    console.log("Buy ticket button clicked");
+    
   };
 
   return (
@@ -99,11 +101,12 @@ function EventDetails() {
                   {showBubble && (
                     <div className="bubble">Interest declared!</div>
                   )}
-                  {/* Rest of the event details */}
+                  
                 </div>
               </div>
             </div>
 
+            
             <div className="mb-10">
               <h3 className="text-2xl font-bold">Ticket Pricing</h3>
               <div className="mt-2 shadow-sm border rounded-lg overflow-x-auto">
@@ -116,12 +119,14 @@ function EventDetails() {
                     </tr>
                   </thead>
                   <tbody className="text-gray-600 divide-y">
+                    
                     <tr className="hover:bg-gray-200 cursor-pointer">
                       <td className="px-6 py-4 whitespace-nowrap font-semibold">
                         Regular
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {event.event.amount}
+                       
+                        {parseFloat(regularPrice) * ticketQuantities.regular}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <select
@@ -143,12 +148,14 @@ function EventDetails() {
                       </td>
                     </tr>
 
+                    {/* VIP Ticket Row */}
                     <tr className="hover:bg-gray-200 cursor-pointer">
                       <td className="px-6 py-4 whitespace-nowrap font-semibold">
                         VIP
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {event.event.regular_price}
+                        {/* Display the calculated VIP price */}
+                        {parseFloat(regularPrice) * 1.70 * ticketQuantities.vip} 
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <select
@@ -170,12 +177,13 @@ function EventDetails() {
                       </td>
                     </tr>
 
+                    {/* VVIP Ticket Row */}
                     <tr className="hover:bg-gray-200 cursor-pointer">
                       <td className="px-6 py-4 whitespace-nowrap font-semibold">
                         VVIP
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {event.event.vvip_price}
+                        {parseFloat(regularPrice) * 3.50 * ticketQuantities.vvip} {/* VVIP price is 350% of regular price */}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <select
@@ -197,12 +205,13 @@ function EventDetails() {
                       </td>
                     </tr>
 
+                    {/* Group Ticket Row */}
                     <tr className="hover:bg-gray-200 cursor-pointer">
                       <td className="px-6 py-4 whitespace-nowrap font-semibold">
-                        Goup
+                        Group
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {event.event.group_price}
+                        {parseFloat(regularPrice) * 0.85 * ticketQuantities.group} {/* Group price is 85% of regular price */}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <select
@@ -227,6 +236,7 @@ function EventDetails() {
                 </table>
               </div>
 
+              {/* Total Amount and Book Ticket Button */}
               <div className="mt-10">
                 <div className="grid grid-cols-4 gap-0">
                   <div>
@@ -246,6 +256,7 @@ function EventDetails() {
               </div>
             </div>
 
+            {/* Reviews and Tags Section */}
             <div className="comments">
               <div className="rev-section">
                 <h4>

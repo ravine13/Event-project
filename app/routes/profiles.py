@@ -1,9 +1,10 @@
 from flask import Blueprint, jsonify, make_response
 from flask_restful import reqparse, Api, Resource
-from models import db, Profile
+from models import db, User, Profile
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
-import uuid
+from uuid import uuid4, UUID
 from flask_marshmallow import Marshmallow
+from flask_jwt_extended import (jwt_required, get_jwt_identity, current_user, get_jwt)
 
 
 profiles_bp = Blueprint('Profile', __name__)
@@ -17,6 +18,10 @@ class ProfileSchema(SQLAlchemyAutoSchema):
         model = Profile
 profile_schema = ProfileSchema()
 
+class UserSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = User
+user_schema = UserSchema()
 
 class Profiles(Resource):
     def get(self):
@@ -36,7 +41,7 @@ class ProfilesById(Resource):
     patch_args.add_argument('last_name', type=str, help='Updated last name of the user')
     patch_args.add_argument('profile_photo', type=str, help='Updated profile photo of the user')
     def get(self, id):
-        id = uuid.UUID(id)
+        id = UUID(id)
         profile = Profile.query.filter_by(id=id).first()
 
         if profile is None:
@@ -59,7 +64,7 @@ class ProfilesById(Resource):
             return response
         
     def delete(self,id):
-        id = uuid.UUID(id)
+        id = UUID(id)
         profile = Profile.query.filter_by(id=id).first()
         
         if profile is None:
@@ -80,7 +85,7 @@ class ProfilesById(Resource):
 
     def patch(self, id):
         
-        id = uuid.UUID(id)
+        id = UUID(id)
         profile = Profile.query.filter_by(id=id).first()
 
         if profile is None:
@@ -105,7 +110,19 @@ class ProfilesById(Resource):
                 200
             )
             return res
+        
+
+class UserProfile(Resource):
+    @jwt_required() 
+    def get(self):
+        current_user_id = get_jwt_identity()  
+        user = User.query.get(current_user_id)
+        if user:
+            return user_schema.dump(user), 200
+        else:
+            return {'message': 'User not found'}, 404
 
 
-api.add_resource(Profiles, '/profile')
+api.add_resource(Profiles, '/profiles')
+api.add_resource(UserProfile, '/profile')
 api.add_resource(ProfilesById, '/profile/<string:id>')
