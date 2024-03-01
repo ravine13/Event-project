@@ -36,21 +36,21 @@ function Home() {
 
   return (
     <>
-      <section className="mt-32 mb-40 mx-auto max-w-screen-xl pb-4 px-4 items-center lg:flex md:px-8">
-        <div className="space-y-4 flex-1 sm:text-center lg:text-left">
-          <h1 className="text-gray-800 font-bold text-4xl xl:text-5xl">
+      <section style={{ marginTop: '8rem', marginBottom: '10rem', maxWidth: '72rem', paddingBottom: '1rem', paddingLeft: '1rem', paddingRight: '1rem', alignItems: 'center' }}>
+        <div style={{ marginTop: '1rem', marginBottom: '1rem', flex: 1, textAlign: 'center' }}>
+          <h1 style={{ color: '#1F2937', fontWeight: 'bold', fontSize: '2.25rem' }}>
             Discover Experiences Without Limits With
-            <span className="text-indigo-600"> Ticket Nexus</span>
+            <span style={{ color: '#6366F1' }}> Ticket Nexus</span>
           </h1>
-          <p className="text-gray-500 max-w-xl leading-relaxed sm:mx-auto lg:ml-0">
+          <p style={{ color: '#6B7280', maxWidth: '36rem', lineHeight: '1.5rem', marginLeft: 'auto', marginRight: 'auto' }}>
             Elevating Events to unforgettable Experiences. Book your next event
             with us for unlimited experiences.
           </p>
           <div>
-            <div className="mt-12 space-y-3 sm:space-x-6 sm:space-y-0 sm:flex">
+            <div style={{ marginTop: '3rem', marginBottom: '1rem', marginLeft: '1.5rem', marginRight: '1.5rem', display: 'flex' }}>
               <Link to={"/event"}>
                 <button
-                  className="px-28 py-3.5 w-full bg-indigo-600 hover:bg-indigo-500 border-none text-white text-center rounded-md shadow-md block sm:w-auto"
+                  style={{ paddingLeft: '7rem', paddingRight: '7rem', paddingTop: '0.875rem', paddingBottom: '0.875rem', width: '100%', backgroundColor: '#6366F1', color: '#F9FAFB', borderRadius: '0.375rem', boxShadow: '0 4px 6px 0 rgba(0, 0, 0, 0.07), 0 2px 4px 0 rgba(0, 0, 0, 0.06)' }}
                   type="button"
                 >
                   Browse Events
@@ -59,14 +59,13 @@ function Home() {
             </div>
           </div>
         </div>
-        <div className="flex-1 text-center mt-4 lg:mt-0 lg:ml-3">
+        <div style={{ flex: 1, marginTop: '1rem', textAlign: 'center' }}>
           {carouselEvents.length > 0 && (
             <div>
               <img
-                className="rounded-lg"
+                style={{ borderRadius: '0.375rem', width: "100%", height: "48vh" }}
                 src={carouselEvents[currentIndex].imageUrl}
                 alt="Event"
-                style={{ width: "100%", height: "48vh" }}
               />
             </div>
           )}

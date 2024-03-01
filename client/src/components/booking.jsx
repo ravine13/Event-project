@@ -1,4 +1,3 @@
-// Booking.jsx
 import React, { useState } from "react";
 import "../App.css";
 import PaymentForm from "./paymentForm";
@@ -47,25 +46,24 @@ const Booking = () => {
   };
 
   return (
-    <div className="font-[sans-serif] p-4 min-h-screen">
-      <div className="lg:max-w-6xl max-w-xl mx-auto">
-        <div className="lg:col-span-2 max-lg:order-1">
-          <h2 className="text-3xl font-extrabold text-gray-100">
+    <div style={{ fontFamily: 'sans-serif', padding: '1rem', minHeight: '100vh' }}>
+      <div style={{ maxWidth: '96rem', width: '100%', margin: '0 auto' }}>
+        <div>
+          <h2 style={{ fontSize: '1.875rem', fontWeight: '800', color: '#F3F4F6' }}>
             Book for the event
           </h2>
-          <p className="text-gray-100 text-base mt-6">
+          <p style={{ color: '#F3F4F6', fontSize: '1rem', marginTop: '1.5rem' }}>
             Complete your transaction swiftly and securely with our easy-to-use
             payment process.
           </p>
-          <form className="mt-12 max-w-lg">
-            <div className="grid gap-6">
-              {/* Payment options */}
+          <form style={{ marginTop: '3rem', maxWidth: '18rem' }}>
+            <div style={{ display: 'grid', gridGap: '1.5rem' }}>
               <div>
-                <label className="text-gray-100 text-sm block mb-2">
+                <label style={{ color: '#F3F4F6', fontSize: '0.875rem', display: 'block', marginBottom: '0.5rem' }}>
                   Payment Option:
                 </label>
                 <select
-                  className="px-4 py-3.5 bg-gray-100 text-gray-900 w-full text-sm border rounded-md outline-none"
+                  style={{ paddingLeft: '1rem', paddingTop: '0.875rem', paddingBottom: '0.875rem', backgroundColor: '#F3F4F6', color: '#1F2937', width: '100%', fontSize: '0.875rem', borderWidth: '1px', borderRadius: '.375rem', outline: 'none' }}
                   name="paymentOption"
                   onChange={(e) => handlePaymentOption(e.target.value)}
                   value={formData.paymentOption}
@@ -77,22 +75,15 @@ const Booking = () => {
                   <option value="mpesa">M-Pesa</option>
                 </select>
               </div>
-
-              {/* Display card payment details if selected */}
               {formData.paymentOption === "card" && (
                 <>
-                  {/* ... (same as your existing code) */}
+              
                 </>
               )}
-
-              {/* Display Paypal details if selected */}
               {formData.paymentOption === "paypal" && (
                 <>
-                  {/* ... (same as your existing code) */}
                 </>
               )}
-
-              {/* Display M-Pesa details if selected */}
               {formData.paymentOption === "mpesa" && (
                 <>
                   <PaymentForm
@@ -107,7 +98,7 @@ const Booking = () => {
             </div>
             <button
               type="button"
-              className="mt-6 w-40 py-3.5 text-sm bg-gray-900 text-white rounded-md"
+              style={{ marginTop: '1.5rem', width: '10rem', paddingTop: '0.875rem', paddingBottom: '0.875rem', fontSize: '0.875rem', backgroundColor: '#1F2937', color: 'white', borderRadius: '.375rem' }}
               onClick={handleBookingDetails}
             >
               Submit
