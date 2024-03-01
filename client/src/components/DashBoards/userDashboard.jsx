@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { EventsContext } from "../../App";
 
 const User = () => {
+  const {user_id} = useContext(EventsContext)
   const [userProfile, setUserProfile] = useState(null);
   const [updatedProfileData, setUpdatedProfileData] = useState({
     first_name: "",
@@ -11,19 +13,18 @@ const User = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    axios
-      .get(`/profile/${userProfile}`)
+    fetch(`http://127.0.0.1:5555/profile/${user_id}`)
       .then((response) => {
-        setUserProfile(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching user profile:", error);
-      });
+        response.json()
+      }).then((data) => console.log(data))
+      // .catch((error) => {
+      //   console.error("Error fetching user profile:", error);
+      // });
   }, []);
 
   const updateProfile = () => {
     axios
-      .patch(`/profile/${userProfile.id}`, updatedProfileData)
+      .patch(`http://127.0.0.1:5555/profile/${user_id}`, updatedProfileData)
       .then((response) => {
         console.log("Profile updated:", response.data.message);
         setIsEditing(false);

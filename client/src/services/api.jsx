@@ -9,6 +9,9 @@ const api = axios.create({
 export const fetchUsers = () => api.get('/users');
 export const fetchUser = (userId) => api.get(`/user/${userId}`);
 
+// export const fetchProfiles = () => api.get('/profile');
+export const fetchProfile = (profileId) => api.get(`/profile${profileId}`);
+
 export const fetchEvents = () => api.get('/events');
 
 export const fetchEvent = (eventId) => {

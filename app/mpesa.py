@@ -43,16 +43,6 @@ class PaymentResource(Resource):
             time = current_time.strftime('%Y%m%d%H%M%S')
             return time
 
-<<<<<<< HEAD
-    res = requests.post('https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest', headers=headers, json=payload)
-    return res.json()
-
-def send_prompt(request):
-    phone_number = request.json.get('number')
-    response = make_payment(phone_number) 
-    return response
-
-=======
         def create_password(shortcode, passkey, timestamp):
             plain_text = shortcode+passkey+timestamp
             bytes_obj = bytes(plain_text, 'utf-8')
@@ -84,6 +74,4 @@ def send_prompt(request):
 
 api.add_resource(PaymentResource, '/api/make_payment')
 
-if __name__ == '__main__':
-    app.run(debug=True)
->>>>>>> fccb5a9f0bd2d32f3d0fb5995b7ec22c812e86c5
+
