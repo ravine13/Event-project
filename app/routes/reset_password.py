@@ -3,7 +3,7 @@ from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from datetime import datetime, timedelta
 import secrets
-from models import User, db, TokenBlocklist
+from models.models import User, db, TokenBlocklist
 from flask_restful import Resource, Api, reqparse , abort
 from uuid import UUID
 
@@ -48,7 +48,7 @@ class VerifyPasswordReset(Resource):
     @jwt_required()
     def post(self):
         
-        current_user_id = UUID(get_jwt_identity())
+        current_user_id = str(UUID(get_jwt_identity()))
         print(f"Current user ID: {current_user_id}")
 
         user = User.query.filter_by(id=current_user_id).first()

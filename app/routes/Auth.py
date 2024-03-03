@@ -6,19 +6,25 @@ from uuid import UUID
 from flask import Blueprint
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import (JWTManager,
-                                 create_access_token, 
-                                 jwt_required,
-                                  current_user,
-                                  get_jwt
-)
-from flask_restful import Resource, Api, reqparse , abort
+                                create_access_token, 
+                                jwt_required,
+                                current_user,
+                                get_jwt)
+jwt = JWTManager()
 
-from models import User, db, TokenBlocklist, Profile
+from flask_restful import Resource, Api, reqparse , abort
+from models.models import User, db, TokenBlocklist, Profile
 from uuid import uuid4
 
-auth_bp = Blueprint('auth',__name__)
+def generate_uuid():
+    return str(uuid4())
+
+def generate_uuid():
+    return str(uuid4())
+user_id = generate_uuid()
+
+auth_bp = Blueprint('auth', __name__)
 bcrypt = Bcrypt()
-jwt = JWTManager()
 api = Api(auth_bp)
 
 register_args = reqparse.RequestParser()
@@ -36,7 +42,7 @@ login_args.add_argument('password', type=str, required=True)
 
 @jwt.user_lookup_loader
 def user_lookup_callback(_jwt_header, jwt_data):
-    identity = UUID(jwt_data["sub"])  
+    identity = str(UUID(jwt_data["sub"])) 
     return User.query.filter_by(id=identity).first()
 
 class UserRegister(Resource):
@@ -52,10 +58,9 @@ class UserRegister(Resource):
             return abort(422,detail='Passwords do not match')
         
         new_user = User(
-            id=uuid4(), 
             email=data['email'], 
             password=bcrypt.generate_password_hash(data['password']), 
-            role=data.get('role', 0) 
+            role=data.get('role', 100) 
         )
         db.session.add(new_user)
         db.session.commit()
@@ -99,7 +104,7 @@ class Logout(Resource):
     def get(self):
         token = get_jwt()
         jti = token['jti']  
-        blocked_token = TokenBlocklist(jti=jti, created_at=datetime.utcnow())
+        blocked_token = TokenBlocklist(id=generate_uuid(), jti=jti, created_at=datetime.utcnow())
         db.session.add(blocked_token)
         db.session.commit()
         return {'detail': "Token logged out"}

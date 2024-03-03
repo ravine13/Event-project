@@ -5,8 +5,8 @@ from flask_restful import Api, Resource, reqparse
 from uuid import UUID
 from uuid import uuid4
 from flask_jwt_extended import jwt_required
-from models import Pricing, Event
-from models import db
+from models.models import Pricing, Event
+from models.models import db
 
 class EventSchema(SQLAlchemyAutoSchema):
     class Meta:

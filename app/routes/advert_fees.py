@@ -2,7 +2,7 @@ from flask import Flask, Blueprint, jsonify, make_response
 from flask_restful import Api, Resource, reqparse
 from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema,auto_field
-from models import User, Event, Advert_Fees,  db
+from models.models import User, Event, Advert_Fees,  db
 from marshmallow import Schema, fields
 from flask_jwt_extended import jwt_required
 from uuid import UUID

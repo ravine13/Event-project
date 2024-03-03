@@ -4,8 +4,8 @@ from flask_restful import Api, Resource, reqparse
 from uuid import UUID
 from uuid import uuid4
 from flask_jwt_extended import jwt_required
-from models import Photo
-from models import db
+from models.models import Photo
+from models.models import db
 
 
 class PhotoSchema(SQLAlchemyAutoSchema):
@@ -29,7 +29,7 @@ class Photo_Rsrc(Resource):
     def post(self):
         data = request.get_json()
         if data is not None:
-            new_photo = Photo(id = uuid4(), url = data.get('url'))
+            new_photo = Photo(url = data.get('url'))
             db.session.add(new_photo)
             db.session.commit()
             response = make_response(jsonify(photo_schema.dump(new_photo)), 201)            
@@ -37,13 +37,13 @@ class Photo_Rsrc(Resource):
 
 class Photo_By_ID(Resource):
     def get(self, id):
-        id = UUID(id)
+        id = str(UUID(id))
         photo = Photo.query.filter_by(id = id).first()        
         if photo is not None:
-            event = photo_schema.dump(photo.events, many=True)
+            # event = photo_schema.dump(photo.event)
             response = make_response(jsonify({
                 'photo': photo_schema.dump(photo),
-                'event': event,
+                # 'event': event,
             }), 200)
             return response
         else:
@@ -51,7 +51,7 @@ class Photo_By_ID(Resource):
 
     @jwt_required()
     def patch(self, id):
-        id = UUID(id)
+        id = str(UUID(id))
         data = request.get_json()
         photo = Photo.query.filter_by(id = id).first()
         if photo is not None and data is not None:
@@ -66,7 +66,7 @@ class Photo_By_ID(Resource):
 
     @jwt_required() 
     def delete(self, id):
-        id = UUID(id)
+        id = str(UUID(id))
         photo = Photo.query.filter_by(id = id).first()
         if photo is not None:
             db.session.delete(photo)
@@ -78,4 +78,4 @@ class Photo_By_ID(Resource):
             abort(404, details='Not Found!')
 
 api.add_resource(Photo_Rsrc, '/photos')
-api.add_resource(Photo_By_ID, '/photos/<id>')
+api.add_resource(Photo_By_ID, '/photos/<string:id>')

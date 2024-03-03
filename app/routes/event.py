@@ -3,7 +3,7 @@ from datetime import datetime
 from flask_restful import Api, Resource, reqparse
 from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema,auto_field
-from models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_Details, Advert_Fees, Pricing, Review, Booking, Photo, db
+from models.models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_Details, Advert_Fees, Pricing, Review, Booking, Photo, db
 from marshmallow import Schema, fields
 from flask_jwt_extended import jwt_required
 from uuid import UUID
@@ -60,7 +60,7 @@ api.add_resource(Events, '/events')
 
 class EventByID(Resource):
     def get(self, id):
-        id = UUID(id)
+        id = str(UUID(id))
         event = Event.query.filter_by(id=id).first()
 
         if event is None:
@@ -87,6 +87,7 @@ class EventByID(Resource):
             return response
 
     def delete(self, id):
+        id = str(UUID(id))
         event = Event.query.filter_by(id=id).first()
 
         if event is None:
@@ -107,6 +108,7 @@ class EventByID(Resource):
             return response
 
     def patch(self, id):
+        id = str(UUID(id))
         patch_args = reqparse.RequestParser(bundle_errors=True)
         patch_args.add_argument('name', type=str, help='Updated name of the Event')
         patch_args.add_argument('description', type=str, help='Updated description of the Event')
@@ -159,15 +161,16 @@ class new_Event(Resource):
     post_args.add_argument('organiser_id', type=uuid_type, help='Login Required', required=True)
     post_args.add_argument('photo_id', type=uuid_type, help='Please Provide a Photo URL', required=True)
     post_args.add_argument('price', type=int, help='Price of the Event', required=True)
+    post_args.add_argument('confirmed', type=bool, required=False, default=False)
 
     def post(self):
         data = request.get_json()
         # data = self.post_args.parse_args()
         photo_id = data.get('photo_id')
-        photo_uuid = UUID(photo_id)
+        photo_uuid = str(UUID(photo_id))
         
-        new_event = Event(id=uuid4(),
-                          organiser_id = UUID(data['organiser_id']),
+        new_event = Event(id=str(uuid4()),
+                          organiser_id = str(UUID(data['organiser_id'])),
                           photo_id = photo_uuid,
                           name = data['name'],
                           description = data['description'],

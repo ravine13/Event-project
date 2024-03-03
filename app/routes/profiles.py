@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, make_response
 from flask_restful import reqparse, Api, Resource
-from models import db, User, Profile
+from models.models import db, User, Profile
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from uuid import uuid4, UUID
 from flask_marshmallow import Marshmallow
