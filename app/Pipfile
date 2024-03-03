@@ -21,6 +21,7 @@ requests = "*"
 flask = "*"
 flask-marshmallow = "*"
 flask-mail = "*"
+faker = "*"
 
 [dev-packages]
 

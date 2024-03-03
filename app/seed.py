@@ -2,8 +2,25 @@ from models import User, Profile, Interests, Tag, Event, Billing_Info, Billing_D
 from uuid import uuid4
 from datetime import datetime, timedelta
 from app import app
+from faker import Faker
+from random import choice as rc
+
+fake = Faker()
 
 with app.app_context():
+    User.query.delete()
+    Profile.query.delete()
+    Interests.query.delete()
+    Tag.query.delete()
+    Event.query.delete()
+    Billing_Info.query.delete()
+    Billing_Details.query.delete()
+    Advert_Fees.query.delete()
+    Pricing.query.delete()
+    Review.query.delete()
+    Booking.query.delete()
+    Photo.query.delete()    
+    
     session = db.session
 
     users = []
@@ -14,19 +31,18 @@ with app.app_context():
     billing_details = []
     advert_fees = []
 
-    for i in range(5):
+    for i in range(10):
         user = User(
-            id=uuid4(),
-            email=f'user{i}@example.com',
-            password='password',
-            role=i,
-            confirmed=True,
-            created_at=datetime.now()  
+            id = uuid4(),
+            email = fake.email(),
+            password = fake.password(),
+            role = rc([100, 101, 111]),
+            confirmed = rc([True, False]),
+            created_at = datetime.now()  
         )
         db.session.add(user)
+        db.session.commit()
         users.append(user)
-
-    db.session.commit()
 
     for i, user in enumerate(users):
         profile = Profile(
@@ -42,16 +58,20 @@ with app.app_context():
     db.session.commit()
 
     image_urls = [
-        'https://www.ticketsasa.com/images/images.php?src=components/com_enmasse/upload/akili-02.jpg1707317289.jpg&h=320&w=320&zc=1&q=100&s=1&f=3,5|4,-5',        
-        'https://mir-s3-cdn-cf.behance.net/project_modules/disp/14cda14926289.560c6103a2798.png',
+        'https://www.ticketsasa.com/images/images.php?src=components/com_enmasse/upload/akili-02.jpg1707317289.jpg&h=320&w=320&zc=1&q=100&s=1&f=3,5|4,-5',
+        'https://www.ticketsasa.com/images/images.php?src=components/com_enmasse/upload/WhatsApp_Image_2024-03-02_at_19.10.07_1.jpeg1709396522.jpg&h=320&w=320&zc=1&q=100&s=1&f=3,5|4,-5',
         'https://marketplace.canva.com/EAFJMl8KcjI/1/0/1131w/canva-purple-black-tropical-party-club-poster-orVwDS2lrfY.jpg',
         'https://www.ticketsasa.com/components/com_enmasse/upload/davido__king_promise_1080_by_1080-4.jpg1707721788.jpg',
         'https://tlt-events.s3.amazonaws.com/4828/DEFAULT/c57fd18ae7130b3865995f224f85b4dbb911dd9fa96f8edea3715fc1e391cd29/da48edbe-814d-41f1-80c5-d0eb589ac96a.jpg',
-        'https://tlt-events.s3.amazonaws.com/4320/DEFAULT/8…0ef7d889/53b8fd2d-a477-400c-8638-eafffbf5420c.jpg'
+        'https://www.ticketsasa.com/images/images.php?src=components/com_enmasse/upload/IMG-20240302-WA0007.jpg1709411677.jpg&h=320&w=320&zc=1&q=100&s=1&f=3,5|4,-5',
+        'https://www.ticketsasa.com/images/images.php?src=components/com_enmasse/upload/jazzbythelake.png1708006194.jpg&h=320&w=320&zc=1&q=100&s=1&f=3,5|4,-5',
+        'https://www.ticketsasa.com/images/images.php?src=components/com_enmasse/upload/Virunga-Mountains-Marathon-Website-Image.png1708510546.jpg&h=320&w=320&zc=1&q=100&s=1&f=3,5|4,-5',
+        'https://www.ticketsasa.com/images/images.php?src=components/com_enmasse/upload/Save_the_date_KE.jpeg1702969299.jpg&h=320&w=320&zc=1&q=100&s=1&f=3,5|4,-5',
+        'https://www.ticketsasa.com/images/images.php?src=components/com_enmasse/upload/Afro-Coustic-2024-New-Venue1.png1708343562.jpg&h=320&w=320&zc=1&q=100&s=1&f=3,5|4,-5'
         
     ]
 
-    for i in range(5):
+    for i in range(10):
         photo = Photo(
             id=uuid4(),
             url=image_urls[i]
@@ -61,7 +81,7 @@ with app.app_context():
 
     db.session.commit()
 
-    for i in range(5):
+    for i in range(10):
         event = Event(
             id=uuid4(),
             name=f'Event{i}',
@@ -102,7 +122,7 @@ with app.app_context():
 
     db.session.commit()
 
-    for i in range(5):
+    for i in range(10):
         billing_detail = Billing_Details(
             id=uuid4(),
             name=f'Billing Detail {i}',
