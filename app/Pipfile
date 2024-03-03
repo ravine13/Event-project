@@ -18,6 +18,9 @@ api-jwt = "*"
 flask-bcrypt = "*"
 marshmallow = "*"
 requests = "*"
+flask = "*"
+flask-marshmallow = "*"
+flask-mail = "*"
 
 [dev-packages]
 
