@@ -1,0 +1,125 @@
+/* USER_LOG */
+form.log_form{
+	background-color: rgb(20, 0, 100);
+	border-radius: 15px;
+	width: 60vw;
+}
+
+.log_form input{
+	width: 25vw;
+	height: 31px;
+	padding-left: 10px;
+	border: none;
+	border-radius: 6px;
+}
+
+.log_form input:focus{
+	outline: none;
+}
+
+.log_inputs_div{
+	position: relative;
+}
+
+.log_labels{
+	position: absolute;
+	top: 50%;
+	left: 6%;
+	padding: 0px 7px;
+	cursor: auto;
+	transform: translate(0, -50%);
+
+	transition: all 0.5s;
+}
+
+.password_div{
+	position: relative;
+}
+.password_div img{
+	width: 25px;
+	position: absolute;
+	top: 50%;
+	left: 85%;
+	transform: translateY(-50%);
+}
+
+.log_form input[type="submit"]{
+	color: white;
+	letter-spacing: 1.2px;
+	font-weight: bold;
+	background-color: rgb(8, 191, 133);
+	width: 20vw;
+	border: none;
+	transition: all 0.4s;
+}
+.log_form input[type="submit"]:hover{
+	transform: scale(1.1);
+}
+
+.log_p span{
+	color: rgb(250, 185, 20);
+	text-decoration: none;
+}
+
+.log_div{
+	transition: all 0.3s;
+}
+.log_div:hover{
+	transform: scale(1.1);
+}
+
+.log_link{
+	transition: all 0.5s;
+}
+.log_link:hover{
+	color: white;
+	box-shadow: 100px 0 0 0 navy inset;
+}
+
+.sign_span{
+	position: relative;
+}
+.sign_span::after{
+	content: '';
+	width: 0%;
+	height: 1.5px;
+
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: rgb(250, 185, 20);
+	transition: all 0.3s;
+}
+.sign_span:hover::after{
+	width: 100%;
+}
+
+div.nav-list {
+	gap: 30px;
+}
+
+div#nav{
+	justify-content: space-around;
+}
+body{
+	padding: 0;
+	margin: 0;
+}
+
+div#root {  
+	width: 100%;
+	background-color: white;
+}
+
+div.event-details{
+	backdrop-filter: blur(5px);
+	border-radius: 10px;
+}
+
+.form_container{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	float: right;
+}
