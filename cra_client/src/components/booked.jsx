@@ -6,7 +6,7 @@ function Booked() {
  
 
   useEffect(() => {
-    fetch("http://localhost:5555/bookings")
+    fetch("https://event-project.onrender.com/bookings")
       .then((r) => r.json())
       .then((BookedEvents) => setBookedEvent(BookedEvents))
       .catch((error) => console.error("Error fetching data:", error));

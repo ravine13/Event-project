@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Url = 'http://localhost:5555'; 
+const Url = 'https://event-project.onrender.com'; 
 
 const AdvertFees = () => {
     const [advertFees, setAdvertFees] = useState([]);

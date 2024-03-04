@@ -9,7 +9,7 @@ function BillingDetails() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get('http://localhost:5555/billing_details');
+            const response = await axios.get('https://event-project.onrender.com/billing_details');
             setBillingDetails(response.data);
         };
 
@@ -20,14 +20,14 @@ function BillingDetails() {
         event.preventDefault();
 
         if (selectedId) {
-            const response = await axios.patch(`http://localhost:5555/billing_details/${selectedId}`, {
+            const response = await axios.patch(`https://event-project.onrender.com/billing_details/${selectedId}`, {
                 detail: detail,
                 name: name
             });
 
             console.log(response.data);
         } else {
-            const response = await axios.post('http://localhost:5555/billing_details', {
+            const response = await axios.post('https://event-project.onrender.com/billing_details', {
                 detail: detail,
                 name: name
             });
@@ -37,7 +37,7 @@ function BillingDetails() {
     };
 
     const handleDelete = async (id) => {
-        const response = await axios.delete(`http://localhost:5555/billing_details/${id}`);
+        const response = await axios.delete(`https://event-project.onrender.com/billing_details/${id}`);
         console.log(response.data);
     };
 

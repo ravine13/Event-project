@@ -8,7 +8,7 @@ function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:5555/events")
+    fetch("https://event-project.onrender.com/events")
       .then((response) => response.json())
       .then((data) => {
         setEvents(data);

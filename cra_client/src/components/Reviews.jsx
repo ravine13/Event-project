@@ -18,7 +18,7 @@ function Reviews() {
   //   );
 
   //   useEffect(() => {
-  //     fetch(`http://localhost:5555/events/${eventId}`)
+  //     fetch(`https://event-project.onrender.com/events/${eventId}`)
   //       .then((response) => response.json())
   //       .then((data) => {
   //         setReviews(data.reviews);
@@ -28,7 +28,7 @@ function Reviews() {
   //   function handleReviewSubmit(e) {
   //     e.preventDefault();
 
-  //     fetch(`http://localhost:5555/new_review`, {
+  //     fetch(`https://event-project.onrender.com/new_review`, {
   //       method: "POST",
   //       headers: {
   //         "Content-Type": "application/json",
@@ -45,7 +45,7 @@ function Reviews() {
 
   //   function handleReviewDelete(review_id) {
   //     if (window.confirm("Confirm Delete!")) {
-  //       fetch(`http://localhost:5555/reviews/${review_id}`, {
+  //       fetch(`https://event-project.onrender.com/reviews/${review_id}`, {
   //         method: "DELETE",
   //       })
   //         .then((response) => response.json())
@@ -61,7 +61,7 @@ function Reviews() {
   //   }
 
   //   function handleUpdate(review_id) {
-  //     fetch(`http://localhost:5555/reviews/${review_id}`, {
+  //     fetch(`https://event-project.onrender.com/reviews/${review_id}`, {
   //       method: "PATCH",
   //       headers: {
   //         "Content-Type": "application/json",

@@ -8,7 +8,7 @@ function Tags() {
 
 	
 	useEffect(() => {
-		fetch(`http://localhost:5555/hash_tags`)
+		fetch(`https://event-project.onrender.com/hash_tags`)
 		.then(response => response.json())
 		.then(data => {
 			setTags(data);
@@ -37,7 +37,7 @@ function Tags() {
 	
 	function handleTagDelete(tag_id){
 		// if (window.confirm('Confirm Delete!')){
-			fetch(`http://localhost:5555/hash_tags/${tag_id}`, {
+			fetch(`https://event-project.onrender.com/hash_tags/${tag_id}`, {
 				method: 'DELETE'
 			})
 			.then(response => response.json())
@@ -52,7 +52,7 @@ function Tags() {
 
 
 	function handleUpdate(tag_id){
-		fetch(`http://localhost:5555/hash_tags/${tag_id}`, {
+		fetch(`https://event-project.onrender.com/hash_tags/${tag_id}`, {
 		method: "PATCH",
         headers: {
         "Content-Type": "application/json",

@@ -24,7 +24,7 @@ function EventDetails() {
   });
 
   function deleteEvent(e){
-    fetch(`http://localhost:5555/events/${eventId}`, {
+    fetch(`https://event-project.onrender.com/events/${eventId}`, {
       method: 'DELETE',
     })
     .then((response) => response.json())
@@ -35,7 +35,7 @@ function EventDetails() {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:5555/events/${eventId}`)
+    fetch(`https://event-project.onrender.com/events/${eventId}`)
       .then((response) => response.json())
       .then((data) => {
         setEvent(data);

@@ -11,7 +11,7 @@ function BillingInfo() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get('http://localhost:5555/billing_info');
+            const response = await axios.get('https://event-project.onrender.com/billing_info');
             setBillingInfos(response.data);
         };
 
@@ -22,7 +22,7 @@ function BillingInfo() {
         event.preventDefault();
 
         if (selectedId) {
-            const response = await axios.patch(`http://localhost:5555/billing_info/${selectedId}`, {
+            const response = await axios.patch(`https://event-project.onrender.com/billing_info/${selectedId}`, {
                 payment_method: paymentMethod,
                 billing_details: billingDetails,
                 user: user
@@ -30,7 +30,7 @@ function BillingInfo() {
 
             console.log(response.data);
         } else {
-            const response = await axios.post('http://localhost:5555/billing_info', {
+            const response = await axios.post('https://event-project.onrender.com/billing_info', {
                 payment_method: paymentMethod,
                 billing_details: billingDetails,
                 user: user
@@ -41,7 +41,7 @@ function BillingInfo() {
     };
 
     const handleDelete = async (id) => {
-        const response = await axios.delete(`http://localhost:5555/billing_info/${id}`);
+        const response = await axios.delete(`https://event-project.onrender.com/billing_info/${id}`);
         console.log(response.data);
     };
 
