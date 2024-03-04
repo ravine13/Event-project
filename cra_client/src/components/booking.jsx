@@ -21,7 +21,7 @@ const Booking = () => {
   };
 
   const handleBookingDetails = () => {
-    fetch("http://127.0.0.1:5555/new_booking", {
+    fetch("https://event-project.onrender.com/new_booking", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

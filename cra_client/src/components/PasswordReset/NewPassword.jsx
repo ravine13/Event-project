@@ -16,7 +16,7 @@ function NewPassword() {
 	function handleSubmit(e){
 		e.preventDefault()
 
-		fetch('http://127.0.0.1:5555/reset_password/verify', {
+		fetch('https://event-project.onrender.com/reset_password/verify', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

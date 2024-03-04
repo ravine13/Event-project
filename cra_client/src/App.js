@@ -45,7 +45,7 @@ function App() {
 		setSignedIn(false);
 		jwtDecode(token).exp = 0;
 
-		fetch("http://127.0.0.1:5555/logout", {
+		fetch("https://event-project.onrender.com/logout", {
 		headers: {
 			Authorization: `Bearer ${token}`,
 		},

@@ -16,7 +16,7 @@ const PaymentForm = ({ phoneNumber, setPhoneNumber, handleSubmit }) => {
     console.log('Sending request with phone number:', phoneNumber);
 
     
-    fetch('http://127.0.0.1:5555/api/make_payment', {
+    fetch('https://event-project.onrender.com/api/make_payment', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

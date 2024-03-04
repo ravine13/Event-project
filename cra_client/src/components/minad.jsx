@@ -8,7 +8,7 @@ function AdminDashboard() {
 
   // useEffect(() => {
   //   axios
-  //     .get("http://127.0.0.1:5555/events")
+  //     .get("https://event-project.onrender.com/events")
   //     .then((response) => {
   //       setEvents(response.data);
   //     })
@@ -62,7 +62,7 @@ export default AdminDashboard;
 //   const [loading, setLoading] = useState(true);
 //   useEffect(() => {
 //     axios
-//       .get(`http://127.0.0.1:5555/profile`)
+//       .get(`https://event-project.onrender.com/profile`)
 //       .then((response) => response.json())
 //       .then((data) => {
 //         setUserProfile(data);
@@ -75,7 +75,7 @@ export default AdminDashboard;
 //   }, []);
 //   function handleProfileUpdate(updatedProfileInfo) {
 //     axios
-//       .patch(`http://127.0.0.1:5555/profile/${user_id}`, updatedProfileInfo)
+//       .patch(`https://event-project.onrender.com/profile/${user_id}`, updatedProfileInfo)
 //       .then((response) => response.json())
 //       .then((data) => {
 //         setUserProfile((previousInfo) => ({
@@ -92,7 +92,7 @@ export default AdminDashboard;
 //     const formData = new FormData();
 //     formData.append("profile_photo", file);
 //     axios
-//       .patch(`http://127.0.0.1:5555/profile/${user_id}`, formData, {
+//       .patch(`https://event-project.onrender.com/profile/${user_id}`, formData, {
 //         headers: {
 //           "Content-Type": "multipart/form-data",
 //         },
@@ -110,7 +110,7 @@ export default AdminDashboard;
 //   }
 //   function handleProfileDelete() {
 //     axios
-//       .delete(`http://127.0.0.1:5555/profile/${user_id}`)
+//       .delete(`https://event-project.onrender.com/profile/${user_id}`)
 //       .then((response) => {
 //         console.log("Profile deleted successfully", response.data);
 //         // logic to return to the log in page

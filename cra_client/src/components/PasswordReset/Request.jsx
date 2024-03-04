@@ -9,7 +9,7 @@ function PasswordResetRequest() {
 		e.preventDefault()
 		console.log(email);
 
-		fetch('http://127.0.0.1:5555/reset_password/request', {
+		fetch('https://event-project.onrender.com/reset_password/request', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

@@ -20,7 +20,7 @@ const User = () => {
 
   useEffect(() => {
     if (token_exists) {
-        fetch(`http://127.0.0.1:5555/users/${user_id}`, {
+        fetch(`https://event-project.onrender.com/users/${user_id}`, {
           headers: {
             Authorization: `Bearer ${token}}`
           }
@@ -30,7 +30,7 @@ const User = () => {
         })
         .then(data => {
           if ( data ){
-          fetch(`http://127.0.0.1:5555/profile/${data.profiles[0]}`)
+          fetch(`https://event-project.onrender.com/profile/${data.profiles[0]}`)
           .then( response => response.json())
           .then( data => {
             setUserProfile(data);

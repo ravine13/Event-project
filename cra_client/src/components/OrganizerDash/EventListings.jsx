@@ -6,7 +6,7 @@ function EventListings() {
 	let [events, setEvents] = useState();
 	
 	useEffect(() => {
-		fetch('http://127.0.0.1:5555/events')
+		fetch('https://event-project.onrender.com/events')
 		.then(response => response.json())
 		.then(data => {
 			setEvents(data);

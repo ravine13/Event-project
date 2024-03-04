@@ -15,7 +15,7 @@ function NewOrganizerEvent() {
 	function onEventSubmit(e){
 		e.preventDefault();
 
-		fetch('http://127.0.0.1:5555/photos', {
+		fetch('https://event-project.onrender.com/photos', {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -32,7 +32,7 @@ function NewOrganizerEvent() {
 		})
 		.then((photo) => {
 			if (photo) {
-				fetch('http://127.0.0.1:5555/new_event', {
+				fetch('https://event-project.onrender.com/new_event', {
 					method: 'POST',
 					headers: {
 						Authorization: `Bearer ${token}`,

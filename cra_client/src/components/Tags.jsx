@@ -19,7 +19,7 @@ function Tags() {
 	function handleTagSubmit(e){
 		e.preventDefault();
 
-		fetch('http://127.0.0.1:5555/hash_tags', {
+		fetch('https://event-project.onrender.com/hash_tags', {
     method: "POST",
     headers: {
         "Content-Type": "application/json",
