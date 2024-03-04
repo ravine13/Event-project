@@ -1,9 +1,12 @@
-from flask import Flask, Blueprint
+import os
+from dotenv import load_dotenv
+load_dotenv()
+from flask import Flask, Blueprint, render_template
+from flask_restful import Api, Resource
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from datetime import timedelta
 from flask_cors import CORS
-import os
 from flask_mail import Mail
 
 from models.models import db
@@ -26,7 +29,16 @@ from routes.reset_password import email_reset_bp
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+
+app = Flask(
+    __name__,
+    static_url_path='',
+    static_folder='./build',
+    template_folder='./build'
+)
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = b"\x06F\x14\x91\xba\xdc\x9a\x96g'\xc7\xb0"
 app.config["JWT_SECRET_KEY"] = b'\xb2_8\xcc\xfc\xec3n\xc5\x7f\x01-\xdal[\xc7'
@@ -39,6 +51,7 @@ db.init_app(app)
 migrate = Migrate(app, db)
 
 CORS(app, resources={r"*": {"origins": "*"}})
+api = Api(app)
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(event_bp)
@@ -56,5 +69,15 @@ app.register_blueprint(mpesa_bp)
 app.register_blueprint(billing_details_bp)
 app.register_blueprint(email_reset_bp)
 
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("index.html")
+
+@app.route('/')
+@app.route('/<int:id>')
+def index(id=0):
+    return render_template("index.html")
+    # return 'WTF IS THIS'
+
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5555)

@@ -23,6 +23,14 @@ flask-marshmallow = "*"
 flask-mail = "*"
 faker = "*"
 datetime = "*"
+honcho = "*"
+gunicorn = "*"
+python-dotenv = "*"
+importlib-metadata = "*"
+psycopg2 = "*"
+werkzeug = "*"
+psycopg2-binary = "*"
+jinja2 = "*"
 
 [dev-packages]
 

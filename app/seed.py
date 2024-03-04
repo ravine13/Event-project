@@ -7,18 +7,19 @@ from random import choice as rc
 fake = Faker()
 
 with app.app_context():
-    User.query.delete()
-    Profile.query.delete()
+    Billing_Info.query.delete()
+    Advert_Fees.query.delete()
+    Booking.query.delete()
+    Pricing.query.delete()
+    Review.query.delete()
     Interests.query.delete()
     Tag.query.delete()
     Event.query.delete()
+    Photo.query.delete()
+    Profile.query.delete()
+    User.query.delete()
     Billing_Info.query.delete()
     Billing_Details.query.delete()
-    Advert_Fees.query.delete()
-    Pricing.query.delete()
-    Review.query.delete()
-    Booking.query.delete()
-    Photo.query.delete()
     TokenBlocklist.query.delete()
     
     session = db.session
