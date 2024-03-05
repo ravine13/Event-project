@@ -98,14 +98,15 @@ function Navbar() {
             </div>
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="space-y-2 py-6">
-                  <Link id="log-list" to="/home">
+                <div className="py-6">
+                  <Link className="log_link p-1 px-2 border border-primary rounded-pill" to="/home">
                     Home
                   </Link>
-                  <Link id="log-list" to="/event">
+                </div>
+                <div className="py-6">
+                  <Link className="log_link p-1 px-2 border border-primary rounded-pill" to="/event">
                     Events
                   </Link>
-                  <Link to="AdminDash">Admin</Link>
                 </div>
                 <div className="py-6">
                   {token_exists || signedIn ? (
