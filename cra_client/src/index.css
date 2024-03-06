@@ -61,6 +61,12 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.eventImage{
+  width: 320px;
+  height: 320px;
+  object-fit: cover;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

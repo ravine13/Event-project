@@ -1,31 +1,63 @@
 import { useEffect, useState } from "react";
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 import "../App.css";
 import { Link } from "react-router-dom";
 import Footer from "./footer";
 
 function Home() {
   const [events, setEvents] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+
+  let spinners = (<div className='text-center p-4 m-4'>
+		<div className='spinner-border text-primary mx-2'></div>
+		<div className='spinner-grow text-primary mx-2'></div>
+		<div className='spinner-border text-primary mx-2'></div>
+		<div className='spinner-grow text-primary mx-2'></div>
+		<div className='spinner-border text-primary mx-2'></div>
+		<div className='spinner-grow text-primary mx-2'></div>
+	</div>);
+
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 4
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2
+    },
+    mobile: {
+      breakpoint: { max: 600, min: 0 },
+      items: 1
+    }
+  };
 
   useEffect(() => {
     fetch("https://event-project.onrender.com/events")
       .then((response) => response.json())
       .then((data) => {
         setEvents(data);
-        const intervalId = setInterval(() => {
-          setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
-        }, 10000);
-        return () => clearInterval(intervalId);
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-  useEffect(() => {
-    const carouselElement = document.querySelector(".carousel");
-    if (carouselElement) {
-      carouselElement.scrollIntoView({ behavior: "smooth" });
-    }
-  }, []);
+  let event_cards = events.map((event) => (
+    <Link key={event.id} to={`/event/${event.id}`}>
+      <div className="">
+        <div className="">
+          <img
+            className="eventImage rounded"
+            src={event.photo.url}
+            alt={`${event.name}`}
+          />
+        </div>
+      </div>
+    </Link>
+  ))
 
   const carouselEvents = events.map((event) => ({
     id: event.id,
@@ -36,7 +68,7 @@ function Home() {
 
   return (
     <>
-      <section className="mt-32 mb-40 mx-auto max-w-screen-xl pb-4 px-4 items-center lg:flex md:px-8">
+      <section className="mt-32 mb-40 mx-auto max-w-screen-xl pb-4 px-4 items-center">
         <div className="space-y-4 flex-1 sm:text-center lg:text-left">
           <h1 className="text-gray-800 font-bold text-4xl xl:text-5xl">
             Discover Experiences Without Limits With
@@ -59,18 +91,29 @@ function Home() {
             </div>
           </div>
         </div>
+
+        { events[0] === undefined ? spinners :
         <div className="flex-1 text-center mt-4 lg:mt-0 lg:ml-3">
+
           {carouselEvents.length > 0 && (
-            <div>
-              <img
-                className="rounded-lg"
-                src={carouselEvents[currentIndex].imageUrl}
-                alt="Event"
-                style={{ width: "100%", height: "48vh" }}
-              />
-            </div>
+            <Carousel 
+              responsive={responsive}
+              showDots={true}
+              ssr={true}
+              infinite={true}
+              autoPlay={true}
+              autoPlaySpeed={3000}
+              keyBoardControl={true}
+              customTransition="all 1.5s linear 0.5s"
+              removeArrowOnDeviceType={["tablet", "mobile"]}
+            >
+              {event_cards}
+            </Carousel>
           )}
         </div>
+        }
+
+        
       </section>
       <Footer />
     </>

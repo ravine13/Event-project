@@ -6,6 +6,15 @@ import "../App.css";
 function Event() {
   const [events, setEvents] = useState([]);
 
+  let spinners = (<div className='text-center p-4 m-4'>
+		<div className='spinner-border text-primary mx-2'></div>
+		<div className='spinner-grow text-primary mx-2'></div>
+		<div className='spinner-border text-primary mx-2'></div>
+		<div className='spinner-grow text-primary mx-2'></div>
+		<div className='spinner-border text-primary mx-2'></div>
+		<div className='spinner-grow text-primary mx-2'></div>
+	</div>);
+
   useEffect(() => {
     fetch("https://event-project.onrender.com/events")
       .then((r) => r.json())
@@ -21,6 +30,7 @@ function Event() {
             Upcoming Events
           </h2>
 
+          { events[0] === undefined ? spinners :
           <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {events.map((event) => (
               <Link key={event.id} to={`/event/${event.id}`}>
@@ -45,7 +55,7 @@ function Event() {
                 </div>
               </Link>
             ))}
-          </div>
+          </div>}
         </div>
       </div>
 
