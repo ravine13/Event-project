@@ -1,0 +1,32 @@
+.dash_container{
+    position: relative;
+    margin-top: 7%;
+}
+
+.dash_main{
+    width: 50%;
+    float: right;
+    margin: auto;
+}
+
+.admin_sidebar{
+    color: white;
+    background-color: rgb(50, 50, 50);
+    float: left;
+    position: fixed;
+    z-index: 1000;
+    top: 5%;
+    margin-left: 1%;
+}
+
+.admin_sidebar a{
+    transition: all 0.1s;
+}
+
+.admin_sidebar a:hover{
+    background-color: rgb(70, 120, 230);
+}
+
+.admin_sidebar .active {
+    background-color: rgb(70, 120, 230);
+}
